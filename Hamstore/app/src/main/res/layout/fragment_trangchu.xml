@@ -4,77 +4,166 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:layout_margin="5dp"
     >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/textView42"
-            android:layout_width="250dp"
-            android:layout_height="30dp"
-            android:gravity="left"
-            android:text="Your city"
-            android:textSize="20sp"
-            />
-
-        <TextView
-            android:id="@+id/tv_nuoc"
-            android:layout_width="70dp"
-            android:layout_height="30dp"
-            android:gravity="center"
-            android:text="Talin"
-            android:textSize="20sp"
-            />
-
-    </LinearLayout>
-
-
+        android:orientation="horizontal"/>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/ViewPager"
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                />
+
+            <me.relex.circleindicator.CircleIndicator
+                android:id="@+id/circle_indicator"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="30dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="10dp"
+            android:weightSum="4"
+            >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                >
+                <Button
+                    android:id="@+id/btn_Ban_Chay"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"/>
+                <TextView
+                    android:id="@+id/text_Ban_Chay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Bán chạy"
+                    android:textColor="#000"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                >
+                <Button
+                    android:id="@+id/btn_Loai_Hamster"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"/>
+                <TextView
+                    android:id="@+id/text_Loai_Hamster"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Loại Hamster"
+                    android:textColor="#000"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                >
+                <Button
+                    android:id="@+id/btn_Phu_Kien"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"/>
+                <TextView
+                    android:id="@+id/text_Phu_Kien"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Phụ kiện"
+                    android:textColor="#000"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                >
+                <Button
+                    android:id="@+id/btn_Thuc_An"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"/>
+                <TextView
+                    android:id="@+id/text_Thuc_An"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Thức ăn"
+                    android:textColor="#000"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_margin="5dp" >
 
                 <TextView
                     android:id="@+id/textView43"
                     android:layout_width="340dp"
                     android:layout_height="40dp"
                     android:gravity="left"
-                    android:text="Hamster"
+                    android:text="Loại Hamster"
                     android:textColor="#000"
                     android:textSize="23sp"
                     android:textStyle="bold" />
 
                 <ImageView
-                    android:id="@+id/img_Hamster"
+                    android:id="@+id/img_Loai_Hamster"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:src="@drawable/ic_more" />
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView_Hamster"
+                android:id="@+id/recyclerView_Loai_Hamster"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_margin="5dp" >
 
                 <TextView
                     android:id="@+id/textView44"
@@ -101,7 +190,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_margin="5dp" >
 
                 <TextView
                     android:id="@+id/textView46"

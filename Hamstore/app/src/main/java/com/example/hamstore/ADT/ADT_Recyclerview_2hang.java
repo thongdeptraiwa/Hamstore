@@ -52,10 +52,10 @@ public class ADT_Recyclerview_2hang extends RecyclerView.Adapter<ADT_Recyclervie
         NumberFormat formatter = new DecimalFormat("#,###");
         int myNumber = ds.get(i).getGia();
         String formattedNumber = formatter.format(myNumber);
-        holder.tv_Gia.setText(String.valueOf(formattedNumber +" VND "));
+        holder.tv_Gia.setText(String.valueOf(formattedNumber +"đ"));
 
         //name
-        holder.tv_Ten.setText(ds.get(i).getTen());
+        holder.tv_Ten.setText(ds.get(i).getTen_ngan());
 
         //lấy SrcImg
         String imgName = ds.get(i).getSrcImg();
@@ -102,7 +102,6 @@ public class ADT_Recyclerview_2hang extends RecyclerView.Adapter<ADT_Recyclervie
             super(itemView);
             tv_Ten = itemView.findViewById(R.id.tv_Ten);
             tv_Gia = itemView.findViewById(R.id.tv_Gia);
-
             img = itemView.findViewById(R.id.img);
         }
     }

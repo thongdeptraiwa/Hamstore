@@ -13,10 +13,19 @@
         android:theme="@style/Theme.Hamstore"
         tools:targetApi="31">
         <activity
+            android:name=".AC_dang_ki"
+            android:exported="false" />
+        <activity
+            android:name=".AC_dang_nhap"
+            android:exported="false" />
+        <activity
             android:name=".TrangChu"
             android:exported="false" />
         <activity
             android:name=".AC_ChiTiet"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".AC_Chao"

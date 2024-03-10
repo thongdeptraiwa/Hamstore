@@ -12,11 +12,14 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
+import com.example.hamstore.fragment.fragment_Thong_tin;
 import com.example.hamstore.fragment.fragment_TrangChu;
 import com.example.hamstore.fragment.fragment_TrangChu_2hang_Hamster;
+import com.example.hamstore.fragment.fragment_TrangChu_2hang_Loai_Hamster;
 import com.example.hamstore.fragment.fragment_TrangChu_2hang_PhuKien;
 import com.example.hamstore.fragment.fragment_TrangChu_2hang_ThucAn;
 import com.example.hamstore.model.Items;
+import com.example.hamstore.model.User;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
@@ -25,6 +28,13 @@ public class TrangChu extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     private final String key_bundle_object = "object";
 
+    //user
+    private final String key_bundle_user = "User";
+    public User user;
+
+    //loai hamster
+    public String loai_hamster = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +42,9 @@ public class TrangChu extends AppCompatActivity {
 
         //ánh xạ
         bottomNavigationView=findViewById(R.id.bottomNavigationView);
+
+        //lấy data user
+        user = (User) getIntent().getExtras().get(key_bundle_user);
 
 
         //fragment mặc định khi vào app
@@ -45,9 +58,9 @@ public class TrangChu extends AppCompatActivity {
                 if(item.getItemId() == R.id.mTrangChu){
                     fragment = new fragment_TrangChu();
                 }
-//                else if (item.getItemId() == R.id.mCart){
-//                    //fragment = new fragment_caidat();
-//                }
+                else if (item.getItemId() == R.id.mThongTin){
+                    fragment = new fragment_Thong_tin();
+                }
 //                else if (item.getItemId() == R.id.mProfile){
 //                    //fragment = new fragment_danhsachve();
 //                }
@@ -60,7 +73,14 @@ public class TrangChu extends AppCompatActivity {
         });
     }
 
-    public void chuyen_fragment_2hang_hamster(){
+    public void chuyen_fragment_2hang_loai_hamster(){
+        Fragment fragment = new fragment_TrangChu_2hang_Loai_Hamster();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,fragment).commit();
+        //hiện bottomNavigationView
+        hienBottomNavigationView(true);
+    }
+    public void chuyen_fragment_2hang_hamster(String loai){
+        loai_hamster = loai;
         Fragment fragment = new fragment_TrangChu_2hang_Hamster();
         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,fragment).commit();
         //hiện bottomNavigationView

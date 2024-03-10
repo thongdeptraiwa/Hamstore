@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="15dp"
-    android:layout_margin="10dp"
+    app:cardCornerRadius="10dp"
+    android:layout_margin="15dp"
     >
 
     <LinearLayout
@@ -16,8 +16,8 @@
         <ImageView
             android:id="@+id/img"
             android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:src="@drawable/carrot"
+            android:layout_height="100dp"
+            android:src="@drawable/hamster_winter_white_bonglan"
             android:background="@drawable/custom_khung_item_xanh"
             />
 
@@ -27,32 +27,36 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/tv_Gia"
-                android:layout_width="wrap_content"
+                android:id="@+id/tv_Ten"
+                android:layout_width="130dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:text=" $4.98"
-                android:textStyle="bold"
+                android:layout_margin="10dp"
                 android:textColor="#000000"
-                android:textSize="18dp"/>
+                android:textSize="14dp"
+                android:textStyle="bold"
+                android:text="Name" />
 
         </LinearLayout>
+
         <TextView
-            android:id="@+id/tv_Ten"
+            android:id="@+id/tv_Gia"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:textColor="#000000"
-            android:textSize="16dp"
-            android:text="Name" />
+            android:layout_marginTop="-5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="10dp"
+            android:text=" $4.98"
+            android:textColor="#43A047"
+            android:textStyle="bold"
+            android:textSize="14dp"/>
 
         <Button
-            android:id="@+id/btn_AddToCart"
+            android:id="@+id/btn_them"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:textSize="16dp"
-            android:text="Add to cart"
+            android:textSize="10dp"
+            android:text="Thêm vào giỏ hàng"
             android:background="@drawable/custom_btn_xanh"
             app:backgroundTint="@null"
             />

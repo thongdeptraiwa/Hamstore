@@ -21,7 +21,7 @@
         <ImageView
             android:id="@+id/img_sp"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="300dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:src="@drawable/carrot" />
@@ -31,16 +31,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="Name"
-            android:textSize="20dp"
+            android:text="Hamster Winter White (Nâu)"
+            android:textSize="28dp"
+            android:textColor="#000000"
             android:textStyle="bold" />
         <TextView
             android:id="@+id/tv_Gia"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="100 VND"
-            android:textSize="20dp"
+            android:layout_marginTop="-5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="0dp"
+            android:text="100,000 VND"
+            android:textSize="26dp"
+            android:textColor="#43A047"
             android:textStyle="bold" />
 
         <TextView
@@ -48,16 +52,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="Gioi thieu"
-            android:textSize="16dp" />
+            android:text="Mô tả : Sản phẩm Lót Chuồng Mùn Cưa Chipsi có khả năng thấm hút tốt, hương thơm dễ chịu, nguồn gốc tự nhiên an toàn với Hamster và các loài thú nhỏ như Bọ, Sóc, Nhím, Thỏ,… Luôn nằm trong TOP những sản phẩm lót chuồng được tin cậy và yêu thích nhất trên toàn cầu."
+            android:textSize="20dp" />
         <Button
-            android:id="@+id/btn_AddToCart"
+            android:id="@+id/btn_Them"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:background="@drawable/custom_btn_xanh"
-            android:text="Add to cart"
-            android:textSize="18dp"
+            android:text="Thêm vào giỏ hàng"
+            android:textSize="22dp"
             app:backgroundTint="@null" />
 
         </LinearLayout>

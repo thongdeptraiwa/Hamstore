@@ -14,18 +14,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.hamstore.R;
 import com.example.hamstore.TrangChu;
 import com.example.hamstore.model.Items;
+import com.example.hamstore.model.Loai_Hamster;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 
 
-public class ADT_Recyclerview extends RecyclerView.Adapter<ADT_Recyclerview.ViewHolder>{
+public class ADT_Recyclerview_loai_hamster extends RecyclerView.Adapter<ADT_Recyclerview_loai_hamster.ViewHolder>{
     private Context c;
-    private ArrayList<Items> ds = new ArrayList<>();
+    private ArrayList<Loai_Hamster> ds = new ArrayList<>();
     TrangChu trangChu;
 
-    public ADT_Recyclerview(Context c, ArrayList<Items> ds) {
+    public ADT_Recyclerview_loai_hamster(Context c, ArrayList<Loai_Hamster> ds) {
         this.c = c;
         this.ds = ds;
     }
@@ -47,13 +48,10 @@ public class ADT_Recyclerview extends RecyclerView.Adapter<ADT_Recyclerview.View
         //hiển thị
 
         //gia
-        NumberFormat formatter = new DecimalFormat("#,###");
-        int myNumber = ds.get(i).getGia();
-        String formattedNumber = formatter.format(myNumber);
-        holder.tv_Gia.setText(String.valueOf(formattedNumber +"đ"));
+        holder.tv_Gia.setText(ds.get(i).getKhoang_gia());
 
         //name
-        holder.tv_Ten.setText(ds.get(i).getTen_ngan());
+        holder.tv_Ten.setText(ds.get(i).getTen_loai());
 
         //lấy SrcImg
         String imgName = ds.get(i).getSrcImg();
@@ -65,22 +63,19 @@ public class ADT_Recyclerview extends RecyclerView.Adapter<ADT_Recyclerview.View
         holder.img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Items item = (Items) ds.get(i);
-                trangChu.chuyen_ac_chitiet(item);
+                trangChu.chuyen_fragment_2hang_hamster(ds.get(i).getTen_loai());
             }
         });
         holder.tv_Ten.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Items item = (Items) ds.get(i);
-                trangChu.chuyen_ac_chitiet(item);
+                trangChu.chuyen_fragment_2hang_hamster(ds.get(i).getTen_loai());
             }
         });
         holder.tv_Gia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Items item = (Items) ds.get(i);
-                trangChu.chuyen_ac_chitiet(item);
+                trangChu.chuyen_fragment_2hang_hamster(ds.get(i).getTen_loai());
             }
         });
 

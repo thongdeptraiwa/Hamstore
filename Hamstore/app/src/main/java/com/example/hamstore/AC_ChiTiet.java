@@ -41,7 +41,7 @@ public class AC_ChiTiet extends AppCompatActivity {
         item_bundle = (Items) getIntent().getExtras().get(key_bundle_object);
 
         //chuyen du lieu
-        tv_Ten.setText(item_bundle.getTen());
+        tv_Ten.setText(item_bundle.getTen_dai());
         tv_gioiThieu.setText(item_bundle.getMieu_ta());
 
         //gia
