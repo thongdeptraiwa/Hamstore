@@ -10,6 +10,8 @@ public class Items implements Serializable {
     private int gia;
     private String mieu_ta;
     private int so_luong;
+    private int so_luong_trong_kho;
+    private int so_luong_da_mua;
     private int luot_mua;
     private int tong_sao;
     private int so_lan_danh_gia;
@@ -22,7 +24,7 @@ public class Items implements Serializable {
         this.srcImg = srcImg;
     }
 
-    public Items(String id, String ten_ngan, String ten_dai, String srcImg, int gia, String mieu_ta, int so_luong, int luot_mua, int tong_sao, int so_lan_danh_gia) {
+    public Items(String id, String ten_ngan, String ten_dai, String srcImg, int gia, String mieu_ta, int so_luong, int so_luong_trong_kho, int so_luong_da_mua, int luot_mua, int tong_sao, int so_lan_danh_gia) {
         this.id = id;
         this.ten_ngan = ten_ngan;
         this.ten_dai = ten_dai;
@@ -30,9 +32,35 @@ public class Items implements Serializable {
         this.gia = gia;
         this.mieu_ta = mieu_ta;
         this.so_luong = so_luong;
+        this.so_luong_trong_kho = so_luong_trong_kho;
+        this.so_luong_da_mua = so_luong_da_mua;
         this.luot_mua = luot_mua;
         this.tong_sao = tong_sao;
         this.so_lan_danh_gia = so_lan_danh_gia;
+    }
+
+    public int getSo_luong() {
+        return so_luong;
+    }
+
+    public void setSo_luong(int so_luong) {
+        this.so_luong = so_luong;
+    }
+
+    public int getSo_luong_trong_kho() {
+        return so_luong_trong_kho;
+    }
+
+    public void setSo_luong_trong_kho(int so_luong_trong_kho) {
+        this.so_luong_trong_kho = so_luong_trong_kho;
+    }
+
+    public int getSo_luong_da_mua() {
+        return so_luong_da_mua;
+    }
+
+    public void setSo_luong_da_mua(int so_luong_da_mua) {
+        this.so_luong_da_mua = so_luong_da_mua;
     }
 
     public String getTen_ngan() {
@@ -51,13 +79,6 @@ public class Items implements Serializable {
         this.ten_dai = ten_dai;
     }
 
-    public int getSo_luong() {
-        return so_luong;
-    }
-
-    public void setSo_luong(int so_luong) {
-        this.so_luong = so_luong;
-    }
 
     public int getLuot_mua() {
         return luot_mua;

@@ -5,27 +5,33 @@ import java.util.ArrayList;
 
 public class User implements Serializable {
 
-    private String id;
     private String tai_khoan;
     private String mat_khau;
-    private ArrayList<Items> gio_hang;
     private String gmail;
     private String ho_ten;
     private String ngay_sinh;
     private String dia_chi;
+    private int role;
 
     public User() {
     }
 
-    public User(String id, String tai_khoan, String mat_khau, ArrayList<Items> gio_hang, String gmail, String ho_ten, String ngay_sinh, String dia_chi) {
-        this.id = id;
+    public User(String tai_khoan, String mat_khau, String gmail, String ho_ten, String ngay_sinh, String dia_chi, int role) {
         this.tai_khoan = tai_khoan;
         this.mat_khau = mat_khau;
-        this.gio_hang = gio_hang;
         this.gmail = gmail;
         this.ho_ten = ho_ten;
         this.ngay_sinh = ngay_sinh;
         this.dia_chi = dia_chi;
+        this.role = role;
+    }
+
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
     }
 
     public String getHo_ten() {
@@ -52,13 +58,6 @@ public class User implements Serializable {
         this.dia_chi = dia_chi;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getTai_khoan() {
         return tai_khoan;
@@ -76,13 +75,6 @@ public class User implements Serializable {
         this.mat_khau = mat_khau;
     }
 
-    public ArrayList<Items> getGio_hang() {
-        return gio_hang;
-    }
-
-    public void setGio_hang(ArrayList<Items> gio_hang) {
-        this.gio_hang = gio_hang;
-    }
 
     public String getGmail() {
         return gmail;

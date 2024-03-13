@@ -47,11 +47,18 @@
                 android:orientation="vertical"
                 android:layout_weight="1"
                 >
-                <Button
-                    android:id="@+id/btn_Ban_Chay"
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/rdi_ban_chay"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:layout_gravity="center"/>
+                    android:src="@drawable/btn_ban_chay"
+                    android:layout_gravity="center"
+                    app:riv_corner_radius="10dp"
+                    app:riv_border_width="2dp"
+                    app:riv_border_color="#333333"
+                    />
+
                 <TextView
                     android:id="@+id/text_Ban_Chay"
                     android:layout_width="wrap_content"
@@ -69,11 +76,18 @@
                 android:orientation="vertical"
                 android:layout_weight="1"
                 >
-                <Button
-                    android:id="@+id/btn_Loai_Hamster"
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/rdi_hamster"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:layout_gravity="center"/>
+                    android:src="@drawable/btn_hamster"
+                    android:layout_gravity="center"
+                    app:riv_corner_radius="10dp"
+                    app:riv_border_width="2dp"
+                    app:riv_border_color="#333333"
+                    />
+
                 <TextView
                     android:id="@+id/text_Loai_Hamster"
                     android:layout_width="wrap_content"
@@ -91,11 +105,18 @@
                 android:orientation="vertical"
                 android:layout_weight="1"
                 >
-                <Button
-                    android:id="@+id/btn_Phu_Kien"
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/rdi_phu_kien"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:layout_gravity="center"/>
+                    android:src="@drawable/btn_phu_kien"
+                    android:layout_gravity="center"
+                    app:riv_corner_radius="10dp"
+                    app:riv_border_width="2dp"
+                    app:riv_border_color="#333333"
+                    />
+
                 <TextView
                     android:id="@+id/text_Phu_Kien"
                     android:layout_width="wrap_content"
@@ -113,11 +134,18 @@
                 android:orientation="vertical"
                 android:layout_weight="1"
                 >
-                <Button
-                    android:id="@+id/btn_Thuc_An"
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/rdi_thuc_an"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:layout_gravity="center"/>
+                    android:src="@drawable/btn_thuc_an"
+                    android:layout_gravity="center"
+                    app:riv_corner_radius="10dp"
+                    app:riv_border_width="2dp"
+                    app:riv_border_color="#333333"
+                    />
+
                 <TextView
                     android:id="@+id/text_Thuc_An"
                     android:layout_width="wrap_content"

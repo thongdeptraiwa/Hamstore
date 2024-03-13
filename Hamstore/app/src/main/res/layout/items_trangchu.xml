@@ -45,7 +45,7 @@
             android:layout_marginTop="-5dp"
             android:layout_marginLeft="10dp"
             android:layout_marginBottom="10dp"
-            android:text=" $4.98"
+            android:text="100.000đ"
             android:textColor="#43A047"
             android:textStyle="bold"
             android:textSize="13dp"/>

@@ -87,20 +87,24 @@
         android:layout_marginTop="20dp"
         >
 
-        <ImageView
-            android:id="@+id/imgfb"
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/rdi_fb"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_weight="1"
-            app:srcCompat="@drawable/fb"
+            android:src="@drawable/fb"
+            app:riv_corner_radius="15dp"
+            android:visibility="invisible"
             />
 
-        <ImageView
-            android:id="@+id/imggg"
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/rdi_gg"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_weight="1"
-            app:srcCompat="@drawable/gg"
+            android:src="@drawable/gg"
+            app:riv_corner_radius="15dp"
             />
 
         <TextView

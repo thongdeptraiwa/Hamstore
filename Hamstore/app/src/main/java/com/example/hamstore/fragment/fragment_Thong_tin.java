@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,6 +20,8 @@ import com.example.hamstore.ADT.ADT_Recyclerview_2hang;
 import com.example.hamstore.R;
 import com.example.hamstore.TrangChu;
 import com.example.hamstore.model.Items;
+import com.example.hamstore.model.Loai_Hamster;
+import com.example.hamstore.model.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,9 +32,11 @@ import java.util.ArrayList;
 import java.util.Timer;
 
 public class fragment_Thong_tin extends Fragment {
-    TrangChu trangChu;
     Context c;
     TextView tv_ho_ten;
+    private final String key_tai_khoan = "tai_khoan";
+    String tai_khoan;
+    DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Users");
 
     @Nullable
     @Override
@@ -39,24 +44,38 @@ public class fragment_Thong_tin extends Fragment {
         View view = inflater.inflate(R.layout.fragment_thong_tin,container,false);
         c = getActivity();
         //ánh xạ
-        trangChu = (TrangChu) getActivity();
         tv_ho_ten = view.findViewById(R.id.tv_ho_ten);
 
-        //lấy ho ten
-        if(trangChu.user.getHo_ten().equals("null")){
-            if(trangChu.user.getTai_khoan().equals("null")){
-                //lay gmail
-                tv_ho_ten.setText(trangChu.user.getGmail());
-            }else {
-                //lay tai khoan
-                tv_ho_ten.setText(trangChu.user.getTai_khoan());
-            }
-        }else {
-            //lay ho ten
-            tv_ho_ten.setText(trangChu.user.getHo_ten());
-        }
+        //lấy tài khoản từ activity
+        tai_khoan = getArguments().getString(key_tai_khoan);
+
+        read_data();
 
         return view;
+    }
+    private void read_data(){
+        //user
+        myRef.child(tai_khoan).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User user = (User) dataSnapshot.getValue(User.class);
+
+                if(user.getHo_ten().equals("null")){
+                    //lay tai_khoan
+                    tv_ho_ten.setText(user.getTai_khoan());
+                }else {
+                    //lay ho ten
+                    tv_ho_ten.setText(user.getHo_ten());
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("DEUBG", "Failed read realtime", error.toException());
+            }
+        });
     }
 
 }

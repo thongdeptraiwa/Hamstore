@@ -3,17 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/mTrangChu"
-        android:title="Trang chủ"
+        android:title=""
         android:icon="@drawable/ic_home"
         />
     <item
         android:id="@+id/mGioHang"
-        android:title="Giỏ hàng"
+        android:title=""
         android:icon="@drawable/ic_cart"
         />
     <item
         android:id="@+id/mThongTin"
-        android:title="Thông tin"
+        android:title=""
         android:icon="@drawable/ic_person"
         />
 </menu>

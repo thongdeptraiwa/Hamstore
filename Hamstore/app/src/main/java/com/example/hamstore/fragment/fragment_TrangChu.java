@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -25,13 +26,16 @@ import com.example.hamstore.TrangChu;
 import com.example.hamstore.model.Items;
 import com.example.hamstore.model.Loai_Hamster;
 import com.example.hamstore.model.Photo;
+import com.example.hamstore.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,14 +45,17 @@ import me.relex.circleindicator.CircleIndicator;
 public class fragment_TrangChu extends Fragment {
     TrangChu trangChu;
     Context c;
-    DatabaseReference myRef = FirebaseDatabase.getInstance().getReference();
+    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    DatabaseReference data_loai_hamster,data_phu_kien,data_thuc_an;
+    DatabaseReference myRef = firebaseDatabase.getReference();
     private final String key_hamster_winter_white = "Hamster Winter White",
             key_hamster_robo = "Hamster Robo",
             key_hamster_bear = "Hamster Bear",
             key_hamster_campbell = "Hamster Campbell",
             key_loai_hamster = "Loại Hamster",
             key_phuKien = "Phụ kiện",
-            key_thucAn = "Thức ăn";
+            key_thucAn = "Thức ăn",
+            key_users = "Users";
     ADT_Recyclerview phuKien_recyclerview,thucAn_recyclerview;
     ADT_Recyclerview_loai_hamster adt_loai_hamster;
     ArrayList<Loai_Hamster> ds_loai_hamster = new ArrayList<>();
@@ -66,6 +73,9 @@ public class fragment_TrangChu extends Fragment {
     private Runnable runnable;
     private boolean isUserSwiping = false;
 
+    //4 img
+    RoundedImageView rdi_ban_chay,rdi_hamster,rdi_phu_kien,rdi_thuc_an;
+
 
     @Nullable
     @Override
@@ -81,6 +91,10 @@ public class fragment_TrangChu extends Fragment {
         img_Loai_Hamster = view.findViewById(R.id.img_Loai_Hamster);
         img_PhuKien = view.findViewById(R.id.img_PhuKien);
         img_ThucAn = view.findViewById(R.id.img_ThucAn);
+        rdi_ban_chay = view.findViewById(R.id.rdi_ban_chay);
+        rdi_hamster = view.findViewById(R.id.rdi_hamster);
+        rdi_phu_kien = view.findViewById(R.id.rdi_phu_kien);
+        rdi_thuc_an = view.findViewById(R.id.rdi_thuc_an);
 
         //ánh xạ slider
         viewPager = view.findViewById(R.id.ViewPager);
@@ -95,6 +109,7 @@ public class fragment_TrangChu extends Fragment {
 
 
         //chuyển fragment 2 hàng
+        //nhấn >
         img_Loai_Hamster.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,8 +128,30 @@ public class fragment_TrangChu extends Fragment {
                 trangChu.chuyen_fragment_2hang_thucan();
             }
         });
+        //nhấn btn
+        rdi_hamster.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                trangChu.chuyen_fragment_2hang_loai_hamster();
+            }
+        });
+        rdi_phu_kien.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                trangChu.chuyen_fragment_2hang_phukien();
+            }
+        });
+        rdi_thuc_an.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                trangChu.chuyen_fragment_2hang_thucan();
+            }
+        });
 
+        //tắc auto slider trc khi add
         //add_Items();
+
+        read_data();
         capNhatLayout();
 
         auto_slider();
@@ -122,9 +159,6 @@ public class fragment_TrangChu extends Fragment {
         return view;
     }
     public void capNhatLayout(){
-
-        //read data
-        read_data();
 
         //recyclerView loai hamster
         LinearLayoutManager linearLayoutManager_Hamster = new LinearLayoutManager(c);
@@ -150,8 +184,9 @@ public class fragment_TrangChu extends Fragment {
     }
     private void read_data(){
 
-        //hamster
-        myRef.child(key_loai_hamster).addValueEventListener(new ValueEventListener() {
+        data_loai_hamster = firebaseDatabase.getReference(key_loai_hamster);
+        //Loại hamster
+        data_loai_hamster.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -171,8 +206,9 @@ public class fragment_TrangChu extends Fragment {
             }
         });
 
+        data_phu_kien = firebaseDatabase.getReference(key_phuKien);
         //phụ kiện
-        myRef.child(key_phuKien).addValueEventListener(new ValueEventListener() {
+        data_phu_kien.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 ds_phukien.clear();
@@ -191,8 +227,9 @@ public class fragment_TrangChu extends Fragment {
             }
         });
 
+        data_thuc_an = firebaseDatabase.getReference(key_thucAn);
         //thức ăn
-        myRef.child(key_thucAn).addValueEventListener(new ValueEventListener() {
+        data_thuc_an.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 ds_thucAn.clear();
@@ -213,6 +250,30 @@ public class fragment_TrangChu extends Fragment {
 
     }
     private void add_Items(){
+
+        //admin
+        String tai_khoan = "admin";
+        String mat_khau = "123";
+
+        //User(tai_khoan,
+        //     mat_khau,
+        //     gmail,
+        //     ho_ten,
+        //     ngay_sinh,
+        //     dia_chi,
+        //     role) // 0: user - 1: admin
+        myRef.child(key_users).child(tai_khoan).setValue(new User(tai_khoan,mat_khau,"null","null","null","null",1))
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful()){
+                            Toast.makeText(c, "Add admin thanh cong", Toast.LENGTH_SHORT).show();
+                        }else {
+                            Toast.makeText(c, "Add admin thai bai", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
 
         //loai hamster
         //loai winter white
@@ -303,6 +364,8 @@ public class fragment_TrangChu extends Fragment {
         //**** chung ****
         //value chung
         int so_luong = 1;
+        int so_luong_trong_kho = 50;
+        int so_luong_da_mua = 0;
         int luot_mua = 0;
         int tong_sao = 0;
         int so_lan_danh_gia = 0;
@@ -315,6 +378,7 @@ public class fragment_TrangChu extends Fragment {
 
         //hamster winter white
         //ww Bông Lan
+        // top 2 (đã mua: 20)
         String id_winter_1 = myRef.child(key_hamster_winter_white).push().getKey();
         String ten_ngan_winter_1 = "WW Bông Lan";
         String ten_dai_winter_1 = "Hamster Winter White (Bông Lan)";
@@ -328,6 +392,8 @@ public class fragment_TrangChu extends Fragment {
         //      gia,
         //      mieu_ta,
         //      so_luong,
+        //      so_luong_trong_kho,
+        //      so_luong_da_mua,
         //      luot_mua,
         //      tong_sao,
         //      so_lan_danh_gia)
@@ -338,6 +404,8 @@ public class fragment_TrangChu extends Fragment {
                         gia_winter_1,
                         mieu_ta_winter,
                         so_luong,
+                        so_luong_trong_kho,
+                        20,
                         luot_mua,
                         tong_sao,
                         so_lan_danh_gia))
@@ -354,6 +422,7 @@ public class fragment_TrangChu extends Fragment {
 
         //hamster winter white
         //ww Sapphire
+        // top 1 (đã mua: 25) (so_luong_trong_kho: 5 để test hết hàng)
         String id_winter_2 = myRef.child(key_hamster_winter_white).push().getKey();
         String ten_ngan_winter_2 = "WW Sapphire";
         String ten_dai_winter_2 = "Hamster Winter White (Sapphire)";
@@ -367,6 +436,8 @@ public class fragment_TrangChu extends Fragment {
         //      gia,
         //      mieu_ta,
         //      so_luong,
+        //      so_luong_trong_kho,
+        //      so_luong_da_mua,
         //      luot_mua,
         //      tong_sao,
         //      so_lan_danh_gia)
@@ -377,6 +448,8 @@ public class fragment_TrangChu extends Fragment {
                         gia_winter_2,
                         mieu_ta_winter,
                         so_luong,
+                        5,
+                        25,
                         luot_mua,
                         tong_sao,
                         so_lan_danh_gia))
@@ -406,6 +479,8 @@ public class fragment_TrangChu extends Fragment {
         //      gia,
         //      mieu_ta,
         //      so_luong,
+        //      so_luong_trong_kho,
+        //      so_luong_da_mua,
         //      luot_mua,
         //      tong_sao,
         //      so_lan_danh_gia)
@@ -416,6 +491,8 @@ public class fragment_TrangChu extends Fragment {
                         gia_winter_3,
                         mieu_ta_winter,
                         so_luong,
+                        so_luong_trong_kho,
+                        so_luong_da_mua,
                         luot_mua,
                         tong_sao,
                         so_lan_danh_gia))
@@ -445,6 +522,8 @@ public class fragment_TrangChu extends Fragment {
         //      gia,
         //      mieu_ta,
         //      so_luong,
+        //      so_luong_trong_kho,
+        //      so_luong_da_mua,
         //      luot_mua,
         //      tong_sao,
         //      so_lan_danh_gia)
@@ -455,6 +534,8 @@ public class fragment_TrangChu extends Fragment {
                         gia_winter_4,
                         mieu_ta_winter,
                         so_luong,
+                        so_luong_trong_kho,
+                        so_luong_da_mua,
                         luot_mua,
                         tong_sao,
                         so_lan_danh_gia))
@@ -484,6 +565,8 @@ public class fragment_TrangChu extends Fragment {
         //      gia,
         //      mieu_ta,
         //      so_luong,
+        //      so_luong_trong_kho,
+        //      so_luong_da_mua,
         //      luot_mua,
         //      tong_sao,
         //      so_lan_danh_gia)
@@ -494,6 +577,8 @@ public class fragment_TrangChu extends Fragment {
                         gia_winter_5,
                         mieu_ta_winter,
                         so_luong,
+                        so_luong_trong_kho,
+                        so_luong_da_mua,
                         luot_mua,
                         tong_sao,
                         so_lan_danh_gia))
@@ -523,6 +608,8 @@ public class fragment_TrangChu extends Fragment {
         //      gia,
         //      mieu_ta,
         //      so_luong,
+        //      so_luong_trong_kho,
+        //      so_luong_da_mua,
         //      luot_mua,
         //      tong_sao,
         //      so_lan_danh_gia)
@@ -533,6 +620,8 @@ public class fragment_TrangChu extends Fragment {
                         gia_winter_6,
                         mieu_ta_winter,
                         so_luong,
+                        so_luong_trong_kho,
+                        so_luong_da_mua,
                         luot_mua,
                         tong_sao,
                         so_lan_danh_gia))
@@ -562,6 +651,8 @@ public class fragment_TrangChu extends Fragment {
         //      gia,
         //      mieu_ta,
         //      so_luong,
+        //      so_luong_trong_kho,
+        //      so_luong_da_mua,
         //      luot_mua,
         //      tong_sao,
         //      so_lan_danh_gia)
@@ -572,6 +663,8 @@ public class fragment_TrangChu extends Fragment {
                         gia_robo_1,
                         mieu_ta_robo,
                         so_luong,
+                        so_luong_trong_kho,
+                        so_luong_da_mua,
                         luot_mua,
                         tong_sao,
                         so_lan_danh_gia))
@@ -601,6 +694,8 @@ public class fragment_TrangChu extends Fragment {
         //      gia,
         //      mieu_ta,
         //      so_luong,
+        //      so_luong_trong_kho,
+        //      so_luong_da_mua,
         //      luot_mua,
         //      tong_sao,
         //      so_lan_danh_gia)
@@ -611,6 +706,8 @@ public class fragment_TrangChu extends Fragment {
                         gia_robo_2,
                         mieu_ta_robo,
                         so_luong,
+                        so_luong_trong_kho,
+                        so_luong_da_mua,
                         luot_mua,
                         tong_sao,
                         so_lan_danh_gia))
@@ -640,6 +737,8 @@ public class fragment_TrangChu extends Fragment {
         //      gia,
         //      mieu_ta,
         //      so_luong,
+        //      so_luong_trong_kho,
+        //      so_luong_da_mua,
         //      luot_mua,
         //      tong_sao,
         //      so_lan_danh_gia)
@@ -650,6 +749,8 @@ public class fragment_TrangChu extends Fragment {
                         gia_robo_3,
                         mieu_ta_robo,
                         so_luong,
+                        so_luong_trong_kho,
+                        so_luong_da_mua,
                         luot_mua,
                         tong_sao,
                         so_lan_danh_gia))
@@ -679,6 +780,8 @@ public class fragment_TrangChu extends Fragment {
         //      gia,
         //      mieu_ta,
         //      so_luong,
+        //      so_luong_trong_kho,
+        //      so_luong_da_mua,
         //      luot_mua,
         //      tong_sao,
         //      so_lan_danh_gia)
@@ -689,6 +792,8 @@ public class fragment_TrangChu extends Fragment {
                         gia_robo_4,
                         mieu_ta_robo,
                         so_luong,
+                        so_luong_trong_kho,
+                        so_luong_da_mua,
                         luot_mua,
                         tong_sao,
                         so_lan_danh_gia))
@@ -718,6 +823,8 @@ public class fragment_TrangChu extends Fragment {
         //      gia,
         //      mieu_ta,
         //      so_luong,
+        //      so_luong_trong_kho,
+        //      so_luong_da_mua,
         //      luot_mua,
         //      tong_sao,
         //      so_lan_danh_gia)
@@ -728,6 +835,8 @@ public class fragment_TrangChu extends Fragment {
                         gia_bear_1,
                         mieu_ta_bear,
                         so_luong,
+                        so_luong_trong_kho,
+                        so_luong_da_mua,
                         luot_mua,
                         tong_sao,
                         so_lan_danh_gia))
@@ -757,6 +866,8 @@ public class fragment_TrangChu extends Fragment {
         //      gia,
         //      mieu_ta,
         //      so_luong,
+        //      so_luong_trong_kho,
+        //      so_luong_da_mua,
         //      luot_mua,
         //      tong_sao,
         //      so_lan_danh_gia)
@@ -767,6 +878,8 @@ public class fragment_TrangChu extends Fragment {
                         gia_bear_2,
                         mieu_ta_bear,
                         so_luong,
+                        so_luong_trong_kho,
+                        so_luong_da_mua,
                         luot_mua,
                         tong_sao,
                         so_lan_danh_gia))
@@ -796,6 +909,8 @@ public class fragment_TrangChu extends Fragment {
         //      gia,
         //      mieu_ta,
         //      so_luong,
+        //      so_luong_trong_kho,
+        //      so_luong_da_mua,
         //      luot_mua,
         //      tong_sao,
         //      so_lan_danh_gia)
@@ -806,6 +921,8 @@ public class fragment_TrangChu extends Fragment {
                         gia_bear_3,
                         mieu_ta_bear,
                         so_luong,
+                        so_luong_trong_kho,
+                        so_luong_da_mua,
                         luot_mua,
                         tong_sao,
                         so_lan_danh_gia))
@@ -835,6 +952,8 @@ public class fragment_TrangChu extends Fragment {
         //      gia,
         //      mieu_ta,
         //      so_luong,
+        //      so_luong_trong_kho,
+        //      so_luong_da_mua,
         //      luot_mua,
         //      tong_sao,
         //      so_lan_danh_gia)
@@ -845,6 +964,8 @@ public class fragment_TrangChu extends Fragment {
                         gia_bear_4,
                         mieu_ta_bear,
                         so_luong,
+                        so_luong_trong_kho,
+                        so_luong_da_mua,
                         luot_mua,
                         tong_sao,
                         so_lan_danh_gia))
@@ -874,6 +995,8 @@ public class fragment_TrangChu extends Fragment {
         //      gia,
         //      mieu_ta,
         //      so_luong,
+        //      so_luong_trong_kho,
+        //      so_luong_da_mua,
         //      luot_mua,
         //      tong_sao,
         //      so_lan_danh_gia)
@@ -884,6 +1007,8 @@ public class fragment_TrangChu extends Fragment {
                         gia_bear_5,
                         mieu_ta_bear,
                         so_luong,
+                        so_luong_trong_kho,
+                        so_luong_da_mua,
                         luot_mua,
                         tong_sao,
                         so_lan_danh_gia))
@@ -913,6 +1038,8 @@ public class fragment_TrangChu extends Fragment {
         //      gia,
         //      mieu_ta,
         //      so_luong,
+        //      so_luong_trong_kho,
+        //      so_luong_da_mua,
         //      luot_mua,
         //      tong_sao,
         //      so_lan_danh_gia)
@@ -923,6 +1050,8 @@ public class fragment_TrangChu extends Fragment {
                         gia_campbell_1,
                         mieu_ta_campbell,
                         so_luong,
+                        so_luong_trong_kho,
+                        so_luong_da_mua,
                         luot_mua,
                         tong_sao,
                         so_lan_danh_gia))
@@ -952,6 +1081,8 @@ public class fragment_TrangChu extends Fragment {
         //      gia,
         //      mieu_ta,
         //      so_luong,
+        //      so_luong_trong_kho,
+        //      so_luong_da_mua,
         //      luot_mua,
         //      tong_sao,
         //      so_lan_danh_gia)
@@ -962,6 +1093,8 @@ public class fragment_TrangChu extends Fragment {
                         gia_campbell_2,
                         mieu_ta_campbell,
                         so_luong,
+                        so_luong_trong_kho,
+                        so_luong_da_mua,
                         luot_mua,
                         tong_sao,
                         so_lan_danh_gia))
@@ -991,6 +1124,8 @@ public class fragment_TrangChu extends Fragment {
         //      gia,
         //      mieu_ta,
         //      so_luong,
+        //      so_luong_trong_kho,
+        //      so_luong_da_mua,
         //      luot_mua,
         //      tong_sao,
         //      so_lan_danh_gia)
@@ -1001,6 +1136,8 @@ public class fragment_TrangChu extends Fragment {
                         gia_campbell_3,
                         mieu_ta_campbell,
                         so_luong,
+                        so_luong_trong_kho,
+                        so_luong_da_mua,
                         luot_mua,
                         tong_sao,
                         so_lan_danh_gia))
@@ -1030,6 +1167,8 @@ public class fragment_TrangChu extends Fragment {
         //      gia,
         //      mieu_ta,
         //      so_luong,
+        //      so_luong_trong_kho,
+        //      so_luong_da_mua,
         //      luot_mua,
         //      tong_sao,
         //      so_lan_danh_gia)
@@ -1040,6 +1179,8 @@ public class fragment_TrangChu extends Fragment {
                         gia_campbell_4,
                         mieu_ta_campbell,
                         so_luong,
+                        so_luong_trong_kho,
+                        so_luong_da_mua,
                         luot_mua,
                         tong_sao,
                         so_lan_danh_gia))
@@ -1070,6 +1211,8 @@ public class fragment_TrangChu extends Fragment {
         //      gia,
         //      mieu_ta,
         //      so_luong,
+        //      so_luong_trong_kho,
+        //      so_luong_da_mua,
         //      luot_mua,
         //      tong_sao,
         //      so_lan_danh_gia)
@@ -1080,6 +1223,8 @@ public class fragment_TrangChu extends Fragment {
                         gia_phu_kien_1,
                         mieu_ta_phu_kien_1,
                         so_luong,
+                        so_luong_trong_kho,
+                        so_luong_da_mua,
                         luot_mua,
                         tong_sao,
                         so_lan_danh_gia))
@@ -1110,6 +1255,8 @@ public class fragment_TrangChu extends Fragment {
         //      gia,
         //      mieu_ta,
         //      so_luong,
+        //      so_luong_trong_kho,
+        //      so_luong_da_mua,
         //      luot_mua,
         //      tong_sao,
         //      so_lan_danh_gia)
@@ -1120,6 +1267,8 @@ public class fragment_TrangChu extends Fragment {
                         gia_phu_kien_2,
                         mieu_ta_phu_kien_2,
                         so_luong,
+                        so_luong_trong_kho,
+                        so_luong_da_mua,
                         luot_mua,
                         tong_sao,
                         so_lan_danh_gia))
@@ -1136,6 +1285,7 @@ public class fragment_TrangChu extends Fragment {
 
         //Phụ kiện
         //Cát Lót Chuồng
+        // top 5 (đã mua: 5)
         String id_phu_kien_3 = myRef.child(key_phuKien).push().getKey();
         String ten_ngan_phu_kien_3 = "Cát";
         String ten_dai_phu_kien_3 = "Cát Lót Chuồng";
@@ -1150,6 +1300,8 @@ public class fragment_TrangChu extends Fragment {
         //      gia,
         //      mieu_ta,
         //      so_luong,
+        //      so_luong_trong_kho,
+        //      so_luong_da_mua,
         //      luot_mua,
         //      tong_sao,
         //      so_lan_danh_gia)
@@ -1160,6 +1312,8 @@ public class fragment_TrangChu extends Fragment {
                         gia_phu_kien_3,
                         mieu_ta_phu_kien_3,
                         so_luong,
+                        so_luong_trong_kho,
+                        5,
                         luot_mua,
                         tong_sao,
                         so_lan_danh_gia))
@@ -1190,6 +1344,8 @@ public class fragment_TrangChu extends Fragment {
         //      gia,
         //      mieu_ta,
         //      so_luong,
+        //      so_luong_trong_kho,
+        //      so_luong_da_mua,
         //      luot_mua,
         //      tong_sao,
         //      so_lan_danh_gia)
@@ -1200,6 +1356,8 @@ public class fragment_TrangChu extends Fragment {
                         gia_phu_kien_4,
                         mieu_ta_phu_kien_4,
                         so_luong,
+                        so_luong_trong_kho,
+                        so_luong_da_mua,
                         luot_mua,
                         tong_sao,
                         so_lan_danh_gia))
@@ -1230,6 +1388,8 @@ public class fragment_TrangChu extends Fragment {
         //      gia,
         //      mieu_ta,
         //      so_luong,
+        //      so_luong_trong_kho,
+        //      so_luong_da_mua,
         //      luot_mua,
         //      tong_sao,
         //      so_lan_danh_gia)
@@ -1240,6 +1400,8 @@ public class fragment_TrangChu extends Fragment {
                         gia_phu_kien_5,
                         mieu_ta_phu_kien_5,
                         so_luong,
+                        so_luong_trong_kho,
+                        so_luong_da_mua,
                         luot_mua,
                         tong_sao,
                         so_lan_danh_gia))
@@ -1270,6 +1432,8 @@ public class fragment_TrangChu extends Fragment {
         //      gia,
         //      mieu_ta,
         //      so_luong,
+        //      so_luong_trong_kho,
+        //      so_luong_da_mua,
         //      luot_mua,
         //      tong_sao,
         //      so_lan_danh_gia)
@@ -1280,6 +1444,8 @@ public class fragment_TrangChu extends Fragment {
                         gia_thuc_an_1,
                         mieu_ta_thuc_an_1,
                         so_luong,
+                        so_luong_trong_kho,
+                        so_luong_da_mua,
                         luot_mua,
                         tong_sao,
                         so_lan_danh_gia))
@@ -1296,6 +1462,7 @@ public class fragment_TrangChu extends Fragment {
 
         //Thức ăn
         //Ngũ Cốc
+        //top 4 (đã mua: 10)
         String id_thuc_an_2 = myRef.child(key_thucAn).push().getKey();
         String ten_ngan_thuc_an_2 = "Ngũ Cốc";
         String ten_dai_thuc_an_2 = "Ngũ Cốc Chuyên Dụng";
@@ -1310,6 +1477,8 @@ public class fragment_TrangChu extends Fragment {
         //      gia,
         //      mieu_ta,
         //      so_luong,
+        //      so_luong_trong_kho,
+        //      so_luong_da_mua,
         //      luot_mua,
         //      tong_sao,
         //      so_lan_danh_gia)
@@ -1320,6 +1489,8 @@ public class fragment_TrangChu extends Fragment {
                         gia_thuc_an_2,
                         mieu_ta_thuc_an_2,
                         so_luong,
+                        so_luong_trong_kho,
+                        10,
                         luot_mua,
                         tong_sao,
                         so_lan_danh_gia))
@@ -1350,6 +1521,8 @@ public class fragment_TrangChu extends Fragment {
         //      gia,
         //      mieu_ta,
         //      so_luong,
+        //      so_luong_trong_kho,
+        //      so_luong_da_mua,
         //      luot_mua,
         //      tong_sao,
         //      so_lan_danh_gia)
@@ -1360,6 +1533,8 @@ public class fragment_TrangChu extends Fragment {
                         gia_thuc_an_3,
                         mieu_ta_thuc_an_3,
                         so_luong,
+                        so_luong_trong_kho,
+                        so_luong_da_mua,
                         luot_mua,
                         tong_sao,
                         so_lan_danh_gia))
@@ -1376,6 +1551,7 @@ public class fragment_TrangChu extends Fragment {
 
         //Thức ăn
         //Thức Ăn Dinh Dưỡng
+        // top 3 (đã mua: 15)
         String id_thuc_an_4 = myRef.child(key_thucAn).push().getKey();
         String ten_ngan_thuc_an_4 = "Dinh Dưỡng";
         String ten_dai_thuc_an_4 = "Thức Ăn Dinh Dưỡng";
@@ -1390,6 +1566,8 @@ public class fragment_TrangChu extends Fragment {
         //      gia,
         //      mieu_ta,
         //      so_luong,
+        //      so_luong_trong_kho,
+        //      so_luong_da_mua,
         //      luot_mua,
         //      tong_sao,
         //      so_lan_danh_gia)
@@ -1400,6 +1578,8 @@ public class fragment_TrangChu extends Fragment {
                         gia_thuc_an_4,
                         mieu_ta_thuc_an_4,
                         so_luong,
+                        so_luong_trong_kho,
+                        15,
                         luot_mua,
                         tong_sao,
                         so_lan_danh_gia))
@@ -1482,4 +1662,16 @@ public class fragment_TrangChu extends Fragment {
         handler.removeCallbacks(runnable);
     }
 
+    //đang lỗi
+    @Override
+    public void onPause() {
+        super.onPause();
+        // Hủy bỏ runnable khi Activity bị tắt
+        handler.removeCallbacks(runnable);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
 }

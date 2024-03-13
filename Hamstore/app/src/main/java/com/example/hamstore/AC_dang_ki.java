@@ -88,22 +88,15 @@ public class AC_dang_ki extends AppCompatActivity {
 
     private void tao_user(String tai_khoan,String mat_khau){
 
-        String id = myRef.child(key_users).push().getKey();
-        //Items(id,
-        //      ten_ngan,
-        //      ten_dai,
-        //      img,
-        //      gia,
-        //      mieu_ta,
-        //      so_luong,
-        //      luot_mua,
-        //      tong_sao,
-        //      so_lan_danh_gia)
-        Items item = new Items("null","null","null","null",0,"null",0,0,0,0);
-        ArrayList<Items> arr_item = new ArrayList<>();
-        arr_item.add(item);
 
-        myRef.child(key_users).child(id).setValue(new User(id,tai_khoan,mat_khau,arr_item,"null","null","null","null"))
+        //User(tai_khoan,
+        //     mat_khau,
+        //     gmail,
+        //     ho_ten,
+        //     ngay_sinh,
+        //     dia_chi,
+        //     role) // 0: user - 1: admin
+        myRef.child(key_users).child(tai_khoan).setValue(new User(tai_khoan,mat_khau,"null","null","null","null",0))
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {

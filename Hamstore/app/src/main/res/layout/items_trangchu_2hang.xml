@@ -51,7 +51,7 @@
             android:textSize="14dp"/>
 
         <Button
-            android:id="@+id/btn_them"
+            android:id="@+id/btn_them_vao_gio_hang"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"

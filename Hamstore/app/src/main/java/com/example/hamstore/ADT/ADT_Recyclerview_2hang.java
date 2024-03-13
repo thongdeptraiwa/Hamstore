@@ -5,6 +5,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -85,7 +86,14 @@ public class ADT_Recyclerview_2hang extends RecyclerView.Adapter<ADT_Recyclervie
                 trangChu.chuyen_ac_chitiet(item);
             }
         });
-
+        //nhấn thêm -> chitiet
+        holder.btn_them_vao_gio_hang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Items item = (Items) ds.get(i);
+                trangChu.chuyen_ac_chitiet(item);
+            }
+        });
 
     }
 
@@ -97,12 +105,14 @@ public class ADT_Recyclerview_2hang extends RecyclerView.Adapter<ADT_Recyclervie
     public class ViewHolder extends RecyclerView.ViewHolder{
         TextView tv_Ten,tv_Gia;
         ImageView img;
+        Button btn_them_vao_gio_hang;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tv_Ten = itemView.findViewById(R.id.tv_Ten);
             tv_Gia = itemView.findViewById(R.id.tv_Gia);
             img = itemView.findViewById(R.id.img);
+            btn_them_vao_gio_hang = itemView.findViewById(R.id.btn_them_vao_gio_hang);
         }
     }
 
