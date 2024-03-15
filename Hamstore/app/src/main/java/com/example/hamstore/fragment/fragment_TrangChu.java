@@ -248,6 +248,7 @@ public class fragment_TrangChu extends Fragment {
             }
         });
 
+        //add_Items();
     }
     private void add_Items(){
 
@@ -396,7 +397,8 @@ public class fragment_TrangChu extends Fragment {
         //      so_luong_da_mua,
         //      luot_mua,
         //      tong_sao,
-        //      so_lan_danh_gia)
+        //      so_lan_danh_gia,
+        //      checkbox)//0: false 1:true
         myRef.child(key_hamster_winter_white).child(id_winter_1).setValue(new Items(id_winter_1,
                         ten_ngan_winter_1,
                         ten_dai_winter_1,
@@ -408,7 +410,8 @@ public class fragment_TrangChu extends Fragment {
                         20,
                         luot_mua,
                         tong_sao,
-                        so_lan_danh_gia))
+                        so_lan_danh_gia,
+                        0))
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -440,7 +443,8 @@ public class fragment_TrangChu extends Fragment {
         //      so_luong_da_mua,
         //      luot_mua,
         //      tong_sao,
-        //      so_lan_danh_gia)
+        //      so_lan_danh_gia,
+        //      checkbox)
         myRef.child(key_hamster_winter_white).child(id_winter_2).setValue(new Items(id_winter_2,
                         ten_ngan_winter_2,
                         ten_dai_winter_2,
@@ -452,7 +456,8 @@ public class fragment_TrangChu extends Fragment {
                         25,
                         luot_mua,
                         tong_sao,
-                        so_lan_danh_gia))
+                        so_lan_danh_gia,
+                        0))
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -483,7 +488,8 @@ public class fragment_TrangChu extends Fragment {
         //      so_luong_da_mua,
         //      luot_mua,
         //      tong_sao,
-        //      so_lan_danh_gia)
+        //      so_lan_danh_gia,
+        //      checkbox)
         myRef.child(key_hamster_winter_white).child(id_winter_3).setValue(new Items(id_winter_3,
                         ten_ngan_winter_3,
                         ten_dai_winter_3,
@@ -495,7 +501,8 @@ public class fragment_TrangChu extends Fragment {
                         so_luong_da_mua,
                         luot_mua,
                         tong_sao,
-                        so_lan_danh_gia))
+                        so_lan_danh_gia,
+                        0))
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -526,7 +533,8 @@ public class fragment_TrangChu extends Fragment {
         //      so_luong_da_mua,
         //      luot_mua,
         //      tong_sao,
-        //      so_lan_danh_gia)
+        //      so_lan_danh_gia,
+        //      checkbox)
         myRef.child(key_hamster_winter_white).child(id_winter_4).setValue(new Items(id_winter_4,
                         ten_ngan_winter_4,
                         ten_dai_winter_4,
@@ -538,7 +546,8 @@ public class fragment_TrangChu extends Fragment {
                         so_luong_da_mua,
                         luot_mua,
                         tong_sao,
-                        so_lan_danh_gia))
+                        so_lan_danh_gia,
+                        0))
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -569,7 +578,8 @@ public class fragment_TrangChu extends Fragment {
         //      so_luong_da_mua,
         //      luot_mua,
         //      tong_sao,
-        //      so_lan_danh_gia)
+        //      so_lan_danh_gia,
+        //      checkbox)
         myRef.child(key_hamster_winter_white).child(id_winter_5).setValue(new Items(id_winter_5,
                         ten_ngan_winter_5,
                         ten_dai_winter_5,
@@ -581,7 +591,8 @@ public class fragment_TrangChu extends Fragment {
                         so_luong_da_mua,
                         luot_mua,
                         tong_sao,
-                        so_lan_danh_gia))
+                        so_lan_danh_gia,
+                        0))
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -612,7 +623,8 @@ public class fragment_TrangChu extends Fragment {
         //      so_luong_da_mua,
         //      luot_mua,
         //      tong_sao,
-        //      so_lan_danh_gia)
+        //      so_lan_danh_gia,
+        //      checkbox)
         myRef.child(key_hamster_winter_white).child(id_winter_6).setValue(new Items(id_winter_6,
                         ten_ngan_winter_6,
                         ten_dai_winter_6,
@@ -624,7 +636,8 @@ public class fragment_TrangChu extends Fragment {
                         so_luong_da_mua,
                         luot_mua,
                         tong_sao,
-                        so_lan_danh_gia))
+                        so_lan_danh_gia,
+                        0))
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -655,7 +668,8 @@ public class fragment_TrangChu extends Fragment {
         //      so_luong_da_mua,
         //      luot_mua,
         //      tong_sao,
-        //      so_lan_danh_gia)
+        //      so_lan_danh_gia,
+        //      checkbox)
         myRef.child(key_hamster_robo).child(id_robo_1).setValue(new Items(id_robo_1,
                         ten_ngan_robo_1,
                         ten_dai_robo_1,
@@ -667,7 +681,8 @@ public class fragment_TrangChu extends Fragment {
                         so_luong_da_mua,
                         luot_mua,
                         tong_sao,
-                        so_lan_danh_gia))
+                        so_lan_danh_gia,
+                        0))
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -698,7 +713,8 @@ public class fragment_TrangChu extends Fragment {
         //      so_luong_da_mua,
         //      luot_mua,
         //      tong_sao,
-        //      so_lan_danh_gia)
+        //      so_lan_danh_gia,
+        //      checkbox)
         myRef.child(key_hamster_robo).child(id_robo_2).setValue(new Items(id_robo_2,
                         ten_ngan_robo_2,
                         ten_dai_robo_2,
@@ -710,7 +726,8 @@ public class fragment_TrangChu extends Fragment {
                         so_luong_da_mua,
                         luot_mua,
                         tong_sao,
-                        so_lan_danh_gia))
+                        so_lan_danh_gia,
+                        0))
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -741,7 +758,8 @@ public class fragment_TrangChu extends Fragment {
         //      so_luong_da_mua,
         //      luot_mua,
         //      tong_sao,
-        //      so_lan_danh_gia)
+        //      so_lan_danh_gia,
+        //      checkbox)
         myRef.child(key_hamster_robo).child(id_robo_3).setValue(new Items(id_robo_3,
                         ten_ngan_robo_3,
                         ten_dai_robo_3,
@@ -753,7 +771,8 @@ public class fragment_TrangChu extends Fragment {
                         so_luong_da_mua,
                         luot_mua,
                         tong_sao,
-                        so_lan_danh_gia))
+                        so_lan_danh_gia,
+                        0))
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -784,7 +803,8 @@ public class fragment_TrangChu extends Fragment {
         //      so_luong_da_mua,
         //      luot_mua,
         //      tong_sao,
-        //      so_lan_danh_gia)
+        //      so_lan_danh_gia,
+        //      checkbox)
         myRef.child(key_hamster_robo).child(id_robo_4).setValue(new Items(id_robo_4,
                         ten_ngan_robo_4,
                         ten_dai_robo_4,
@@ -796,7 +816,8 @@ public class fragment_TrangChu extends Fragment {
                         so_luong_da_mua,
                         luot_mua,
                         tong_sao,
-                        so_lan_danh_gia))
+                        so_lan_danh_gia,
+                        0))
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -827,7 +848,8 @@ public class fragment_TrangChu extends Fragment {
         //      so_luong_da_mua,
         //      luot_mua,
         //      tong_sao,
-        //      so_lan_danh_gia)
+        //      so_lan_danh_gia,
+        //      checkbox)
         myRef.child(key_hamster_bear).child(id_bear_1).setValue(new Items(id_bear_1,
                         ten_ngan_bear_1,
                         ten_dai_bear_1,
@@ -839,7 +861,8 @@ public class fragment_TrangChu extends Fragment {
                         so_luong_da_mua,
                         luot_mua,
                         tong_sao,
-                        so_lan_danh_gia))
+                        so_lan_danh_gia,
+                        0))
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -870,7 +893,8 @@ public class fragment_TrangChu extends Fragment {
         //      so_luong_da_mua,
         //      luot_mua,
         //      tong_sao,
-        //      so_lan_danh_gia)
+        //      so_lan_danh_gia,
+        //      checkbox)
         myRef.child(key_hamster_bear).child(id_bear_2).setValue(new Items(id_bear_2,
                         ten_ngan_bear_2,
                         ten_dai_bear_2,
@@ -882,7 +906,8 @@ public class fragment_TrangChu extends Fragment {
                         so_luong_da_mua,
                         luot_mua,
                         tong_sao,
-                        so_lan_danh_gia))
+                        so_lan_danh_gia,
+                        0))
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -913,7 +938,8 @@ public class fragment_TrangChu extends Fragment {
         //      so_luong_da_mua,
         //      luot_mua,
         //      tong_sao,
-        //      so_lan_danh_gia)
+        //      so_lan_danh_gia,
+        //      checkbox)
         myRef.child(key_hamster_bear).child(id_bear_3).setValue(new Items(id_bear_3,
                         ten_ngan_bear_3,
                         ten_dai_bear_3,
@@ -925,7 +951,8 @@ public class fragment_TrangChu extends Fragment {
                         so_luong_da_mua,
                         luot_mua,
                         tong_sao,
-                        so_lan_danh_gia))
+                        so_lan_danh_gia,
+                        0))
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -956,7 +983,8 @@ public class fragment_TrangChu extends Fragment {
         //      so_luong_da_mua,
         //      luot_mua,
         //      tong_sao,
-        //      so_lan_danh_gia)
+        //      so_lan_danh_gia,
+        //      checkbox)
         myRef.child(key_hamster_bear).child(id_bear_4).setValue(new Items(id_bear_4,
                         ten_ngan_bear_4,
                         ten_dai_bear_4,
@@ -968,7 +996,8 @@ public class fragment_TrangChu extends Fragment {
                         so_luong_da_mua,
                         luot_mua,
                         tong_sao,
-                        so_lan_danh_gia))
+                        so_lan_danh_gia,
+                        0))
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -999,7 +1028,8 @@ public class fragment_TrangChu extends Fragment {
         //      so_luong_da_mua,
         //      luot_mua,
         //      tong_sao,
-        //      so_lan_danh_gia)
+        //      so_lan_danh_gia,
+        //      checkbox)
         myRef.child(key_hamster_bear).child(id_bear_5).setValue(new Items(id_bear_5,
                         ten_ngan_bear_5,
                         ten_dai_bear_5,
@@ -1011,7 +1041,8 @@ public class fragment_TrangChu extends Fragment {
                         so_luong_da_mua,
                         luot_mua,
                         tong_sao,
-                        so_lan_danh_gia))
+                        so_lan_danh_gia,
+                        0))
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -1042,7 +1073,8 @@ public class fragment_TrangChu extends Fragment {
         //      so_luong_da_mua,
         //      luot_mua,
         //      tong_sao,
-        //      so_lan_danh_gia)
+        //      so_lan_danh_gia,
+        //      checkbox)
         myRef.child(key_hamster_campbell).child(id_campbell_1).setValue(new Items(id_campbell_1,
                         ten_ngan_campbell_1,
                         ten_dai_campbell_1,
@@ -1054,7 +1086,8 @@ public class fragment_TrangChu extends Fragment {
                         so_luong_da_mua,
                         luot_mua,
                         tong_sao,
-                        so_lan_danh_gia))
+                        so_lan_danh_gia,
+                        0))
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -1085,7 +1118,8 @@ public class fragment_TrangChu extends Fragment {
         //      so_luong_da_mua,
         //      luot_mua,
         //      tong_sao,
-        //      so_lan_danh_gia)
+        //      so_lan_danh_gia,
+        //      checkbox)
         myRef.child(key_hamster_campbell).child(id_campbell_2).setValue(new Items(id_campbell_2,
                         ten_ngan_campbell_2,
                         ten_dai_campbell_2,
@@ -1097,7 +1131,8 @@ public class fragment_TrangChu extends Fragment {
                         so_luong_da_mua,
                         luot_mua,
                         tong_sao,
-                        so_lan_danh_gia))
+                        so_lan_danh_gia,
+                        0))
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -1128,7 +1163,8 @@ public class fragment_TrangChu extends Fragment {
         //      so_luong_da_mua,
         //      luot_mua,
         //      tong_sao,
-        //      so_lan_danh_gia)
+        //      so_lan_danh_gia,
+        //      checkbox)
         myRef.child(key_hamster_campbell).child(id_campbell_3).setValue(new Items(id_campbell_3,
                         ten_ngan_campbell_3,
                         ten_dai_campbell_3,
@@ -1140,7 +1176,8 @@ public class fragment_TrangChu extends Fragment {
                         so_luong_da_mua,
                         luot_mua,
                         tong_sao,
-                        so_lan_danh_gia))
+                        so_lan_danh_gia,
+                        0))
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -1171,7 +1208,8 @@ public class fragment_TrangChu extends Fragment {
         //      so_luong_da_mua,
         //      luot_mua,
         //      tong_sao,
-        //      so_lan_danh_gia)
+        //      so_lan_danh_gia,
+        //      checkbox)
         myRef.child(key_hamster_campbell).child(id_campbell_4).setValue(new Items(id_campbell_4,
                         ten_ngan_campbell_4,
                         ten_dai_campbell_4,
@@ -1183,7 +1221,8 @@ public class fragment_TrangChu extends Fragment {
                         so_luong_da_mua,
                         luot_mua,
                         tong_sao,
-                        so_lan_danh_gia))
+                        so_lan_danh_gia,
+                        0))
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -1215,7 +1254,8 @@ public class fragment_TrangChu extends Fragment {
         //      so_luong_da_mua,
         //      luot_mua,
         //      tong_sao,
-        //      so_lan_danh_gia)
+        //      so_lan_danh_gia,
+        //      checkbox)
         myRef.child(key_phuKien).child(id_phu_kien_1).setValue(new Items(id_phu_kien_1,
                         ten_ngan_phu_kien_1,
                         ten_dai_phu_kien_1,
@@ -1227,7 +1267,8 @@ public class fragment_TrangChu extends Fragment {
                         so_luong_da_mua,
                         luot_mua,
                         tong_sao,
-                        so_lan_danh_gia))
+                        so_lan_danh_gia,
+                        0))
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -1259,7 +1300,8 @@ public class fragment_TrangChu extends Fragment {
         //      so_luong_da_mua,
         //      luot_mua,
         //      tong_sao,
-        //      so_lan_danh_gia)
+        //      so_lan_danh_gia,
+        //      checkbox)
         myRef.child(key_phuKien).child(id_phu_kien_2).setValue(new Items(id_phu_kien_2,
                         ten_ngan_phu_kien_2,
                         ten_dai_phu_kien_2,
@@ -1271,7 +1313,8 @@ public class fragment_TrangChu extends Fragment {
                         so_luong_da_mua,
                         luot_mua,
                         tong_sao,
-                        so_lan_danh_gia))
+                        so_lan_danh_gia,
+                        0))
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -1304,7 +1347,8 @@ public class fragment_TrangChu extends Fragment {
         //      so_luong_da_mua,
         //      luot_mua,
         //      tong_sao,
-        //      so_lan_danh_gia)
+        //      so_lan_danh_gia,
+        //      checkbox)
         myRef.child(key_phuKien).child(id_phu_kien_3).setValue(new Items(id_phu_kien_3,
                         ten_ngan_phu_kien_3,
                         ten_dai_phu_kien_3,
@@ -1316,7 +1360,8 @@ public class fragment_TrangChu extends Fragment {
                         5,
                         luot_mua,
                         tong_sao,
-                        so_lan_danh_gia))
+                        so_lan_danh_gia,
+                        0))
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -1348,7 +1393,8 @@ public class fragment_TrangChu extends Fragment {
         //      so_luong_da_mua,
         //      luot_mua,
         //      tong_sao,
-        //      so_lan_danh_gia)
+        //      so_lan_danh_gia,
+        //      checkbox)
         myRef.child(key_phuKien).child(id_phu_kien_4).setValue(new Items(id_phu_kien_4,
                         ten_ngan_phu_kien_4,
                         ten_dai_phu_kien_4,
@@ -1360,7 +1406,8 @@ public class fragment_TrangChu extends Fragment {
                         so_luong_da_mua,
                         luot_mua,
                         tong_sao,
-                        so_lan_danh_gia))
+                        so_lan_danh_gia,
+                        0))
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -1392,7 +1439,8 @@ public class fragment_TrangChu extends Fragment {
         //      so_luong_da_mua,
         //      luot_mua,
         //      tong_sao,
-        //      so_lan_danh_gia)
+        //      so_lan_danh_gia,
+        //      checkbox)
         myRef.child(key_phuKien).child(id_phu_kien_5).setValue(new Items(id_phu_kien_5,
                         ten_ngan_phu_kien_5,
                         ten_dai_phu_kien_5,
@@ -1404,7 +1452,8 @@ public class fragment_TrangChu extends Fragment {
                         so_luong_da_mua,
                         luot_mua,
                         tong_sao,
-                        so_lan_danh_gia))
+                        so_lan_danh_gia,
+                        0))
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -1436,7 +1485,8 @@ public class fragment_TrangChu extends Fragment {
         //      so_luong_da_mua,
         //      luot_mua,
         //      tong_sao,
-        //      so_lan_danh_gia)
+        //      so_lan_danh_gia,
+        //      checkbox)
         myRef.child(key_thucAn).child(id_thuc_an_1).setValue(new Items(id_thuc_an_1,
                         ten_ngan_thuc_an_1,
                         ten_dai_thuc_an_1,
@@ -1448,7 +1498,8 @@ public class fragment_TrangChu extends Fragment {
                         so_luong_da_mua,
                         luot_mua,
                         tong_sao,
-                        so_lan_danh_gia))
+                        so_lan_danh_gia,
+                        0))
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -1481,7 +1532,8 @@ public class fragment_TrangChu extends Fragment {
         //      so_luong_da_mua,
         //      luot_mua,
         //      tong_sao,
-        //      so_lan_danh_gia)
+        //      so_lan_danh_gia,
+        //      checkbox)
         myRef.child(key_thucAn).child(id_thuc_an_2).setValue(new Items(id_thuc_an_2,
                         ten_ngan_thuc_an_2,
                         ten_dai_thuc_an_2,
@@ -1493,7 +1545,8 @@ public class fragment_TrangChu extends Fragment {
                         10,
                         luot_mua,
                         tong_sao,
-                        so_lan_danh_gia))
+                        so_lan_danh_gia,
+                        0))
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -1525,7 +1578,8 @@ public class fragment_TrangChu extends Fragment {
         //      so_luong_da_mua,
         //      luot_mua,
         //      tong_sao,
-        //      so_lan_danh_gia)
+        //      so_lan_danh_gia,
+        //      checkbox)
         myRef.child(key_thucAn).child(id_thuc_an_3).setValue(new Items(id_thuc_an_3,
                         ten_ngan_thuc_an_3,
                         ten_dai_thuc_an_3,
@@ -1537,7 +1591,8 @@ public class fragment_TrangChu extends Fragment {
                         so_luong_da_mua,
                         luot_mua,
                         tong_sao,
-                        so_lan_danh_gia))
+                        so_lan_danh_gia,
+                        0))
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -1570,7 +1625,8 @@ public class fragment_TrangChu extends Fragment {
         //      so_luong_da_mua,
         //      luot_mua,
         //      tong_sao,
-        //      so_lan_danh_gia)
+        //      so_lan_danh_gia,
+        //      checkbox)
         myRef.child(key_thucAn).child(id_thuc_an_4).setValue(new Items(id_thuc_an_4,
                         ten_ngan_thuc_an_4,
                         ten_dai_thuc_an_4,
@@ -1582,7 +1638,8 @@ public class fragment_TrangChu extends Fragment {
                         15,
                         luot_mua,
                         tong_sao,
-                        so_lan_danh_gia))
+                        so_lan_danh_gia,
+                        0))
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -1670,8 +1727,5 @@ public class fragment_TrangChu extends Fragment {
         handler.removeCallbacks(runnable);
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
+
 }

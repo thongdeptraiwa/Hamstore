@@ -3,19 +3,12 @@ package com.example.hamstore;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
-import com.example.hamstore.fragment.fragment_GioHang;
 import com.example.hamstore.fragment.fragment_GioHang2;
 import com.example.hamstore.fragment.fragment_Thong_tin;
 import com.example.hamstore.fragment.fragment_TrangChu;
@@ -24,19 +17,10 @@ import com.example.hamstore.fragment.fragment_TrangChu_2hang_Loai_Hamster;
 import com.example.hamstore.fragment.fragment_TrangChu_2hang_PhuKien;
 import com.example.hamstore.fragment.fragment_TrangChu_2hang_ThucAn;
 import com.example.hamstore.model.Items;
-import com.example.hamstore.model.User;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
-import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.ArrayList;
 
 public class TrangChu extends AppCompatActivity {
     Context c= this;
@@ -164,7 +148,10 @@ public class TrangChu extends AppCompatActivity {
         //quay về giỏ hàng
         //chuyen_fragment_GioHang();
 
+    }
 
+    public void dang_xuat(){
+        finish();
     }
 
 }

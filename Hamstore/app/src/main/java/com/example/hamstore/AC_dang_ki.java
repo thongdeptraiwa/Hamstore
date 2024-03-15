@@ -28,7 +28,7 @@ public class AC_dang_ki extends AppCompatActivity {
     Button btn_tao_tai_khoan;
     TextInputEditText inputEdit_tai_khoan,inputEdit_mat_khau_1,inputEdit_mat_khau_2;
     //Realtiem
-    DatabaseReference myRef = FirebaseDatabase.getInstance().getReference();
+    DatabaseReference data = FirebaseDatabase.getInstance().getReference();
     private final String key_users = "Users";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +96,7 @@ public class AC_dang_ki extends AppCompatActivity {
         //     ngay_sinh,
         //     dia_chi,
         //     role) // 0: user - 1: admin
-        myRef.child(key_users).child(tai_khoan).setValue(new User(tai_khoan,mat_khau,"null","null","null","null",0))
+        data.child(key_users).child(tai_khoan).setValue(new User(tai_khoan,mat_khau,"null","null","null","null",0))
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {

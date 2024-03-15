@@ -1,6 +1,7 @@
 package com.example.hamstore.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.hamstore.AC_dang_nhap;
 import com.example.hamstore.ADT.ADT_Recyclerview_2hang;
 import com.example.hamstore.R;
 import com.example.hamstore.TrangChu;
@@ -32,8 +34,10 @@ import java.util.ArrayList;
 import java.util.Timer;
 
 public class fragment_Thong_tin extends Fragment {
+    TrangChu trangChu;
     Context c;
-    TextView tv_ho_ten;
+    TextView tv_ho_ten,tv_dang_xuat;
+    ImageView img_dang_xuat;
     private final String key_tai_khoan = "tai_khoan";
     String tai_khoan;
     DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Users");
@@ -44,10 +48,29 @@ public class fragment_Thong_tin extends Fragment {
         View view = inflater.inflate(R.layout.fragment_thong_tin,container,false);
         c = getActivity();
         //ánh xạ
+        trangChu = (TrangChu) getActivity();
         tv_ho_ten = view.findViewById(R.id.tv_ho_ten);
+        tv_dang_xuat = view.findViewById(R.id.tv_dang_xuat);
+        img_dang_xuat = view.findViewById(R.id.img_dang_xuat);
 
         //lấy tài khoản từ activity
         tai_khoan = getArguments().getString(key_tai_khoan);
+
+        //nhấn đăng xuất
+        tv_dang_xuat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(c, AC_dang_nhap.class));
+                trangChu.dang_xuat();
+            }
+        });
+        img_dang_xuat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(c, AC_dang_nhap.class));
+                trangChu.dang_xuat();
+            }
+        });
 
         read_data();
 
