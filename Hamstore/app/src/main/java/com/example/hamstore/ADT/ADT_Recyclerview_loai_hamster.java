@@ -38,7 +38,7 @@ public class ADT_Recyclerview_loai_hamster extends RecyclerView.Adapter<ADT_Recy
         LayoutInflater inf = ((Activity)c).getLayoutInflater();
         //ánh xạ view
         trangChu = (TrangChu) ((Activity)c);
-        View view = inf.inflate(R.layout.items_trangchu,parent,false);
+        View view = inf.inflate(R.layout.items_trangchu_loai_hamster,parent,false);
         return new ViewHolder(view);
     }
 

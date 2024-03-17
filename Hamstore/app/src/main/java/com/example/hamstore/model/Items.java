@@ -16,6 +16,7 @@ public class Items implements Serializable {
     private int tong_sao;
     private int so_lan_danh_gia;
     private int checkbox;
+    private String loai;
 
     public Items() {
     }
@@ -25,7 +26,7 @@ public class Items implements Serializable {
         this.srcImg = srcImg;
     }
 
-    public Items(String id, String ten_ngan, String ten_dai, String srcImg, int gia, String mieu_ta, int so_luong, int so_luong_trong_kho, int so_luong_da_mua, int luot_mua, int tong_sao, int so_lan_danh_gia, int checkbox) {
+    public Items(String id, String ten_ngan, String ten_dai, String srcImg, int gia, String mieu_ta, int so_luong, int so_luong_trong_kho, int so_luong_da_mua, int luot_mua, int tong_sao, int so_lan_danh_gia, int checkbox, String loai) {
         this.id = id;
         this.ten_ngan = ten_ngan;
         this.ten_dai = ten_dai;
@@ -39,6 +40,15 @@ public class Items implements Serializable {
         this.tong_sao = tong_sao;
         this.so_lan_danh_gia = so_lan_danh_gia;
         this.checkbox = checkbox;
+        this.loai = loai;
+    }
+
+    public String getLoai() {
+        return loai;
+    }
+
+    public void setLoai(String loai) {
+        this.loai = loai;
     }
 
     public int getCheckbox() {

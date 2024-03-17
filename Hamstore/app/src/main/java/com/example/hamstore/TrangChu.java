@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.example.hamstore.fragment.fragment_GioHang2;
+import com.example.hamstore.fragment.fragment_GioHang;
 import com.example.hamstore.fragment.fragment_Thong_tin;
 import com.example.hamstore.fragment.fragment_TrangChu;
 import com.example.hamstore.fragment.fragment_TrangChu_2hang_Hamster;
@@ -67,7 +67,7 @@ public class TrangChu extends AppCompatActivity {
                     fragment = new fragment_Thong_tin();
                 }
                 else if (item.getItemId() == R.id.mGioHang){
-                    fragment = new fragment_GioHang2();
+                    fragment = new fragment_GioHang();
                 }
 
                 Bundle bundle = new Bundle();

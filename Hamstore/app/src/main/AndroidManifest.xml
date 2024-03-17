@@ -19,9 +19,6 @@
             android:name=".AC_thanh_toan"
             android:exported="false" />
         <activity
-            android:name=".test_login"
-            android:exported="true" />
-        <activity
             android:name=".AC_dang_ki"
             android:exported="true" />
         <activity
@@ -32,9 +29,7 @@
             android:exported="true" />
         <activity
             android:name=".AC_ChiTiet"
-            android:exported="true" /> <!-- <activity -->
-        <!-- android:name=".MainActivity" -->
-        <!-- android:exported="true" /> -->
+            android:exported="true" />
         <activity
             android:name=".AC_Chao"
             android:exported="true">

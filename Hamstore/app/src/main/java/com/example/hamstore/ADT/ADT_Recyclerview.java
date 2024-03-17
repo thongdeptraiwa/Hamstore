@@ -61,6 +61,14 @@ public class ADT_Recyclerview extends RecyclerView.Adapter<ADT_Recyclerview.View
         int imgId = c.getResources().getIdentifier(imgName, "drawable", c.getPackageName());
         holder.img.setImageResource(imgId);
 
+        //Đã mua
+        holder.tv_da_ban.setText("Đã bán: "+ds.get(i).getSo_luong_da_mua());
+
+        //hết hàng
+        if(ds.get(i).getSo_luong_trong_kho() > 0){
+            holder.tv_het_hang.setVisibility(View.GONE);
+        }
+
         //nhấn item
         holder.img.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,13 +100,15 @@ public class ADT_Recyclerview extends RecyclerView.Adapter<ADT_Recyclerview.View
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        TextView tv_Ten,tv_Gia;
+        TextView tv_Ten,tv_Gia,tv_da_ban,tv_het_hang;
         ImageView img;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tv_Ten = itemView.findViewById(R.id.tv_Ten);
             tv_Gia = itemView.findViewById(R.id.tv_Gia);
+            tv_da_ban = itemView.findViewById(R.id.tv_da_ban);
+            tv_het_hang = itemView.findViewById(R.id.tv_het_hang);
             img = itemView.findViewById(R.id.img);
         }
     }

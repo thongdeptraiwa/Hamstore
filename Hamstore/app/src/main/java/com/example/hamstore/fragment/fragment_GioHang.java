@@ -30,7 +30,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
 
-public class fragment_GioHang2 extends Fragment {
+public class fragment_GioHang extends Fragment {
     Context c;
     RecyclerView recyclerView_gio_hang;
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -76,7 +76,9 @@ public class fragment_GioHang2 extends Fragment {
         btn_Thanh_toan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(c, AC_thanh_toan.class));
+                Intent intent = new Intent(c, AC_thanh_toan.class);
+                intent.putExtra(key_tai_khoan,tai_khoan);
+                startActivity(intent);
             }
         });
 
@@ -236,5 +238,10 @@ public class fragment_GioHang2 extends Fragment {
 
     }
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        tong_tien = 0;
+        load_tong_tien();
+    }
 }
