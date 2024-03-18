@@ -16,6 +16,7 @@ import com.example.hamstore.fragment.fragment_TrangChu_2hang_Hamster;
 import com.example.hamstore.fragment.fragment_TrangChu_2hang_Loai_Hamster;
 import com.example.hamstore.fragment.fragment_TrangChu_2hang_PhuKien;
 import com.example.hamstore.fragment.fragment_TrangChu_2hang_ThucAn;
+import com.example.hamstore.fragment.fragment_TrangChu_2hang_ban_chay;
 import com.example.hamstore.model.Items;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -100,6 +101,10 @@ public class TrangChu extends AppCompatActivity {
         Fragment fragment = new fragment_TrangChu_2hang_ThucAn();
         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,fragment).commit();
     }
+    public void chuyen_fragment_2hang_ban_chay(){
+        Fragment fragment = new fragment_TrangChu_2hang_ban_chay();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,fragment).commit();
+    }
     public void chuyen_fragment_TrangChu(){
         Fragment fragment = new fragment_TrangChu();
         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,fragment).commit();
@@ -111,43 +116,6 @@ public class TrangChu extends AppCompatActivity {
         bundle.putString(key_tai_khoan,tai_khoan);
         intent.putExtras(bundle);
         startActivity(intent);
-    }
-    public void xoa_1_sp_gio_hang(int index){
-
-//        //do arr[0] bỏ qua nên index+1
-//        int i = index + 1;
-//        user.getGio_hang().remove(i);
-//
-//        //User(tai_khoan,
-//        //     mat_khau,
-//        //     arr_item,
-//        //     gmail,
-//        //     ho_ten,
-//        //     ngay_sinh,
-//        //     dia_chi,
-//        //     role) // 0: user - 1: admin
-//        myRef.child(key_users).child(user.getTai_khoan()).setValue(new User(user.getTai_khoan(),
-//                        user.getMat_khau(),
-//                        user.getGio_hang(),
-//                        user.getGmail(),
-//                        user.getHo_ten(),
-//                        user.getNgay_sinh(),
-//                        user.getDia_chi(),
-//                        user.getRole()))
-//                .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<Void> task) {
-//                        if(task.isSuccessful()){
-//                            Toast.makeText(c, "Xóa thành công", Toast.LENGTH_SHORT).show();
-//                        }else {
-//                            Toast.makeText(c, "Xóa thấi bại!", Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//                });
-
-        //quay về giỏ hàng
-        //chuyen_fragment_GioHang();
-
     }
 
     public void dang_xuat(){

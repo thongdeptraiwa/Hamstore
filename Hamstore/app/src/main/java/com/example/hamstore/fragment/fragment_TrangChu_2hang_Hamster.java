@@ -31,7 +31,7 @@ import java.util.ArrayList;
 public class fragment_TrangChu_2hang_Hamster extends Fragment {
     TrangChu trangChu;
     Context c;
-    DatabaseReference myRef = FirebaseDatabase.getInstance().getReference();
+    DatabaseReference data = FirebaseDatabase.getInstance().getReference();
     ArrayList<Items> ds = new ArrayList<>();
     ADT_Recyclerview_2hang adt_recyclerview_2hang;
     RecyclerView recyclerView_2hang;
@@ -108,7 +108,7 @@ public class fragment_TrangChu_2hang_Hamster extends Fragment {
     private void read_data(String ten_loai_hamster){
 
         //hamster
-        myRef.child(ten_loai_hamster).addValueEventListener(new ValueEventListener() {
+        data.child(ten_loai_hamster).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 ds.clear();

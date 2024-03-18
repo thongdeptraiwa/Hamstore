@@ -37,7 +37,6 @@ import com.makeramen.roundedimageview.RoundedImageView;
 
 public class AC_dang_nhap extends AppCompatActivity {
     Context c= this;
-
     Button btn_dang_nhap;
     TextView tv_dang_ki;
     TextInputEditText inputEdit_tai_khoan,inputEdit_mat_khau;
@@ -103,14 +102,16 @@ public class AC_dang_nhap extends AppCompatActivity {
                 for(DataSnapshot snapshot: dataSnapshot.getChildren()){
 
                     User user = snapshot.getValue(User.class);
+                    //dang nhap thanh cong
                     if(user.getTai_khoan().equals(inputEdit_tai_khoan.getText().toString()) && user.getMat_khau().equals(inputEdit_mat_khau.getText().toString())){
-                        //dang nhap thanh cong
-                        //Toast.makeText(AC_dang_nhap.this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
+                        // role user 0
+                        if(user.getRole() == 0){
+                            Intent intent = new Intent(c,TrangChu.class);
+                            intent.putExtra(key_tai_khoan,user.getTai_khoan());
+                            startActivity(intent);
+                            finish();
+                        }
 
-                        Intent intent = new Intent(c,TrangChu.class);
-                        intent.putExtra(key_tai_khoan,user.getTai_khoan());
-                        startActivity(intent);
-                        finish();
 
                         return;
                     }

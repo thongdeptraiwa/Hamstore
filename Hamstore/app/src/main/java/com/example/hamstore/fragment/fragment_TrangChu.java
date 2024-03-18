@@ -129,6 +129,12 @@ public class fragment_TrangChu extends Fragment {
             }
         });
         //nhấn btn
+        rdi_ban_chay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                trangChu.chuyen_fragment_2hang_ban_chay();
+            }
+        });
         rdi_hamster.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
