@@ -32,10 +32,50 @@
 
     </LinearLayout>
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:boxStrokeColor="#43A047"
+        app:endIconMode="clear_text"
+        app:hintTextColor="#43A047"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/inputEdit_sdt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Số điện thoại"
+            android:inputType="number" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        app:boxStrokeColor="#43A047"
+        app:endIconMode="clear_text"
+        app:hintTextColor="#43A047"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/inputEdit_dia_chi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Địa chỉ"
+            android:inputType="text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="420dp"
+        android:layout_height="300dp"
         android:layout_margin="10dp"
         android:layout_marginTop="20dp"
         />
@@ -45,7 +85,9 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="4"
-        android:layout_margin="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
         >
 
         <TextView

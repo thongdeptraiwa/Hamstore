@@ -1,11 +1,13 @@
 package com.example.hamstore;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,19 +15,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.hamstore.fragment.fragment_GioHang;
+import com.example.hamstore.model.Hoa_Don;
 import com.example.hamstore.model.Items;
-import com.example.hamstore.model.Loai_Hamster;
-import com.example.hamstore.model.User;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -37,6 +35,7 @@ import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,22 +45,20 @@ public class AC_thanh_toan extends AppCompatActivity {
     Context c = this;
     Button btn_momo,btn_thanh_toan_khi_nhan_hang;
     ImageView img_back;
+    TextInputEditText inputEdit_sdt,inputEdit_dia_chi;
     RecyclerView recyclerView;
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    DatabaseReference data_gio_hang_tai_khoan,data_remove,data_tang_sl_da_mua;
+    DatabaseReference data_gio_hang_tai_khoan,data_remove,data_tang_sl_da_mua,data_hoa_don;
     private Boolean stop_remove = false;
     private final String key_tai_khoan = "tai_khoan";
     String tai_khoan;
     String gio_hang_tai_khoan;
-    private final String key_hamster_winter_white = "Hamster Winter White",
-            key_hamster_robo = "Hamster Robo",
-            key_hamster_bear = "Hamster Bear",
-            key_hamster_campbell = "Hamster Campbell",
-            key_phuKien = "Phụ kiện",
-            key_thucAn = "Thức ăn";
     //Tong tien
     int tong_tien = 0;
     TextView tv_tong_tien;
+    //ds sp thanh toan
+    String id_hd;
+    ArrayList<Items> ds_sp_thanh_toan = new ArrayList<>();
     //momo
     private String amount;
     private String fee = "0";
@@ -84,19 +81,51 @@ public class AC_thanh_toan extends AppCompatActivity {
         btn_momo = findViewById(R.id.btn_momo);
         btn_thanh_toan_khi_nhan_hang = findViewById(R.id.btn_thanh_toan_khi_nhan_hang);
         img_back = findViewById(R.id.img_back);
+        inputEdit_sdt = findViewById(R.id.inputEdit_sdt);
+        inputEdit_dia_chi = findViewById(R.id.inputEdit_dia_chi);
         recyclerView = findViewById(R.id.recyclerView);
         tv_tong_tien = findViewById(R.id.tv_tong_tien);
         gio_hang_tai_khoan = "gio_hang_"+tai_khoan;
         data_gio_hang_tai_khoan = firebaseDatabase.getReference(gio_hang_tai_khoan);
         data_tang_sl_da_mua = firebaseDatabase.getReference();
+        data_hoa_don = firebaseDatabase.getReference("Hóa đơn");
+
+        //tạo id HD
+        id_hd = data_hoa_don.push().getKey();
+
 
         //nhấn thanh toán khi nhận hàng
         btn_thanh_toan_khi_nhan_hang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                stop_remove = true;
-                read_remove_data();
-                finish();
+                if(inputEdit_sdt.getText().toString().equals("") || inputEdit_dia_chi.getText().toString().equals("")){
+                    //tạo dialog thông báo
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(c);
+                    alertDialogBuilder.setTitle("Thông Báo!");
+                    if(inputEdit_sdt.getText().toString().equals("")){
+                        if(inputEdit_dia_chi.getText().toString().equals("")){
+                            alertDialogBuilder.setMessage("Bạn chưa nhập sđt và địa chỉ!");
+                        }else {
+                            alertDialogBuilder.setMessage("Bạn chưa nhập sđt!");
+                        }
+                    }else {
+                        alertDialogBuilder.setMessage("Bạn chưa nhập địa chỉ!");
+                    }
+                    alertDialogBuilder.setCancelable(false);
+                    alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
+                }else {
+                    stop_remove = true;
+                    tao_hoa_don(id_hd,inputEdit_sdt.getText().toString(),inputEdit_dia_chi.getText().toString());
+                    read_remove_data();
+                    finish();
+                }
             }
         });
         //nhấn thanh toán momo
@@ -178,9 +207,34 @@ public class AC_thanh_toan extends AppCompatActivity {
 
                     if(token != null && !token.equals("")) {
                         //xóa item đã thanh toán
-                        stop_remove = true;
-                        read_remove_data();
-                        finish();
+                        if(inputEdit_sdt.getText().toString().equals("") || inputEdit_dia_chi.getText().toString().equals("")){
+                            //tạo dialog thông báo
+                            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(c);
+                            alertDialogBuilder.setTitle("Thông Báo!");
+                            if(inputEdit_sdt.getText().toString().equals("")){
+                                if(inputEdit_dia_chi.getText().toString().equals("")){
+                                    alertDialogBuilder.setMessage("Bạn chưa nhập sđt và địa chỉ!");
+                                }else {
+                                    alertDialogBuilder.setMessage("Bạn chưa nhập sđt!");
+                                }
+                            }else {
+                                alertDialogBuilder.setMessage("Bạn chưa nhập địa chỉ!");
+                            }
+                            alertDialogBuilder.setCancelable(false);
+                            alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            });
+                            AlertDialog alertDialog = alertDialogBuilder.create();
+                            alertDialog.show();
+                        }else {
+                            stop_remove = true;
+                            tao_hoa_don(id_hd,inputEdit_sdt.getText().toString(),inputEdit_dia_chi.getText().toString());
+                            read_remove_data();
+                            finish();
+                        }
                         // TODO: send phoneNumber & token to your server side to process payment with MoMo server
                         // IF Momo topup success, continue to process your order
                     } else {
@@ -216,6 +270,9 @@ public class AC_thanh_toan extends AppCompatActivity {
     public void onStart() {
         super.onStart();
 
+        ds_sp_thanh_toan.clear();
+        tong_tien = 0;
+        load_tong_tien();
 
         FirebaseRecyclerOptions<Items> options =
                 new FirebaseRecyclerOptions.Builder<Items>()
@@ -227,7 +284,7 @@ public class AC_thanh_toan extends AppCompatActivity {
             public AC_thanh_toan.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
                 View view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.items_hoa_don, parent, false);
+                        .inflate(R.layout.items_thanh_toan, parent, false);
 
                 return new AC_thanh_toan.ViewHolder(view);
             }
@@ -256,6 +313,9 @@ public class AC_thanh_toan extends AppCompatActivity {
 
                     //so luong
                     holder.tv_so_luong.setText(String.valueOf(model.getSo_luong()));
+
+                    //them vào ds
+                    ds_sp_thanh_toan.add(model);
 
                 }else {
                     holder.itemView.setVisibility(View.GONE);
@@ -294,11 +354,15 @@ public class AC_thanh_toan extends AppCompatActivity {
         tv_tong_tien.setText(String.valueOf(formattedNumber +"đ"));
 
     }
+    private void reset_tong_tien(){
+        tong_tien = 0;
+        load_tong_tien();
+        onStart();
+    }
     @Override
     public void onResume() {
         super.onResume();
-        tong_tien = 0;
-        load_tong_tien();
+        reset_tong_tien();
     }
 
     //xóa item đã thanh toán
@@ -325,7 +389,6 @@ public class AC_thanh_toan extends AppCompatActivity {
                                 giam_sl_trong_kho = 0;
                             }
                             data_tang_sl_da_mua.child(item.getLoai()).child(item.getId()).child("so_luong_trong_kho").setValue(giam_sl_trong_kho);
-                            break;
                         }
                     }
                 }
@@ -340,19 +403,9 @@ public class AC_thanh_toan extends AppCompatActivity {
             }
         });
     }
-    private void tao_hoa_don(String tai_khoan,String mat_khau){
+    private void tao_hoa_don(String id,String sdt,String dia_chi){
 
+        data_hoa_don.child(id).setValue(new Hoa_Don(id,tai_khoan,sdt,dia_chi,ds_sp_thanh_toan,tong_tien));
 
-//        data.child(key_users).child(tai_khoan).setValue(new User(tai_khoan,mat_khau,"null","null","null","null",0))
-//                .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<Void> task) {
-//                        if(task.isSuccessful()){
-//                            Toast.makeText(c, "Add user thanh cong", Toast.LENGTH_SHORT).show();
-//                        }else {
-//                            Toast.makeText(c, "Add user thai bai", Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//                });
     }
 }

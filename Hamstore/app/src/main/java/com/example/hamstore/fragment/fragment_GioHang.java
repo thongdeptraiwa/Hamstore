@@ -1,6 +1,7 @@
 package com.example.hamstore.fragment;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,10 +15,12 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.hamstore.AC_dang_nhap;
 import com.example.hamstore.AC_thanh_toan;
 import com.example.hamstore.R;
 import com.example.hamstore.model.Items;
@@ -62,13 +65,29 @@ public class fragment_GioHang extends Fragment {
         gio_hang_tai_khoan = "gio_hang_"+tai_khoan;
         myRef = firebaseDatabase.getReference(gio_hang_tai_khoan);
 
-        load_tong_tien();
-
         //nhấn rác hết
         img_khung_rac_all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                myRef.removeValue();
+                //tạo dialog thông báo
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(c);
+                alertDialogBuilder.setTitle("Thông Báo!");
+                alertDialogBuilder.setMessage("Bạn có chắc muốn xóa hết?");
+                alertDialogBuilder.setCancelable(false);
+                alertDialogBuilder.setPositiveButton("Đồng Ý", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        myRef.removeValue();
+                    }
+                });
+                alertDialogBuilder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
             }
         });
 
@@ -90,6 +109,8 @@ public class fragment_GioHang extends Fragment {
     public void onStart() {
         super.onStart();
 
+        tong_tien = 0;
+        load_tong_tien();
 
         FirebaseRecyclerOptions<Items> options =
                 new FirebaseRecyclerOptions.Builder<Items>()
@@ -148,12 +169,27 @@ public class fragment_GioHang extends Fragment {
                 holder.img_khung_rac.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        myRef.child(model.getId()).removeValue();
-                        Toast.makeText(c, "Xóa thành công", Toast.LENGTH_SHORT).show();
-                        //reset tổng tiền
-                        tong_tien=0;
-                        load_tong_tien();
-                        onStart();
+                        //tạo dialog thông báo
+                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(c);
+                        alertDialogBuilder.setTitle("Thông Báo!");
+                        alertDialogBuilder.setMessage("Bạn có chắc muốn xóa?");
+                        alertDialogBuilder.setCancelable(false);
+                        alertDialogBuilder.setPositiveButton("Đồng Ý", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                myRef.child(model.getId()).removeValue();
+                                //reset tổng tiền
+                                reset_tong_tien();
+                            }
+                        });
+                        alertDialogBuilder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+                        AlertDialog alertDialog = alertDialogBuilder.create();
+                        alertDialog.show();
                     }
                 });
 
@@ -164,9 +200,7 @@ public class fragment_GioHang extends Fragment {
                         int tang = model.getSo_luong() + 1;
                         myRef.child(model.getId()).child("so_luong").setValue(tang);
                         //reset tổng tiền
-                        tong_tien=0;
-                        load_tong_tien();
-                        onStart();
+                        reset_tong_tien();
                     }
                 });
                 //nhấn -
@@ -177,9 +211,7 @@ public class fragment_GioHang extends Fragment {
                             int giam = model.getSo_luong() - 1;
                             myRef.child(model.getId()).child("so_luong").setValue(giam);
                             //reset tổng tiền
-                            tong_tien=0;
-                            load_tong_tien();
-                            onStart();
+                            reset_tong_tien();
                         }
                     }
                 });
@@ -193,9 +225,7 @@ public class fragment_GioHang extends Fragment {
                             myRef.child(model.getId()).child("checkbox").setValue(0);
                         }
                         //reset tổng tiền
-                        tong_tien=0;
-                        load_tong_tien();
-                        onStart();
+                        reset_tong_tien();
                     }
                 });
 
@@ -237,11 +267,16 @@ public class fragment_GioHang extends Fragment {
         tv_tong_tien.setText(String.valueOf(formattedNumber +"đ"));
 
     }
+    private void reset_tong_tien(){
+        tong_tien = 0;
+        load_tong_tien();
+        onStart();
+    }
 
     @Override
     public void onResume() {
         super.onResume();
-        tong_tien = 0;
-        load_tong_tien();
+        reset_tong_tien();
     }
+
 }

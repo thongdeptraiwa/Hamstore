@@ -28,6 +28,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,13 +37,12 @@ import com.google.firebase.database.ValueEventListener;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 public class AC_dang_nhap extends AppCompatActivity {
-    Context c= this;
     Button btn_dang_nhap;
     TextView tv_dang_ki;
     TextInputEditText inputEdit_tai_khoan,inputEdit_mat_khau;
     //Realtiem
     DatabaseReference data = FirebaseDatabase.getInstance().getReference();
-    private final String key_users = "Users",key_tai_khoan = "tai_khoan";
+    private final String key_users = "Users",key_tai_khoan = "tai_khoan",key_admin = "Admin";
     //gg
     RoundedImageView rdi_gg;
     FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -68,7 +68,7 @@ public class AC_dang_nhap extends AppCompatActivity {
                 .requestIdToken(getString(R.string.gg))
                 .requestEmail().build();
 
-        mGoogleSignInClient = GoogleSignIn.getClient(c,gso);
+        mGoogleSignInClient = GoogleSignIn.getClient(AC_dang_nhap.this,gso);
 
 
         btn_dang_nhap.setOnClickListener(new View.OnClickListener() {
@@ -81,7 +81,9 @@ public class AC_dang_nhap extends AppCompatActivity {
         tv_dang_ki.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(c,AC_dang_ki.class));
+                inputEdit_tai_khoan.setText("");
+                inputEdit_mat_khau.setText("");
+                startActivity(new Intent(AC_dang_nhap.this,AC_dang_ki.class));
             }
         });
 
@@ -94,6 +96,7 @@ public class AC_dang_nhap extends AppCompatActivity {
 
     }
     private void check_user(){
+
         //check data
         data.child(key_users).addValueEventListener(new ValueEventListener() {
             @Override
@@ -104,15 +107,20 @@ public class AC_dang_nhap extends AppCompatActivity {
                     User user = snapshot.getValue(User.class);
                     //dang nhap thanh cong
                     if(user.getTai_khoan().equals(inputEdit_tai_khoan.getText().toString()) && user.getMat_khau().equals(inputEdit_mat_khau.getText().toString())){
-                        // role user 0
+                        // check role
                         if(user.getRole() == 0){
-                            Intent intent = new Intent(c,TrangChu.class);
-                            intent.putExtra(key_tai_khoan,user.getTai_khoan());
-                            startActivity(intent);
-                            finish();
+                            Intent intent_user = new Intent(AC_dang_nhap.this,TrangChu.class);
+                            intent_user.putExtra(key_tai_khoan,user.getTai_khoan());
+                            startActivity(intent_user);
+                            onDestroy();
+
                         }
+                        if(user.getRole() == 1){
+                            Intent intent_admin = new Intent(AC_dang_nhap.this,TrangChu_Admin.class);
+                            startActivity(intent_admin);
+                            onDestroy();
 
-
+                        }
                         return;
                     }
 
@@ -127,6 +135,54 @@ public class AC_dang_nhap extends AppCompatActivity {
                 Log.w("DEUBG", "Failed read realtime", error.toException());
             }
         });
+
+//        //cach 2 tot hon
+//        data.child(key_users).addChildEventListener(new ChildEventListener() {
+//            @Override
+//            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+//                User user = snapshot.getValue(User.class);
+//                //dang nhap thanh cong
+//                if(user.getTai_khoan().equals(inputEdit_tai_khoan.getText().toString()) && user.getMat_khau().equals(inputEdit_mat_khau.getText().toString())) {
+//                    // check role
+//                    if (user.getRole() == 0) {
+//                        Intent intent_user = new Intent(AC_dang_nhap.this, TrangChu.class);
+//                        intent_user.putExtra(key_tai_khoan, user.getTai_khoan());
+//                        startActivity(intent_user);
+//                        onDestroy();
+//                        //finish();
+//                    }
+//                    if (user.getRole() == 1) {
+//                        Intent intent_admin = new Intent(AC_dang_nhap.this, TrangChu_Admin.class);
+//                        startActivity(intent_admin);
+//                        onDestroy();
+//                        //finish();
+//                    }
+//                    return;
+//                }
+//            }
+//
+//            @Override
+//            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+//
+//            }
+//
+//            @Override
+//            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+//
+//            }
+//
+//            @Override
+//            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+
+
     }
 
     private void googleSignIn() {
@@ -144,7 +200,7 @@ public class AC_dang_nhap extends AppCompatActivity {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 firebaseAuth(account.getIdToken());
             }catch (Exception e){
-                Toast.makeText(c, "Loi 1", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AC_dang_nhap.this, "Loi 1", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -181,16 +237,22 @@ public class AC_dang_nhap extends AppCompatActivity {
                                     dia_chi,
                                     role));
 
-                            Intent intent = new Intent(c,TrangChu.class);
+                            Intent intent = new Intent(AC_dang_nhap.this,TrangChu.class);
                             intent.putExtra(key_tai_khoan,tai_khoan);
                             startActivity(intent);
-                            finish();
+                            onDestroy();
                         }else {
-                            Toast.makeText(c, "Loi 2", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AC_dang_nhap.this, "Loi 2", Toast.LENGTH_SHORT).show();
                         }
 
                     }
                 });
     }
 
+
+    // destroy để fix lại qua lại
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }

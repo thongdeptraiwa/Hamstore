@@ -22,8 +22,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 
 public class AC_dang_ki extends AppCompatActivity {
-
-    Context c=this;
     ImageView img_back;
     Button btn_tao_tai_khoan;
     TextInputEditText inputEdit_tai_khoan,inputEdit_mat_khau_1,inputEdit_mat_khau_2;
@@ -55,21 +53,21 @@ public class AC_dang_ki extends AppCompatActivity {
 
                 //check null
                 if(inputEdit_tai_khoan.getText().toString().isEmpty()){
-                    Toast.makeText(c, "Chưa nhập tài khoản!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AC_dang_ki.this, "Chưa nhập tài khoản!", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if(inputEdit_mat_khau_1.getText().toString().isEmpty()){
-                    Toast.makeText(c, "Chưa nhập mật khẩu!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AC_dang_ki.this, "Chưa nhập mật khẩu!", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if(inputEdit_mat_khau_2.getText().toString().isEmpty()){
-                    Toast.makeText(c, "Chưa nhập lại mật khẩu!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AC_dang_ki.this, "Chưa nhập lại mật khẩu!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 //check 2 mật khẩu
                 if(!inputEdit_mat_khau_1.getText().toString().equals(inputEdit_mat_khau_2.getText().toString())){
-                    Toast.makeText(c, "Nhập lại mật khẩu không giống!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AC_dang_ki.this, "Nhập lại mật khẩu không giống!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -77,8 +75,8 @@ public class AC_dang_ki extends AppCompatActivity {
 
 
                 //tạo thành công
-                Toast.makeText(c, "Tạo tài khoản thành công", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(c,AC_dang_nhap.class));
+                Toast.makeText(AC_dang_ki.this, "Tạo tài khoản thành công", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(AC_dang_ki.this,AC_dang_nhap.class));
                 finish();
             }
         });
@@ -101,9 +99,9 @@ public class AC_dang_ki extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()){
-                            Toast.makeText(c, "Add user thanh cong", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AC_dang_ki.this, "Add user thanh cong", Toast.LENGTH_SHORT).show();
                         }else {
-                            Toast.makeText(c, "Add user thai bai", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AC_dang_ki.this, "Add user thai bai", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

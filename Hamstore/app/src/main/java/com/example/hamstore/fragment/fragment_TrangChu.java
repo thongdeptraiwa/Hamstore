@@ -255,11 +255,12 @@ public class fragment_TrangChu extends Fragment {
         });
 
         //add_Items();
+
     }
     private void add_Items(){
 
         //admin
-        String tai_khoan = "admin";
+        String tai_khoan = "admin1";
         String mat_khau = "123";
 
         //User(tai_khoan,

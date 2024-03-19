@@ -1,6 +1,7 @@
 package com.example.hamstore;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.hamstore.model.Items;
@@ -116,10 +118,34 @@ public class AC_ChiTiet extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(item_bundle.getSo_luong_trong_kho() > 0){
-                    stop_remove = true;
-                    them_vao_gio_hang();
+                    //tạo dialog thông báo
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(c);
+                    alertDialogBuilder.setTitle("Thông Báo!");
+                    alertDialogBuilder.setMessage("Thêm vào giỏ hàng thành công");
+                    alertDialogBuilder.setCancelable(false);
+                    alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            stop_remove = true;
+                            them_vao_gio_hang();
+                        }
+                    });
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
                 }else {
-                    Toast.makeText(c, "Sản phẩm đã hết hàng!", Toast.LENGTH_SHORT).show();
+                    //tạo dialog thông báo
+                    AlertDialog.Builder alertDialogBuilder1 = new AlertDialog.Builder(c);
+                    alertDialogBuilder1.setTitle("Thông Báo!");
+                    alertDialogBuilder1.setMessage("Sản phẩm đã hết hàng!");
+                    alertDialogBuilder1.setCancelable(false);
+                    alertDialogBuilder1.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+                    AlertDialog alertDialog1 = alertDialogBuilder1.create();
+                    alertDialog1.show();
                 }
 
             }
@@ -128,16 +154,6 @@ public class AC_ChiTiet extends AppCompatActivity {
 
     }
     private void them_vao_gio_hang(){
-
-//        //them item_chitiet vào arr tạm để đưa vào arr_item của user
-//        ArrayList<Items> arr_tam = new ArrayList<>();
-//        arr_tam = arr_gio_hang;
-//        arr_tam.add(item_bundle);
-//
-//
-//        Map<String,Object> map = new HashMap<>();
-//        map.put("gio_hang",arr_tam);
-//        data_chitiet.updateChildren(map);
 
         myRef.child(gio_hang_tai_khoan).addValueEventListener(new ValueEventListener() {
             @Override

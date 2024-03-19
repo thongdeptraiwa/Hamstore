@@ -1,6 +1,7 @@
 package com.example.hamstore.fragment;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -67,8 +69,26 @@ public class fragment_Thong_tin extends Fragment {
         img_dang_xuat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(c, AC_dang_nhap.class));
-                trangChu.dang_xuat();
+                //tạo dialog thông báo đăng xuat
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(c);
+                alertDialogBuilder.setTitle("Thông Báo!");
+                alertDialogBuilder.setMessage("Bạn có chắc muốn đăng xuất không?");
+                alertDialogBuilder.setCancelable(false);
+                alertDialogBuilder.setPositiveButton("Đồng Ý", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(c, AC_dang_nhap.class));
+                        trangChu.dang_xuat();
+                    }
+                });
+                alertDialogBuilder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
             }
         });
 
