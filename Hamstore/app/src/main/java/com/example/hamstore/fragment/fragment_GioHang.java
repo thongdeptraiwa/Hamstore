@@ -3,6 +3,7 @@ package com.example.hamstore.fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.hamstore.AC_dang_nhap;
 import com.example.hamstore.AC_thanh_toan;
 import com.example.hamstore.R;
@@ -156,11 +158,14 @@ public class fragment_GioHang extends Fragment {
                 holder.tv_ten_dai.setText(model.getTen_dai());
 
                 //lấy SrcImg
-                //String imgName = ds.get(i).getSrcImg();
-                String imgName = model.getSrcImg();
-                //đổi string thành int (R.drawable.name)
-                int imgId = c.getResources().getIdentifier(imgName, "drawable", c.getPackageName());
-                holder.img.setImageResource(imgId);
+                if(model.getSrcImg().length()<40){
+                    String imgName = model.getSrcImg();
+                    //đổi string thành int (R.drawable.name)
+                    int imgId = c.getResources().getIdentifier(imgName, "drawable", c.getPackageName());
+                    holder.img.setImageResource(imgId);
+                }else {
+                    Glide.with(c).load(model.getSrcImg()).into(holder.img);
+                }
 
                 //so luong
                 holder.tv_so_luong.setText(String.valueOf(model.getSo_luong()));

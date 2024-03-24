@@ -1,6 +1,7 @@
 package com.example.hamstore.fragment;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -80,13 +81,12 @@ public class fragment_Admin_hoa_don extends Fragment {
                 String formattedNumber = formatter.format(myNumber);
                 holder.tv_gia.setText(String.valueOf(formattedNumber +"đ"));
 
-                //xóa
-                holder.img_khung_rac.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        data.child(model.getId()).removeValue();
-                    }
-                });
+                //trang thái
+                holder.tv_trang_thai.setText(model.getTrang_thai());
+                //chưa thanh toán đổi sang màu đỏ
+                if(model.getTrang_thai().equals("Chưa thanh toán")){
+                    holder.tv_trang_thai.setTextColor(Color.parseColor("#E53935"));
+                }
 
             }
 
@@ -100,14 +100,13 @@ public class fragment_Admin_hoa_don extends Fragment {
         adapter.startListening();
     }
     public class ViewHolder extends RecyclerView.ViewHolder{
-        TextView tv_tai_khoan,tv_id,tv_gia;
-        ImageView img_khung_rac;
+        TextView tv_tai_khoan,tv_id,tv_gia,tv_trang_thai;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tv_tai_khoan = itemView.findViewById(R.id.tv_tai_khoan);
             tv_id = itemView.findViewById(R.id.tv_id);
             tv_gia = itemView.findViewById(R.id.tv_gia);
-            img_khung_rac = itemView.findViewById(R.id.img_khung_rac);
+            tv_trang_thai = itemView.findViewById(R.id.tv_trang_thai);
         }
     }
 

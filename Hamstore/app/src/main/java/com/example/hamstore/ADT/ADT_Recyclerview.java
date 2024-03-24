@@ -2,6 +2,7 @@ package com.example.hamstore.ADT;
 
 import android.app.Activity;
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.hamstore.R;
 import com.example.hamstore.TrangChu;
 import com.example.hamstore.model.Items;
@@ -56,10 +58,15 @@ public class ADT_Recyclerview extends RecyclerView.Adapter<ADT_Recyclerview.View
         holder.tv_Ten.setText(ds.get(i).getTen_ngan());
 
         //lấy SrcImg
-        String imgName = ds.get(i).getSrcImg();
-        //đổi string thành int (R.drawable.name)
-        int imgId = c.getResources().getIdentifier(imgName, "drawable", c.getPackageName());
-        holder.img.setImageResource(imgId);
+        if(ds.get(i).getSrcImg().length()<40){
+            String imgName = ds.get(i).getSrcImg();
+            //đổi string thành int (R.drawable.name)
+            int imgId = c.getResources().getIdentifier(imgName, "drawable", c.getPackageName());
+            holder.img.setImageResource(imgId);
+        }else {
+            Glide.with(c).load(ds.get(i).getSrcImg()).into(holder.img);
+        }
+
 
         //Đã mua
         holder.tv_da_ban.setText("Đã bán: "+ds.get(i).getSo_luong_da_mua());

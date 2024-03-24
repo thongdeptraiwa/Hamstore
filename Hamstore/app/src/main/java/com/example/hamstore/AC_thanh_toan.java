@@ -122,7 +122,7 @@ public class AC_thanh_toan extends AppCompatActivity {
                     alertDialog.show();
                 }else {
                     stop_remove = true;
-                    tao_hoa_don(id_hd,inputEdit_sdt.getText().toString(),inputEdit_dia_chi.getText().toString());
+                    tao_hoa_don(id_hd,inputEdit_sdt.getText().toString(),inputEdit_dia_chi.getText().toString(),"Chưa thanh toán");
                     read_remove_data();
                     finish();
                 }
@@ -231,7 +231,7 @@ public class AC_thanh_toan extends AppCompatActivity {
                             alertDialog.show();
                         }else {
                             stop_remove = true;
-                            tao_hoa_don(id_hd,inputEdit_sdt.getText().toString(),inputEdit_dia_chi.getText().toString());
+                            tao_hoa_don(id_hd,inputEdit_sdt.getText().toString(),inputEdit_dia_chi.getText().toString(),"Đã thanh toán");
                             read_remove_data();
                             finish();
                         }
@@ -403,9 +403,9 @@ public class AC_thanh_toan extends AppCompatActivity {
             }
         });
     }
-    private void tao_hoa_don(String id,String sdt,String dia_chi){
+    private void tao_hoa_don(String id,String sdt,String dia_chi,String trang_thai){
 
-        data_hoa_don.child(id).setValue(new Hoa_Don(id,tai_khoan,sdt,dia_chi,ds_sp_thanh_toan,tong_tien));
+        data_hoa_don.child(id).setValue(new Hoa_Don(id,tai_khoan,sdt,dia_chi,ds_sp_thanh_toan,tong_tien,trang_thai));
 
     }
 }

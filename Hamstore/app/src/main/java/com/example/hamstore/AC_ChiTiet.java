@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,6 +19,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.example.hamstore.model.Items;
 import com.example.hamstore.model.Loai_Hamster;
 import com.example.hamstore.model.User;
@@ -92,10 +94,14 @@ public class AC_ChiTiet extends AppCompatActivity {
 
         //img
         //lấy SrcImg
-        String imgName =item_bundle.getSrcImg();
-        //đổi string thành int (R.drawable.name)
-        int imgId = c.getResources().getIdentifier(imgName, "drawable", c.getPackageName());
-        img_sp.setImageResource(imgId);
+        if(item_bundle.getSrcImg().length()<40){
+            String imgName =item_bundle.getSrcImg();
+            //đổi string thành int (R.drawable.name)
+            int imgId = c.getResources().getIdentifier(imgName, "drawable", c.getPackageName());
+            img_sp.setImageResource(imgId);
+        }else {
+            Glide.with(c).load(item_bundle.getSrcImg()).into(img_sp);
+        }
 
         //đã bán
         tv_da_ban.setText("Đã bán: "+item_bundle.getSo_luong_da_mua());

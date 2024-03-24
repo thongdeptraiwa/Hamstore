@@ -11,8 +11,14 @@ import androidx.fragment.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.hamstore.fragment.fragment_Admin_TrangChu;
 import com.example.hamstore.fragment.fragment_Admin_hamster_bear;
@@ -26,7 +32,16 @@ import com.example.hamstore.fragment.fragment_Admin_phu_kien;
 import com.example.hamstore.fragment.fragment_Admin_san_pham;
 import com.example.hamstore.fragment.fragment_Admin_thuc_an;
 import com.example.hamstore.fragment.fragment_TrangChu_2hang_ThucAn;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.ByteArrayOutputStream;
 
 public class TrangChu_Admin extends AppCompatActivity {
     Context c=this;

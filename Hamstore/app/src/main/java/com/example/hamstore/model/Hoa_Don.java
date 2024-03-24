@@ -10,17 +10,27 @@ public class Hoa_Don implements Serializable {
     private String dia_chi;
     private ArrayList<Items> arr_items = new ArrayList<>();
     private int tong_tien;
+    private String trang_thai;
 
     public Hoa_Don() {
     }
 
-    public Hoa_Don(String id, String id_user, String sdt, String dia_chi, ArrayList<Items> arr_items, int tong_tien) {
+    public Hoa_Don(String id, String id_user, String sdt, String dia_chi, ArrayList<Items> arr_items, int tong_tien, String trang_thai) {
         this.id = id;
         this.id_user = id_user;
         this.sdt = sdt;
         this.dia_chi = dia_chi;
         this.arr_items = arr_items;
         this.tong_tien = tong_tien;
+        this.trang_thai = trang_thai;
+    }
+
+    public String getTrang_thai() {
+        return trang_thai;
+    }
+
+    public void setTrang_thai(String trang_thai) {
+        this.trang_thai = trang_thai;
     }
 
     public String getSdt() {
