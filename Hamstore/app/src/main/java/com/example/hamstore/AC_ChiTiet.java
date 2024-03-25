@@ -50,7 +50,7 @@ public class AC_ChiTiet extends AppCompatActivity {
     //thêm gio hang của user
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     DatabaseReference data_chitiet;
-    DatabaseReference myRef = firebaseDatabase.getReference();
+    DatabaseReference data_gio_hang = firebaseDatabase.getReference("Giỏ hàng");
     private Boolean stop_remove = false;
     private Boolean check_trung = false;
     Button btn_them_vao_gio_hang;
@@ -161,7 +161,7 @@ public class AC_ChiTiet extends AppCompatActivity {
     }
     private void them_vao_gio_hang(){
 
-        myRef.child(gio_hang_tai_khoan).addValueEventListener(new ValueEventListener() {
+        data_gio_hang.child(gio_hang_tai_khoan).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -171,7 +171,7 @@ public class AC_ChiTiet extends AppCompatActivity {
                         if(item.getId().equals(item_bundle.getId())){
                             check_trung = true;
                             int tang_sl = item.getSo_luong() +1;
-                            myRef.child(gio_hang_tai_khoan).child(item_bundle.getId()).child("so_luong").setValue(tang_sl);
+                            data_gio_hang.child(gio_hang_tai_khoan).child(item_bundle.getId()).child("so_luong").setValue(tang_sl);
                         }
                     }
                 }
@@ -189,7 +189,7 @@ public class AC_ChiTiet extends AppCompatActivity {
         //nếu item chưa có trong giỏ hàng
         if(check_trung == false){
             //add item vào giỏ hàng
-            myRef.child(gio_hang_tai_khoan).child(item_bundle.getId()).setValue(item_bundle);
+            data_gio_hang.child(gio_hang_tai_khoan).child(item_bundle.getId()).setValue(item_bundle);
         }
         //reset lại boolean check_trung
         check_trung = false;

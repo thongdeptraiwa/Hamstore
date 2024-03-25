@@ -110,6 +110,8 @@ public class AC_dang_nhap extends AppCompatActivity {
                         User user = snapshot.getValue(User.class);
                         //dang nhap thanh cong
                         if(user.getTai_khoan().equals(inputEdit_tai_khoan.getText().toString().trim()) && user.getMat_khau().equals(inputEdit_mat_khau.getText().toString().trim())){
+                            //reset lại mật khẩu
+                            inputEdit_mat_khau.setText("");
                             // check role
                             if(user.getRole() == 0){
                                 Intent intent_user = new Intent(AC_dang_nhap.this,TrangChu.class);

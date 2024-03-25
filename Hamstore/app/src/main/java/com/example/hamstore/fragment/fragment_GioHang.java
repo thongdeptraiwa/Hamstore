@@ -65,7 +65,7 @@ public class fragment_GioHang extends Fragment {
         tv_tong_tien=view.findViewById(R.id.tv_tong_tien);
         btn_Thanh_toan=view.findViewById(R.id.btn_Thanh_toan);
         gio_hang_tai_khoan = "gio_hang_"+tai_khoan;
-        myRef = firebaseDatabase.getReference(gio_hang_tai_khoan);
+        myRef = firebaseDatabase.getReference("Giỏ hàng").child(gio_hang_tai_khoan);
 
         //nhấn rác hết
         img_khung_rac_all.setOnClickListener(new View.OnClickListener() {

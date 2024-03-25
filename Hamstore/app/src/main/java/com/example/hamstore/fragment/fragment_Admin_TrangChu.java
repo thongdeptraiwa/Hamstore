@@ -38,7 +38,7 @@ public class fragment_Admin_TrangChu extends Fragment {
         btn_san_pham.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                trangChuAdmin.chuyen_fragment_admin_san_pham();
+                trangChuAdmin.chuyen_fragment_admin_tablayout_san_pham();
             }
         });
         btn_nguoi_dung.setOnClickListener(new View.OnClickListener() {
@@ -50,7 +50,7 @@ public class fragment_Admin_TrangChu extends Fragment {
         btn_hoa_don.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                trangChuAdmin.chuyen_fragment_admin_hoa_don();
+                trangChuAdmin.chuyen_fragment_admin_tablayout_hoa_don();
             }
         });
 

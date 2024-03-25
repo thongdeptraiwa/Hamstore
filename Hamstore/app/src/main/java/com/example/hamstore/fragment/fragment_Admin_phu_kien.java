@@ -359,19 +359,19 @@ public class fragment_Admin_phu_kien extends Fragment {
                 holder.tv_ten_dai.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        dialog_chinh_sua_chi_tiet(model.getId(),model.getSrcImg(), model.getTen_ngan(), model.getTen_dai(), model.getGia(), model.getSo_luong_trong_kho(),model.getMieu_ta());
+                        dialog_chinh_sua_chi_tiet(model);
                     }
                 });
                 holder.tv_gia.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        dialog_chinh_sua_chi_tiet(model.getId(),model.getSrcImg(), model.getTen_ngan(), model.getTen_dai(), model.getGia(), model.getSo_luong_trong_kho(),model.getMieu_ta());
+                        dialog_chinh_sua_chi_tiet(model);
                     }
                 });
                 holder.img.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        dialog_chinh_sua_chi_tiet(model.getId(),model.getSrcImg(), model.getTen_ngan(), model.getTen_dai(), model.getGia(), model.getSo_luong_trong_kho(),model.getMieu_ta());
+                        dialog_chinh_sua_chi_tiet(model);
                     }
                 });
 
@@ -399,7 +399,7 @@ public class fragment_Admin_phu_kien extends Fragment {
         }
     }
     //dialog chỉnh sửa và chi tiết
-    private void dialog_chinh_sua_chi_tiet(String id,String src_img,String ten_ngan,String ten_dai,int gia,int so_luong_trong_kho,String mieu_ta){
+    private void dialog_chinh_sua_chi_tiet(Items sp){
 
 
         //tạo dialog
@@ -423,21 +423,21 @@ public class fragment_Admin_phu_kien extends Fragment {
 
         //chi tiết
         //img
-        if(src_img.length()<40){
-            String imgName = src_img;
+        if(sp.getSrcImg().length()<40){
+            String imgName = sp.getSrcImg();
             //đổi string thành int (R.drawable.name)
             int imgId = c.getResources().getIdentifier(imgName, "drawable", c.getPackageName());
             img.setImageResource(imgId);
         }else {
-            Glide.with(c).load(src_img).into(img);
+            Glide.with(c).load(sp.getSrcImg()).into(img);
 
         }
         //text
-        inputEdit_ten_ngan.setText(ten_ngan);
-        inputEdit_ten_dai.setText(ten_dai);
-        inputEdit_gia.setText(String.valueOf(gia));
-        inputEdit_so_luong_trong_kho.setText(String.valueOf(so_luong_trong_kho));
-        inputEdit_mieu_ta.setText(mieu_ta);
+        inputEdit_ten_ngan.setText(sp.getTen_ngan());
+        inputEdit_ten_dai.setText(sp.getTen_dai());
+        inputEdit_gia.setText(String.valueOf(sp.getGia()));
+        inputEdit_so_luong_trong_kho.setText(String.valueOf(sp.getSo_luong_trong_kho()));
+        inputEdit_mieu_ta.setText(sp.getMieu_ta());
 
 
         //nhấn
@@ -492,7 +492,7 @@ public class fragment_Admin_phu_kien extends Fragment {
                             mountainsRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
-                                    src_img_tam(uri,id);
+                                    src_img_tam(uri, sp.getId());
                                 }
                             });
 
@@ -500,11 +500,11 @@ public class fragment_Admin_phu_kien extends Fragment {
                     });
 
                 }
-                data.child(id).child("ten_ngan").setValue(inputEdit_ten_ngan.getText().toString().trim());
-                data.child(id).child("ten_dai").setValue(inputEdit_ten_dai.getText().toString().trim());
-                data.child(id).child("gia").setValue(Integer.parseInt(inputEdit_gia.getText().toString().trim()));
-                data.child(id).child("so_luong_trong_kho").setValue(Integer.parseInt(inputEdit_so_luong_trong_kho.getText().toString().trim()));
-                data.child(id).child("mieu_ta").setValue(inputEdit_mieu_ta.getText().toString().trim());
+                data.child(sp.getId()).child("ten_ngan").setValue(inputEdit_ten_ngan.getText().toString().trim());
+                data.child(sp.getId()).child("ten_dai").setValue(inputEdit_ten_dai.getText().toString().trim());
+                data.child(sp.getId()).child("gia").setValue(Integer.parseInt(inputEdit_gia.getText().toString().trim()));
+                data.child(sp.getId()).child("so_luong_trong_kho").setValue(Integer.parseInt(inputEdit_so_luong_trong_kho.getText().toString().trim()));
+                data.child(sp.getId()).child("mieu_ta").setValue(inputEdit_mieu_ta.getText().toString().trim());
                 //tắc dialog
                 dialog.dismiss();
 

@@ -62,33 +62,13 @@ public class fragment_Thong_tin extends Fragment {
         tv_dang_xuat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(c, AC_dang_nhap.class));
-                trangChu.dang_xuat();
+                dialog_thong_bao_dang_xuat();
             }
         });
         img_dang_xuat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //tạo dialog thông báo đăng xuat
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(c);
-                alertDialogBuilder.setTitle("Thông Báo!");
-                alertDialogBuilder.setMessage("Bạn có chắc muốn đăng xuất không?");
-                alertDialogBuilder.setCancelable(false);
-                alertDialogBuilder.setPositiveButton("Đồng Ý", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        startActivity(new Intent(c, AC_dang_nhap.class));
-                        trangChu.dang_xuat();
-                    }
-                });
-                alertDialogBuilder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-                AlertDialog alertDialog = alertDialogBuilder.create();
-                alertDialog.show();
+                dialog_thong_bao_dang_xuat();
             }
         });
 
@@ -119,6 +99,28 @@ public class fragment_Thong_tin extends Fragment {
                 Log.w("DEUBG", "Failed read realtime", error.toException());
             }
         });
+    }
+    private void dialog_thong_bao_dang_xuat(){
+        //tạo dialog thông báo đăng xuat
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(c);
+        alertDialogBuilder.setTitle("Thông Báo!");
+        alertDialogBuilder.setMessage("Bạn có chắc muốn đăng xuất không?");
+        alertDialogBuilder.setCancelable(false);
+        alertDialogBuilder.setPositiveButton("Đồng Ý", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                startActivity(new Intent(c, AC_dang_nhap.class));
+                trangChu.dang_xuat();
+            }
+        });
+        alertDialogBuilder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 
 }

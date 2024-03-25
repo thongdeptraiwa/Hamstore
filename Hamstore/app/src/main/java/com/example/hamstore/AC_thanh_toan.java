@@ -48,7 +48,7 @@ public class AC_thanh_toan extends AppCompatActivity {
     TextInputEditText inputEdit_sdt,inputEdit_dia_chi;
     RecyclerView recyclerView;
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    DatabaseReference data_gio_hang_tai_khoan,data_remove,data_tang_sl_da_mua,data_hoa_don;
+    DatabaseReference data_gio_hang_tai_khoan,data_tang_sl_da_mua,data_hoa_don;
     private Boolean stop_remove = false;
     private final String key_tai_khoan = "tai_khoan";
     String tai_khoan;
@@ -86,7 +86,7 @@ public class AC_thanh_toan extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         tv_tong_tien = findViewById(R.id.tv_tong_tien);
         gio_hang_tai_khoan = "gio_hang_"+tai_khoan;
-        data_gio_hang_tai_khoan = firebaseDatabase.getReference(gio_hang_tai_khoan);
+        data_gio_hang_tai_khoan = firebaseDatabase.getReference("Giỏ hàng").child(gio_hang_tai_khoan);
         data_tang_sl_da_mua = firebaseDatabase.getReference();
         data_hoa_don = firebaseDatabase.getReference("Hóa đơn");
 
@@ -368,9 +368,7 @@ public class AC_thanh_toan extends AppCompatActivity {
     //xóa item đã thanh toán
     private void read_remove_data() {
 
-        data_remove = firebaseDatabase.getReference(gio_hang_tai_khoan);
-
-        data_remove.addValueEventListener(new ValueEventListener() {
+        data_gio_hang_tai_khoan.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -379,7 +377,7 @@ public class AC_thanh_toan extends AppCompatActivity {
                         Items item = snapshot.getValue(Items.class);
                         if(item.getCheckbox() == 1){
                             //xóa trong giỏ hàng
-                            data_remove.child(item.getId()).removeValue();
+                            data_gio_hang_tai_khoan.child(item.getId()).removeValue();
                             //tăng số lượng đã mua
                             int tang_sl_da_mua =  item.getSo_luong_da_mua() + item.getSo_luong();
                             data_tang_sl_da_mua.child(item.getLoai()).child(item.getId()).child("so_luong_da_mua").setValue(tang_sl_da_mua);
