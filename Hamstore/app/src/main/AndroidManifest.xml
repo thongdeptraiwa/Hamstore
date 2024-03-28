@@ -17,25 +17,28 @@
         tools:replace="android:theme"
         tools:targetApi="31">
         <activity
-            android:name=".TrangChu_Admin"
+            android:name=".Activity.Admin.TrangChu_Admin"
             android:exported="false" />
         <activity
-            android:name=".AC_thanh_toan"
+            android:name=".Activity.Users.AC_thanh_toan"
             android:exported="false" />
         <activity
-            android:name=".AC_dang_ki"
-            android:exported="true" />
+            android:name=".Activity.Login.AC_dang_ki"
+            android:exported="false" />
         <activity
-            android:name=".AC_dang_nhap"
-            android:exported="true" />
+            android:name=".Activity.Login.AC_dang_nhap"
+            android:exported="false" />
         <activity
-            android:name=".TrangChu"
-            android:exported="true" />
+            android:name=".Activity.Login.AC_quen_mat_khau"
+            android:exported="false" />
         <activity
-            android:name=".AC_ChiTiet"
-            android:exported="true" />
+            android:name=".Activity.Users.TrangChu"
+            android:exported="false" />
         <activity
-            android:name=".AC_Chao"
+            android:name=".Activity.Users.AC_ChiTiet"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.Login.AC_Chao"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

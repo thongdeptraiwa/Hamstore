@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Activity.Login.AC_dang_ki"
     android:padding="30dp"
     >
+
     <ImageView
         android:id="@+id/img_back"
         android:layout_width="50dp"
@@ -19,19 +19,22 @@
         android:layout_width="match_parent"
         android:layout_height="250dp"
         app:srcCompat="@drawable/logo_hamstore" />
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Đăng kí"
+        android:text="Quên mật khẩu"
         android:textSize="29dp"
         android:textStyle="bold"
         android:gravity="center"
         />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         app:boxStrokeColor="#43A047"
         app:endIconMode="clear_text"
         app:hintTextColor="#43A047"
@@ -46,52 +49,14 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:boxStrokeColor="#43A047"
-        app:endIconMode="password_toggle"
-        app:hintTextColor="#43A047"
-        >
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/inputEdit_mat_khau_1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Mật khẩu"
-            android:inputType="textPassword" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:endIconMode="password_toggle"
-        app:boxStrokeColor="#43A047"
-        app:hintTextColor="#43A047"
-        >
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/inputEdit_mat_khau_2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Nhập lại mật khẩu"
-            android:inputType="textPassword" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
     <Button
-        android:id="@+id/btn_tao_tai_khoan"
+        android:id="@+id/btn_lay_mat_khau"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/custom_btn_xanh"
         app:backgroundTint="@null"
-        android:text="Tạo tài khoản"
+        android:text="Lấy mật khẩu"
         android:layout_marginTop="36dp"
         />
-
-
 
 </LinearLayout>

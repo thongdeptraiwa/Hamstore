@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="340dp"
-    android:layout_height="500dp">
+    android:layout_height="340dp">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Thêm Sản Phẩm"
+            android:text="Đổi mật khẩu"
             android:textColor="#00897B"
             android:textSize="30sp"
             android:textStyle="bold" />
@@ -26,7 +26,7 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="400dp"
+            android:layout_height="wrap_content"
             >
 
             <LinearLayout
@@ -35,47 +35,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <LinearLayout
-                    android:id="@+id/linearLayout1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
 
-                    <ImageView
-                        android:id="@+id/img"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginBottom="5dp"
-                        android:src="@drawable/img_sp_null" />
-                    <LinearLayout
-                        android:id="@+id/linearLayout4"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <Button
-                            android:id="@+id/btn_chup_anh"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="20dp"
-                            android:text="Chụp ảnh" />
-
-                        <Button
-                            android:id="@+id/btn_vao_thu_vien"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="20dp"
-                            android:text="Chọn ảnh" />
-
-                    </LinearLayout>
-
-
-                </LinearLayout>
 
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -83,26 +43,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginRight="20dp"
-                    app:boxStrokeColor="#43A047"
-                    app:endIconMode="clear_text"
-                    app:hintTextColor="#43A047">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/inputEdit_ten_ngan"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Tên ngắn"
-                        android:inputType="text" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/textInputLayout2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="20dp"
                     app:boxStrokeColor="#43A047"
@@ -110,33 +50,14 @@
                     app:hintTextColor="#43A047">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/inputEdit_ten_dai"
+                        android:id="@+id/inputEdit_mat_khau_cu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Tên dài"
+                        android:hint="Mật khẩu cũ"
                         android:inputType="text" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/textInputLayout3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="20dp"
-                    app:boxStrokeColor="#43A047"
-                    app:endIconMode="clear_text"
-                    app:hintTextColor="#43A047">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/inputEdit_gia"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Giá"
-                        android:inputType="number" />
-
-                </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/textInputLayout4"
@@ -150,16 +71,16 @@
                     app:hintTextColor="#43A047">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/inputEdit_so_luong_trong_kho"
+                        android:id="@+id/inputEdit_mat_khau_moi_1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Số lương trong kho"
-                        android:inputType="number" />
+                        android:hint="Mật khẩu mới"
+                        android:inputType="text" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/textInputLayout5"
+                    android:id="@+id/textInputLayout6"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
@@ -171,14 +92,15 @@
                     app:hintTextColor="#43A047">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/inputEdit_mieu_ta"
+                        android:id="@+id/inputEdit_mat_khau_moi_2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Miêu tả sản phẩm"
-                        android:inputType="textMultiLine"
-                        android:minLines="5" />
+                        android:hint="Nhập lại mật khẩu mới"
+                        android:inputType="text" />
 
                 </com.google.android.material.textfield.TextInputLayout>
+
+
 
             </LinearLayout>
 
@@ -192,14 +114,15 @@
             android:weightSum="2">
 
             <Button
-                android:id="@+id/btn_them"
+                android:id="@+id/btn_doi_mat_khau"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/custom_btn_xanh"
-                android:text="Thêm"
+                android:text="Đổi mật khẩu"
                 app:backgroundTint="@null" />
+
 
             <Button
                 android:id="@+id/btn_huy"

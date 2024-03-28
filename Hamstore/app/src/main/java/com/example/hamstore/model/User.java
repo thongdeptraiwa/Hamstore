@@ -7,23 +7,41 @@ public class User implements Serializable {
 
     private String tai_khoan;
     private String mat_khau;
-    private String gmail;
+    private String img;
     private String ho_ten;
-    private String ngay_sinh;
+    private String gmail;
+    private String sdt;
     private String dia_chi;
     private int role;
 
     public User() {
     }
 
-    public User(String tai_khoan, String mat_khau, String gmail, String ho_ten, String ngay_sinh, String dia_chi, int role) {
+    public User(String tai_khoan, String mat_khau, String img, String ho_ten, String gmail, String sdt, String dia_chi, int role) {
         this.tai_khoan = tai_khoan;
         this.mat_khau = mat_khau;
-        this.gmail = gmail;
+        this.img = img;
         this.ho_ten = ho_ten;
-        this.ngay_sinh = ngay_sinh;
+        this.gmail = gmail;
+        this.sdt = sdt;
         this.dia_chi = dia_chi;
         this.role = role;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public String getSdt() {
+        return sdt;
+    }
+
+    public void setSdt(String sdt) {
+        this.sdt = sdt;
     }
 
     public int getRole() {
@@ -40,14 +58,6 @@ public class User implements Serializable {
 
     public void setHo_ten(String ho_ten) {
         this.ho_ten = ho_ten;
-    }
-
-    public String getNgay_sinh() {
-        return ngay_sinh;
-    }
-
-    public void setNgay_sinh(String ngay_sinh) {
-        this.ngay_sinh = ngay_sinh;
     }
 
     public String getDia_chi() {

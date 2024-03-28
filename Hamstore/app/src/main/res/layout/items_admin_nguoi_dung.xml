@@ -19,22 +19,27 @@
             android:id="@+id/tv_tai_khoan"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_weight="4"
+            android:layout_weight="1"
             android:gravity="center"
             android:text="9tN7CxiGHbgkGBS0rszgGo5If2e2"
-            android:paddingLeft="5dp"
             android:textColor="#000000"
-            android:textSize="18dp"
+            android:textSize="16dp"
             android:textStyle="bold"
             />
 
-        <ImageView
-            android:id="@+id/img_khung_rac"
-            android:layout_width="60dp"
-            android:layout_height="35dp"
-            android:layout_weight="1"
-            android:src="@drawable/ic_trash_gray"
+        <TextView
+            android:id="@+id/tv_trang_thai"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_weight="4"
+            android:gravity="center"
+            android:text="Mở"
+            android:textColor="#00897B"
+            android:textSize="16dp"
+            android:textStyle="bold"
             />
+
+
 
     </LinearLayout>
 

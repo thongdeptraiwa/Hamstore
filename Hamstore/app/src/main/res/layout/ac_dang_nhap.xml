@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".AC_dang_nhap"
+    tools:context=".Activity.Login.AC_dang_nhap"
     android:padding="30dp"
     >
 
@@ -72,7 +72,7 @@
         />
 
     <TextView
-        android:id="@+id/txtquenmk"
+        android:id="@+id/tv_quen_mat_khau"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Quên mật khẩu?"

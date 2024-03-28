@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Thêm Sản Phẩm"
+            android:text="Thông tin"
             android:textColor="#00897B"
             android:textSize="30sp"
             android:textStyle="bold" />
@@ -39,40 +39,16 @@
                     android:id="@+id/linearLayout1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/img"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginBottom="5dp"
-                        android:src="@drawable/img_sp_null" />
-                    <LinearLayout
-                        android:id="@+id/linearLayout4"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:layout_gravity="center"
+                        android:src="#656464" />
 
-                        <Button
-                            android:id="@+id/btn_chup_anh"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="20dp"
-                            android:text="Chụp ảnh" />
-
-                        <Button
-                            android:id="@+id/btn_vao_thu_vien"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="20dp"
-                            android:text="Chọn ảnh" />
-
-                    </LinearLayout>
 
 
                 </LinearLayout>
@@ -83,17 +59,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginRight="20dp"
                     app:boxStrokeColor="#43A047"
                     app:endIconMode="clear_text"
                     app:hintTextColor="#43A047">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/inputEdit_ten_ngan"
+                        android:id="@+id/inputEdit_tai_khoan"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Tên ngắn"
+                        android:hint="Tài khoản"
+                        android:focusable="false"
                         android:inputType="text" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -110,10 +87,11 @@
                     app:hintTextColor="#43A047">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/inputEdit_ten_dai"
+                        android:id="@+id/inputEdit_ho_ten"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Tên dài"
+                        android:hint="Họ tên"
+                        android:focusable="false"
                         android:inputType="text" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -130,10 +108,11 @@
                     app:hintTextColor="#43A047">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/inputEdit_gia"
+                        android:id="@+id/inputEdit_gmail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Giá"
+                        android:hint="Gmail"
+                        android:focusable="false"
                         android:inputType="number" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -150,10 +129,32 @@
                     app:hintTextColor="#43A047">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/inputEdit_so_luong_trong_kho"
+                        android:id="@+id/inputEdit_sdt"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Số lương trong kho"
+                        android:hint="Số điện thoại"
+                        android:focusable="false"
+                        android:inputType="number" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayout6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="20dp"
+                    app:boxStrokeColor="#43A047"
+                    app:endIconMode="clear_text"
+                    app:hintTextColor="#43A047">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/inputEdit_dia_chi"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Địa chỉ"
+                        android:focusable="false"
                         android:inputType="number" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -171,13 +172,13 @@
                     app:hintTextColor="#43A047">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/inputEdit_mieu_ta"
+                        android:id="@+id/inputEdit_trang_thai"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Miêu tả sản phẩm"
-                        android:inputType="textMultiLine"
-                        android:minLines="5" />
-
+                        android:hint="Trạng thái"
+                        android:focusable="false"
+                        android:textColor="#00897B"
+                        android:inputType="number" />
                 </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
@@ -192,14 +193,15 @@
             android:weightSum="2">
 
             <Button
-                android:id="@+id/btn_them"
+                android:id="@+id/btn_khoa_tai_khoan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_weight="1"
-                android:background="@drawable/custom_btn_xanh"
-                android:text="Thêm"
+                android:background="@drawable/custom_btn_do"
+                android:text="Khóa tài khoản"
                 app:backgroundTint="@null" />
+
 
             <Button
                 android:id="@+id/btn_huy"

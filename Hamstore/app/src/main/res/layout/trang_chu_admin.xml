@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#E3E3E3"
-    tools:context=".TrangChu_Admin"
+    tools:context=".Activity.Admin.TrangChu_Admin"
     android:id="@+id/drawerLayout">
     <LinearLayout
         android:layout_width="match_parent"
