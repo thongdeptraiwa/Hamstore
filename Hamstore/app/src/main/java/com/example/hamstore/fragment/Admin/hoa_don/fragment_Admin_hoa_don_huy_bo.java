@@ -1,11 +1,10 @@
-package com.example.hamstore.fragment.Admin;
+package com.example.hamstore.fragment.Admin.hoa_don;
 
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +30,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
 
-public class fragment_Admin_hoa_don_chua_thanh_toan extends Fragment {
+public class fragment_Admin_hoa_don_huy_bo extends Fragment {
     Context c;
     RecyclerView recyclerView;
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -75,7 +74,7 @@ public class fragment_Admin_hoa_don_chua_thanh_toan extends Fragment {
             protected void onBindViewHolder(ViewHolder holder, int position, Hoa_Don model) {
 
                 //đã thanh toán
-                if(model.getTrang_thai().equals("Chưa thanh toán")) {
+                if(model.getTrang_thai().equals("Hủy bỏ")) {
                     //hien thi
                     holder.tv_id.setText("ID: "+model.getId());
                     holder.tv_tai_khoan.setText("User: "+model.getId_user());
@@ -88,8 +87,8 @@ public class fragment_Admin_hoa_don_chua_thanh_toan extends Fragment {
 
                     //trang thái
                     holder.tv_trang_thai.setText(model.getTrang_thai());
-                    //chưa thanh toán đổi sang màu đỏ
-                    if(model.getTrang_thai().equals("Chưa thanh toán")){
+                    //Hủy và Hoàn trả đổi sang màu đỏ
+                    if(model.getTrang_thai().equals("Hủy bỏ") || model.getTrang_thai().equals("Hoàn trả")){
                         holder.tv_trang_thai.setTextColor(Color.parseColor("#E53935"));
                     }
 
@@ -97,7 +96,7 @@ public class fragment_Admin_hoa_don_chua_thanh_toan extends Fragment {
                     holder.itemView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            dialog_chua_thanh_toan(model);
+                            dialog_da_thanh_toan(model);
                         }
                     });
                 }else {
@@ -128,19 +127,19 @@ public class fragment_Admin_hoa_don_chua_thanh_toan extends Fragment {
         }
     }
 
-    private void dialog_chua_thanh_toan(Hoa_Don hoaDon){
+    private void dialog_da_thanh_toan(Hoa_Don hoaDon){
 
         //tạo dialog
         Dialog dialog = new Dialog((Activity)c);
-        dialog.setContentView(R.layout.dialog_hoa_don_chua_thanh_toan);
+        dialog.setContentView(R.layout.dialog_hoa_don_thoat);
         dialog.setCanceledOnTouchOutside(false);//nhấn ra ngoài ko tắc dialog
         dialog.show();
 
         //ánh xạ thông tin NV
-        Button btn_da_thanh_toan = dialog.findViewById(R.id.btn_da_thanh_toan);
-        Button btn_huy = dialog.findViewById(R.id.btn_huy);
+        Button btn_thoat = dialog.findViewById(R.id.btn_thoat);
         TextInputEditText inputEdit_id = dialog.findViewById(R.id.inputEdit_id);
         TextInputEditText inputEdit_nguoi_mua = dialog.findViewById(R.id.inputEdit_nguoi_mua);
+        TextInputEditText inputEdit_thoi_gian = dialog.findViewById(R.id.inputEdit_thoi_gian);
         TextInputEditText inputEdit_sdt = dialog.findViewById(R.id.inputEdit_sdt);
         TextInputEditText inputEdit_dia_chi = dialog.findViewById(R.id.inputEdit_dia_chi);
         RecyclerView recyclerView = dialog.findViewById(R.id.recyclerView);
@@ -151,11 +150,15 @@ public class fragment_Admin_hoa_don_chua_thanh_toan extends Fragment {
         //text
         inputEdit_id.setText(hoaDon.getId());
         inputEdit_nguoi_mua.setText(hoaDon.getId_user());
+        inputEdit_thoi_gian.setText(hoaDon.getThoi_gian());
         inputEdit_sdt.setText(String.valueOf(hoaDon.getSdt()));
         inputEdit_dia_chi.setText(String.valueOf(hoaDon.getDia_chi()));
 
         inputEdit_tong_tien.setText(String.valueOf(hoaDon.getTong_tien()));
         inputEdit_trang_thai.setText(String.valueOf(hoaDon.getTrang_thai()));
+
+        //đổi màu trạng thái
+        inputEdit_trang_thai.setTextColor(Color.parseColor("#E53935"));
 
 
         //recyclerView
@@ -167,14 +170,7 @@ public class fragment_Admin_hoa_don_chua_thanh_toan extends Fragment {
 
 
         //nhấn
-        btn_da_thanh_toan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                data.child(hoaDon.getId()).child("trang_thai").setValue("Đã thanh toán");
-                dialog.dismiss();
-            }
-        });
-        btn_huy.setOnClickListener(new View.OnClickListener() {
+        btn_thoat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();

@@ -1,4 +1,4 @@
-package com.example.hamstore.fragment.Admin;
+package com.example.hamstore.fragment.Admin.san_pham;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -52,11 +52,11 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
 
-public class fragment_Admin_hamster_robo extends Fragment {
+public class fragment_Admin_thuc_an extends Fragment {
     Context c;
     RecyclerView recyclerView;
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    DatabaseReference data = firebaseDatabase.getReference("Hamster Robo");
+    DatabaseReference data = firebaseDatabase.getReference("Thức ăn");
     //thêm
     FloatingActionButton floatAdd;
     int REQUEST_CODE_IMAGE = 1;
@@ -64,7 +64,7 @@ public class fragment_Admin_hamster_robo extends Fragment {
     public ImageView img;
     public Boolean check_img=false;
     FirebaseStorage storage = FirebaseStorage.getInstance();
-    StorageReference storageRef = storage.getReference("img_hamster_robo");
+    StorageReference storageRef = storage.getReference("img_thuc_an");
     //truy cập thư viện ảnh
     private final ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
         @Override
@@ -80,6 +80,7 @@ public class fragment_Admin_hamster_robo extends Fragment {
             }
         }
     });
+
 
     @Nullable
     @Override
@@ -193,8 +194,10 @@ public class fragment_Admin_hamster_robo extends Fragment {
             }
         });
 
+
         return view;
     }
+
     public void them_sp(Uri uri,String ten_ngan,String ten_dai,int gia,String mieu_ta,int so_luong_trong_kho){
         //img
         Log.d("link_img",uri.toString()+"");
@@ -208,7 +211,7 @@ public class fragment_Admin_hamster_robo extends Fragment {
         int tong_sao = 0;
         int so_lan_danh_gia = 0;
         int checkbox = 0;
-        String loai = "Hamster Robo";
+        String loai = "Thức ăn";
 
         //Items(id,
         //      ten_ngan,
@@ -262,7 +265,6 @@ public class fragment_Admin_hamster_robo extends Fragment {
 
         super.onActivityResult(requestCode, resultCode, data);
     }
-
 
     @Override
     public void onStart() {

@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -36,7 +37,9 @@ import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -123,7 +126,7 @@ public class AC_thanh_toan extends AppCompatActivity {
                     alertDialog.show();
                 }else {
                     stop_remove = true;
-                    tao_hoa_don(id_hd,inputEdit_sdt.getText().toString(),inputEdit_dia_chi.getText().toString(),"Chưa thanh toán");
+                    tao_hoa_don(id_hd,inputEdit_sdt.getText().toString(),inputEdit_dia_chi.getText().toString(),"Chờ xác nhận");
                     read_remove_data();
                     finish();
                 }
@@ -232,7 +235,7 @@ public class AC_thanh_toan extends AppCompatActivity {
                             alertDialog.show();
                         }else {
                             stop_remove = true;
-                            tao_hoa_don(id_hd,inputEdit_sdt.getText().toString(),inputEdit_dia_chi.getText().toString(),"Đã thanh toán");
+                            tao_hoa_don(id_hd,inputEdit_sdt.getText().toString(),inputEdit_dia_chi.getText().toString(),"Chờ xác nhận");
                             read_remove_data();
                             finish();
                         }
@@ -404,7 +407,23 @@ public class AC_thanh_toan extends AppCompatActivity {
     }
     private void tao_hoa_don(String id,String sdt,String dia_chi,String trang_thai){
 
-        data_hoa_don.child(id).setValue(new Hoa_Don(id,tai_khoan,sdt,dia_chi,ds_sp_thanh_toan,tong_tien,trang_thai));
+        Calendar calendar = Calendar.getInstance();
+
+        String giay = String.valueOf(calendar.get(Calendar.SECOND));
+        String phut = String.valueOf(calendar.get(Calendar.MINUTE));
+        String gio = String.valueOf(calendar.get(Calendar.HOUR_OF_DAY));
+
+        String ngay = String.valueOf(calendar.get(Calendar.DAY_OF_MONTH));
+        //String thang = String.valueOf(calendar.get(Calendar.MONTH));// Calendar bị lỗi  tháng
+        String nam = String.valueOf(calendar.get(Calendar.YEAR));
+
+        //tháng
+        LocalDate localDate = LocalDate.now();
+        String thang = String.valueOf(localDate.getMonthValue());
+
+        String thoi_gian = giay+":"+phut+":"+gio+" "+ngay+"/"+thang+"/"+nam;
+
+        data_hoa_don.child(id).setValue(new Hoa_Don(id,tai_khoan,thoi_gian,sdt,dia_chi,ds_sp_thanh_toan,tong_tien,trang_thai));
 
     }
 }

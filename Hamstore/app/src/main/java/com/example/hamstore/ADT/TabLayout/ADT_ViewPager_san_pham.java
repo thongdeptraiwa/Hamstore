@@ -7,8 +7,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.example.hamstore.fragment.Admin.TabLayout.fragment_Admin_TabLayout_hamster;
-import com.example.hamstore.fragment.Admin.fragment_Admin_phu_kien;
-import com.example.hamstore.fragment.Admin.fragment_Admin_thuc_an;
+import com.example.hamstore.fragment.Admin.san_pham.fragment_Admin_phu_kien;
+import com.example.hamstore.fragment.Admin.san_pham.fragment_Admin_thuc_an;
 
 public class ADT_ViewPager_san_pham extends FragmentStatePagerAdapter {
     public ADT_ViewPager_san_pham(@NonNull FragmentManager fm, int behavior) {

@@ -1,29 +1,17 @@
-package com.example.hamstore.fragment.Admin;
-
-import static android.app.Activity.RESULT_OK;
+package com.example.hamstore.fragment.Admin.nguoi_dung;
 
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -32,29 +20,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.hamstore.R;
-import com.example.hamstore.model.Items;
 import com.example.hamstore.model.User;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-
-import java.io.ByteArrayOutputStream;
 
 
-public class fragment_Admin_nguoi_dung_mo extends Fragment {
+public class fragment_Admin_nguoi_dung_khoa extends Fragment {
     Context c;
     RecyclerView recyclerView;
-
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     DatabaseReference data = firebaseDatabase.getReference("Users");
-
 
 
     @Nullable
@@ -99,23 +77,26 @@ public class fragment_Admin_nguoi_dung_mo extends Fragment {
             @Override
             protected void onBindViewHolder(ViewHolder holder, int position, User model) {
 
-                //Mở
-                if(model.getRole() != 0){
+                //khóa
+                if(model.getRole() == 0){
                     //hien thi
                     holder.tv_tai_khoan.setText(model.getTai_khoan());
-                    holder.tv_trang_thai.setText("Mở");
+                    holder.tv_trang_thai.setText("Khóa");
+                    //đổi màu đỏ
+                    holder.tv_trang_thai.setTextColor(Color.parseColor("#E53935"));
+                    //xem chi tiết
+                    holder.itemView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog_chi_tiet(model);
+                        }
+                    });
                 }else {
                     //ẩn holder
                     holder.itemView.setVisibility(View.GONE);
                     holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0,0));
                 }
-                //xem chi tiết
-                holder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog_chi_tiet(model);
-                    }
-                });
+
 
 
             }
@@ -137,17 +118,18 @@ public class fragment_Admin_nguoi_dung_mo extends Fragment {
             tv_trang_thai = itemView.findViewById(R.id.tv_trang_thai);
         }
     }
+
     private void dialog_chi_tiet(User user){
 
 
         //tạo dialog
         Dialog dialog = new Dialog((Activity)c);
-        dialog.setContentView(R.layout.dialog_chi_tiet_khoa_nguoi_dung);
+        dialog.setContentView(R.layout.dialog_chi_tiet_mo_khoa_nguoi_dung);
         dialog.setCanceledOnTouchOutside(false);//nhấn ra ngoài ko tắc dialog
         dialog.show();
 
         //ánh xạ thông tin NV
-        Button btn_khoa_tai_khoan = dialog.findViewById(R.id.btn_khoa_tai_khoan);
+        Button btn_mo_khoa_tai_khoan = dialog.findViewById(R.id.btn_mo_khoa_tai_khoan);
         Button btn_huy = dialog.findViewById(R.id.btn_huy);
         ImageView img = dialog.findViewById(R.id.img);
         TextInputEditText inputEdit_tai_khoan = dialog.findViewById(R.id.inputEdit_tai_khoan);
@@ -188,16 +170,22 @@ public class fragment_Admin_nguoi_dung_mo extends Fragment {
         inputEdit_gmail.setText(String.valueOf(user.getGmail()));
         inputEdit_sdt.setText(String.valueOf(user.getSdt()));
         inputEdit_dia_chi.setText(user.getDia_chi());
-        inputEdit_trang_thai.setText("Mở");
+        inputEdit_trang_thai.setText("Khóa");
 
 
         //nhấn
-        btn_khoa_tai_khoan.setOnClickListener(new View.OnClickListener() {
+        btn_mo_khoa_tai_khoan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
 
-                data.child(user.getTai_khoan()).child("role").setValue(0);
+                if(user.getTai_khoan().length() > 25){
+                    //gg
+                    data.child(user.getTai_khoan()).child("role").setValue(2);
+                }else {
+                    //tài koản thường
+                    data.child(user.getTai_khoan()).child("role").setValue(1);
+                }
 
                 dialog.dismiss();
 
@@ -212,6 +200,5 @@ public class fragment_Admin_nguoi_dung_mo extends Fragment {
         });
 
     }
-
 
 }

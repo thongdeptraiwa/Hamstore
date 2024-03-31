@@ -105,6 +105,7 @@ public class AC_dang_nhap extends AppCompatActivity {
         rdi_gg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                flat_gg_login_thanh_cong = true;
                 googleSignIn();
             }
         });
@@ -240,7 +241,7 @@ public class AC_dang_nhap extends AppCompatActivity {
                         if (task.isSuccessful()){
                             FirebaseUser usergg = auth.getCurrentUser();
 
-                            flat_gg_login_thanh_cong=true;
+//                            flat_gg_login_thanh_cong=true;
                             //check data
                             data.child(key_users).addValueEventListener(new ValueEventListener() {
                                 @Override

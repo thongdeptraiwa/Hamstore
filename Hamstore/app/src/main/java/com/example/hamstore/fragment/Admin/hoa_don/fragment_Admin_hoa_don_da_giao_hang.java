@@ -1,4 +1,4 @@
-package com.example.hamstore.fragment.Admin;
+package com.example.hamstore.fragment.Admin.hoa_don;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -30,7 +30,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
 
-public class fragment_Admin_hoa_don_da_thanh_toan extends Fragment {
+public class fragment_Admin_hoa_don_da_giao_hang extends Fragment {
     Context c;
     RecyclerView recyclerView;
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -74,7 +74,7 @@ public class fragment_Admin_hoa_don_da_thanh_toan extends Fragment {
             protected void onBindViewHolder(ViewHolder holder, int position, Hoa_Don model) {
 
                 //đã thanh toán
-                if(model.getTrang_thai().equals("Đã thanh toán")) {
+                if(model.getTrang_thai().equals("Đã giao hàng")) {
                     //hien thi
                     holder.tv_id.setText("ID: "+model.getId());
                     holder.tv_tai_khoan.setText("User: "+model.getId_user());
@@ -87,8 +87,8 @@ public class fragment_Admin_hoa_don_da_thanh_toan extends Fragment {
 
                     //trang thái
                     holder.tv_trang_thai.setText(model.getTrang_thai());
-                    //chưa thanh toán đổi sang màu đỏ
-                    if(model.getTrang_thai().equals("Chưa thanh toán")){
+                    //Hủy và Hoàn trả đổi sang màu đỏ
+                    if(model.getTrang_thai().equals("Hủy bỏ") || model.getTrang_thai().equals("Hoàn trả")){
                         holder.tv_trang_thai.setTextColor(Color.parseColor("#E53935"));
                     }
 
@@ -96,7 +96,7 @@ public class fragment_Admin_hoa_don_da_thanh_toan extends Fragment {
                     holder.itemView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            dialog_da_thanh_toan(model);
+                            dialog_chua_thanh_toan(model);
                         }
                     });
                 }else {
@@ -127,18 +127,21 @@ public class fragment_Admin_hoa_don_da_thanh_toan extends Fragment {
         }
     }
 
-    private void dialog_da_thanh_toan(Hoa_Don hoaDon){
+    private void dialog_chua_thanh_toan(Hoa_Don hoaDon){
 
         //tạo dialog
         Dialog dialog = new Dialog((Activity)c);
-        dialog.setContentView(R.layout.dialog_hoa_don_da_thanh_toan);
+        dialog.setContentView(R.layout.dialog_hoa_don_do);
         dialog.setCanceledOnTouchOutside(false);//nhấn ra ngoài ko tắc dialog
         dialog.show();
 
         //ánh xạ thông tin NV
-        Button btn_huy = dialog.findViewById(R.id.btn_huy);
+        Button btn_xanh = dialog.findViewById(R.id.btn_xanh);
+        Button btn_do = dialog.findViewById(R.id.btn_do);
+        Button btn_thoat = dialog.findViewById(R.id.btn_thoat);
         TextInputEditText inputEdit_id = dialog.findViewById(R.id.inputEdit_id);
         TextInputEditText inputEdit_nguoi_mua = dialog.findViewById(R.id.inputEdit_nguoi_mua);
+        TextInputEditText inputEdit_thoi_gian = dialog.findViewById(R.id.inputEdit_thoi_gian);
         TextInputEditText inputEdit_sdt = dialog.findViewById(R.id.inputEdit_sdt);
         TextInputEditText inputEdit_dia_chi = dialog.findViewById(R.id.inputEdit_dia_chi);
         RecyclerView recyclerView = dialog.findViewById(R.id.recyclerView);
@@ -149,14 +152,19 @@ public class fragment_Admin_hoa_don_da_thanh_toan extends Fragment {
         //text
         inputEdit_id.setText(hoaDon.getId());
         inputEdit_nguoi_mua.setText(hoaDon.getId_user());
+        inputEdit_thoi_gian.setText(hoaDon.getThoi_gian());
         inputEdit_sdt.setText(String.valueOf(hoaDon.getSdt()));
         inputEdit_dia_chi.setText(String.valueOf(hoaDon.getDia_chi()));
 
         inputEdit_tong_tien.setText(String.valueOf(hoaDon.getTong_tien()));
         inputEdit_trang_thai.setText(String.valueOf(hoaDon.getTrang_thai()));
 
+        //đổi text btn
+        btn_xanh.setText("Hoàn thành");
+        btn_do.setText("Hoàn trả");
 
-        //recyclerView
+
+        //recyclerView các sp trong hóa đơn
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(c);
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -165,7 +173,21 @@ public class fragment_Admin_hoa_don_da_thanh_toan extends Fragment {
 
 
         //nhấn
-        btn_huy.setOnClickListener(new View.OnClickListener() {
+        btn_xanh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                data.child(hoaDon.getId()).child("trang_thai").setValue("Hoàn thành");
+                dialog.dismiss();
+            }
+        });
+        btn_do.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                data.child(hoaDon.getId()).child("trang_thai").setValue("Hoàn trả");
+                dialog.dismiss();
+            }
+        });
+        btn_thoat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();

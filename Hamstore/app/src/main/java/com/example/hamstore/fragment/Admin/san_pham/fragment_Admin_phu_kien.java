@@ -1,4 +1,4 @@
-package com.example.hamstore.fragment.Admin;
+package com.example.hamstore.fragment.Admin.san_pham;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -16,6 +16,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +35,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.hamstore.R;
 import com.example.hamstore.model.Items;
+import com.example.hamstore.model.User;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -48,23 +51,26 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.net.URI;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 
-public class fragment_Admin_thuc_an extends Fragment {
+public class fragment_Admin_phu_kien extends Fragment {
     Context c;
     RecyclerView recyclerView;
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    DatabaseReference data = firebaseDatabase.getReference("Thức ăn");
-    //thêm
+    DatabaseReference data = firebaseDatabase.getReference("Phụ kiện");
+    //Thêm
     FloatingActionButton floatAdd;
     int REQUEST_CODE_IMAGE = 1;
     //img chung cho 2 dialog
     public ImageView img;
     public Boolean check_img=false;
     FirebaseStorage storage = FirebaseStorage.getInstance();
-    StorageReference storageRef = storage.getReference("img_thuc_an");
+    StorageReference storageRef = storage.getReference("img_phu_kien");
     //truy cập thư viện ảnh
     private final ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
         @Override
@@ -80,7 +86,6 @@ public class fragment_Admin_thuc_an extends Fragment {
             }
         }
     });
-
 
     @Nullable
     @Override
@@ -115,6 +120,7 @@ public class fragment_Admin_thuc_an extends Fragment {
                 TextInputEditText inputEdit_so_luong_trong_kho = dialog.findViewById(R.id.inputEdit_so_luong_trong_kho);
                 TextInputEditText inputEdit_mieu_ta = dialog.findViewById(R.id.inputEdit_mieu_ta);
 
+
                 //nhấn
                 btn_chup_anh.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -126,16 +132,46 @@ public class fragment_Admin_thuc_an extends Fragment {
                 btn_vao_thu_vien.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
                         Intent intent = new Intent(Intent.ACTION_PICK);
                         intent.setType("image/*");
                         activityResultLauncher.launch(intent);
-
                     }
                 });
                 btn_them.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        //check
+                        //chưa chọn ảnh
+                        if(check_img==false){
+                            Toast.makeText(c, "Chưa chọn ảnh!", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        //ten
+                        if(inputEdit_ten_ngan.getText().toString().trim().isEmpty()){
+                            Toast.makeText(c, "Chưa nhập tên ngắn!", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        if(inputEdit_ten_dai.getText().toString().trim().isEmpty()){
+                            Toast.makeText(c, "Chưa nhập tên dài!", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        //gia
+                        if(inputEdit_gia.getText().toString().trim().isEmpty()){
+                            Toast.makeText(c, "Chưa nhập giá!", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        //so luong trong kho
+                        if(inputEdit_so_luong_trong_kho.getText().toString().trim().isEmpty()){
+                            Toast.makeText(c, "Chưa nhập số lượng trong kho!", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        //mieu ta
+                        if(inputEdit_mieu_ta.getText().toString().trim().isEmpty()){
+                            Toast.makeText(c, "Chưa nhập miêu tả!", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+
 
                         //tạo ten cho img
                         String ten_img = data.push().getKey();
@@ -173,6 +209,7 @@ public class fragment_Admin_thuc_an extends Fragment {
                                         them_sp(uri,ten_ngan,ten_dai,gia,mieu_ta,so_luong_trong_kho);
                                     }
                                 });
+
                                 //tắc dialog
                                 dialog.dismiss();
                                 check_img=false;
@@ -194,7 +231,6 @@ public class fragment_Admin_thuc_an extends Fragment {
             }
         });
 
-
         return view;
     }
 
@@ -211,7 +247,7 @@ public class fragment_Admin_thuc_an extends Fragment {
         int tong_sao = 0;
         int so_lan_danh_gia = 0;
         int checkbox = 0;
-        String loai = "Thức ăn";
+        String loai = "Phụ kiện";
 
         //Items(id,
         //      ten_ngan,
@@ -403,78 +439,98 @@ public class fragment_Admin_thuc_an extends Fragment {
         inputEdit_so_luong_trong_kho.setText(String.valueOf(sp.getSo_luong_trong_kho()));
         inputEdit_mieu_ta.setText(sp.getMieu_ta());
 
+//        //vô hiệu hóa edittext
+//        inputEdit_ten_ngan.setEnabled(false);
+//        inputEdit_ten_dai.setEnabled(false);
+//        inputEdit_gia.setEnabled(false);
+//        inputEdit_so_luong_trong_kho.setEnabled(false);
+//        inputEdit_mieu_ta.setEnabled(false);
+
 
         //nhấn
         btn_chup_anh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent,REQUEST_CODE_IMAGE);
+
+
+                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(intent,REQUEST_CODE_IMAGE);
+
+
             }
         });
         btn_vao_thu_vien.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_PICK);
-                intent.setType("image/*");
-                activityResultLauncher.launch(intent);
+
+
+                    Intent intent = new Intent(Intent.ACTION_PICK);
+                    intent.setType("image/*");
+                    activityResultLauncher.launch(intent);
+
+
             }
         });
+
         btn_chinh_sua.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                //chọn ảnh
-                if(check_img==true){
-                    //lưu ảnh lên storage
 
-                    //tạo ten cho img
-                    String ten_img = data.push().getKey();
-                    StorageReference mountainsRef = storageRef.child(ten_img+".png");
+                    //chọn ảnh
+                    if(check_img==true){
+                        //lưu ảnh lên storage
 
-                    // Get the data from an ImageView as bytes
-                    img.setDrawingCacheEnabled(true);
-                    img.buildDrawingCache();
-                    Bitmap bitmap = ((BitmapDrawable) img.getDrawable()).getBitmap();
-                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
-                    byte[] data = baos.toByteArray();
+                        //tạo ten cho img
+                        String ten_img = data.push().getKey();
+                        StorageReference mountainsRef = storageRef.child(ten_img+".png");
 
-                    UploadTask uploadTask = mountainsRef.putBytes(data);
-                    uploadTask.addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception exception) {
-                            // thất bại
-                            Toast.makeText(c, "Lỗi ko lưu đc ảnh!", Toast.LENGTH_SHORT).show();
-                        }
-                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            // thành công
-                            Toast.makeText(c, "Lưu ảnh thành công!", Toast.LENGTH_SHORT).show();
-                            //Uri downloadUrl = mountainsRef.getDownloadUrl()
-                            mountainsRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
-                                    src_img_tam(uri, sp.getId());
-                                }
-                            });
+                        // Get the data from an ImageView as bytes
+                        img.setDrawingCacheEnabled(true);
+                        img.buildDrawingCache();
+                        Bitmap bitmap = ((BitmapDrawable) img.getDrawable()).getBitmap();
+                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+                        byte[] data = baos.toByteArray();
 
-                        }
-                    });
+                        UploadTask uploadTask = mountainsRef.putBytes(data);
+                        uploadTask.addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception exception) {
+                                // thất bại
+                                Toast.makeText(c, "Lỗi ko lưu đc ảnh!", Toast.LENGTH_SHORT).show();
+                            }
+                        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                // thành công
+                                Toast.makeText(c, "Lưu ảnh thành công!", Toast.LENGTH_SHORT).show();
+                                //Uri downloadUrl = mountainsRef.getDownloadUrl()
+                                mountainsRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+                                        src_img_tam(uri, sp.getId());
+                                    }
+                                });
 
-                }
-                data.child(sp.getId()).child("ten_ngan").setValue(inputEdit_ten_ngan.getText().toString().trim());
-                data.child(sp.getId()).child("ten_dai").setValue(inputEdit_ten_dai.getText().toString().trim());
-                data.child(sp.getId()).child("gia").setValue(Integer.parseInt(inputEdit_gia.getText().toString().trim()));
-                data.child(sp.getId()).child("so_luong_trong_kho").setValue(Integer.parseInt(inputEdit_so_luong_trong_kho.getText().toString().trim()));
-                data.child(sp.getId()).child("mieu_ta").setValue(inputEdit_mieu_ta.getText().toString().trim());
-                //tắc dialog
-                dialog.dismiss();
+                            }
+                        });
+
+                    }
+                    data.child(sp.getId()).child("ten_ngan").setValue(inputEdit_ten_ngan.getText().toString().trim());
+                    data.child(sp.getId()).child("ten_dai").setValue(inputEdit_ten_dai.getText().toString().trim());
+                    data.child(sp.getId()).child("gia").setValue(Integer.parseInt(inputEdit_gia.getText().toString().trim()));
+                    data.child(sp.getId()).child("so_luong_trong_kho").setValue(Integer.parseInt(inputEdit_so_luong_trong_kho.getText().toString().trim()));
+                    data.child(sp.getId()).child("mieu_ta").setValue(inputEdit_mieu_ta.getText().toString().trim());
+
+
+
+
+
 
             }
-
         });
+
         btn_huy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -482,7 +538,9 @@ public class fragment_Admin_thuc_an extends Fragment {
                 check_img=false;
             }
         });
+
     }
+
     private void src_img_tam(Uri link_img,String id){
         //img
         Log.d("link_img",link_img.toString()+"");

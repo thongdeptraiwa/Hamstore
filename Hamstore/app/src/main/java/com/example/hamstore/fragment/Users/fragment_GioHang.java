@@ -94,9 +94,11 @@ public class fragment_GioHang extends Fragment {
         btn_Thanh_toan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                reset_tong_tien();
                 Intent intent = new Intent(c, AC_thanh_toan.class);
                 intent.putExtra(key_tai_khoan,tai_khoan);
                 startActivity(intent);
+
             }
         });
 
@@ -278,6 +280,16 @@ public class fragment_GioHang extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        reset_tong_tien();
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        reset_tong_tien();
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
         reset_tong_tien();
     }
 

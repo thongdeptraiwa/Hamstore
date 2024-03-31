@@ -1,4 +1,4 @@
-package com.example.hamstore.fragment.Admin;
+package com.example.hamstore.fragment.Admin.san_pham;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -52,11 +52,11 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
 
-public class fragment_Admin_hamster_winter_white extends Fragment {
+public class fragment_Admin_hamster_bear extends Fragment {
     Context c;
     RecyclerView recyclerView;
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    DatabaseReference data = firebaseDatabase.getReference("Hamster Winter White");
+    DatabaseReference data = firebaseDatabase.getReference("Hamster Bear");
     //thêm
     FloatingActionButton floatAdd;
     int REQUEST_CODE_IMAGE = 1;
@@ -64,7 +64,7 @@ public class fragment_Admin_hamster_winter_white extends Fragment {
     public ImageView img;
     public Boolean check_img=false;
     FirebaseStorage storage = FirebaseStorage.getInstance();
-    StorageReference storageRef = storage.getReference("img_hamster_winter_white");
+    StorageReference storageRef = storage.getReference("img_hamster_bear");
     //truy cập thư viện ảnh
     private final ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
         @Override
@@ -80,6 +80,7 @@ public class fragment_Admin_hamster_winter_white extends Fragment {
             }
         }
     });
+
 
     @Nullable
     @Override
@@ -208,7 +209,7 @@ public class fragment_Admin_hamster_winter_white extends Fragment {
         int tong_sao = 0;
         int so_lan_danh_gia = 0;
         int checkbox = 0;
-        String loai = "Hamster Robo";
+        String loai = "Hamster Bear";
 
         //Items(id,
         //      ten_ngan,
@@ -262,7 +263,6 @@ public class fragment_Admin_hamster_winter_white extends Fragment {
 
         super.onActivityResult(requestCode, resultCode, data);
     }
-
 
     @Override
     public void onStart() {

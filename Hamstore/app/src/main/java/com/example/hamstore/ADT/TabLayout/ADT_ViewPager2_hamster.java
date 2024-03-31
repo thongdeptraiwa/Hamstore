@@ -5,10 +5,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.example.hamstore.fragment.Admin.fragment_Admin_hamster_bear;
-import com.example.hamstore.fragment.Admin.fragment_Admin_hamster_campbell;
-import com.example.hamstore.fragment.Admin.fragment_Admin_hamster_robo;
-import com.example.hamstore.fragment.Admin.fragment_Admin_hamster_winter_white;
+import com.example.hamstore.fragment.Admin.san_pham.fragment_Admin_hamster_bear;
+import com.example.hamstore.fragment.Admin.san_pham.fragment_Admin_hamster_campbell;
+import com.example.hamstore.fragment.Admin.san_pham.fragment_Admin_hamster_robo;
+import com.example.hamstore.fragment.Admin.san_pham.fragment_Admin_hamster_winter_white;
 
 public class ADT_ViewPager2_hamster extends FragmentStateAdapter {
 
