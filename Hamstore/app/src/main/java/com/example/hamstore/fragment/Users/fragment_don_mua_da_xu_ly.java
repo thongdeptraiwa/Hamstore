@@ -1,4 +1,4 @@
-package com.example.hamstore.fragment.Admin.hoa_don;
+package com.example.hamstore.fragment.Users;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,7 +18,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.hamstore.ADT.ADT_Recyclerview_sp_trong_hoa_don;
+import com.example.hamstore.Activity.Users.TrangChu;
 import com.example.hamstore.R;
 import com.example.hamstore.model.Hoa_Don;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -30,11 +33,14 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
 
-public class fragment_Admin_hoa_don_huy_bo extends Fragment {
+public class fragment_don_mua_da_xu_ly extends Fragment {
     Context c;
     RecyclerView recyclerView;
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     DatabaseReference data = firebaseDatabase.getReference("Hóa đơn");
+    private final String key_tai_khoan = "tai_khoan";
+    String tai_khoan;
+    public TrangChu trangChu;
 
     @Nullable
     @Override
@@ -43,8 +49,11 @@ public class fragment_Admin_hoa_don_huy_bo extends Fragment {
 
         c = getActivity();
 
+
+
         //ánh xạ
         recyclerView=view.findViewById(R.id.recyclerView);
+        trangChu = (TrangChu) getActivity();
 
 
         return view;
@@ -54,6 +63,7 @@ public class fragment_Admin_hoa_don_huy_bo extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+
 
         FirebaseRecyclerOptions<Hoa_Don> options =
                 new FirebaseRecyclerOptions.Builder<Hoa_Don>()
@@ -65,7 +75,7 @@ public class fragment_Admin_hoa_don_huy_bo extends Fragment {
             public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
                 View view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.items_admin_hoa_don, parent, false);
+                        .inflate(R.layout.items_don_mua, parent, false);
 
                 return new ViewHolder(view);
             }
@@ -73,17 +83,26 @@ public class fragment_Admin_hoa_don_huy_bo extends Fragment {
             @Override
             protected void onBindViewHolder(ViewHolder holder, int position, Hoa_Don model) {
 
-                //đã thanh toán
-                if(model.getTrang_thai().equals("Hủy bỏ")) {
+                if(model.getId_user().equals(trangChu.tai_khoan) && (model.getTrang_thai().equals("Hoàn thành") || model.getTrang_thai().equals("Hủy bỏ") || model.getTrang_thai().equals("Hoàn trả"))) {
                     //hien thi
                     holder.tv_id.setText("ID: "+model.getId());
-                    holder.tv_tai_khoan.setText("User: "+model.getId_user());
-                    //tong tien
+
+                    //lấy SrcImg
+                    if(model.getArr_items().get(0).getSrcImg().length()<40){
+                        String imgName = model.getArr_items().get(0).getSrcImg();
+                        //đổi string thành int (R.drawable.name)
+                        int imgId = c.getResources().getIdentifier(imgName, "drawable", c.getPackageName());
+                        holder.img.setImageResource(imgId);
+                    }else {
+                        Glide.with(c).load(model.getArr_items().get(0).getSrcImg()).into(holder.img);
+                    }
+
+                    //tổng tiền
                     NumberFormat formatter = new DecimalFormat("#,###");
                     //int myNumber = ds.get(i).getGia();
                     int myNumber = model.getTong_tien();
                     String formattedNumber = formatter.format(myNumber);
-                    holder.tv_gia.setText(String.valueOf(formattedNumber +"đ"));
+                    holder.tv_tong_tien.setText(String.valueOf(formattedNumber +"đ"));
 
                     //trang thái
                     holder.tv_trang_thai.setText(model.getTrang_thai());
@@ -96,7 +115,7 @@ public class fragment_Admin_hoa_don_huy_bo extends Fragment {
                     holder.itemView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            dialog_thoat(model);
+                            dialog_da_thanh_toan(model);
                         }
                     });
                 }else {
@@ -117,17 +136,18 @@ public class fragment_Admin_hoa_don_huy_bo extends Fragment {
         adapter.startListening();
     }
     public class ViewHolder extends RecyclerView.ViewHolder{
-        TextView tv_tai_khoan,tv_id,tv_gia,tv_trang_thai;
+        TextView tv_id,tv_tong_tien,tv_trang_thai;
+        ImageView img;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tv_tai_khoan = itemView.findViewById(R.id.tv_tai_khoan);
             tv_id = itemView.findViewById(R.id.tv_id);
-            tv_gia = itemView.findViewById(R.id.tv_gia);
+            tv_tong_tien = itemView.findViewById(R.id.tv_tong_tien);
             tv_trang_thai = itemView.findViewById(R.id.tv_trang_thai);
+            img = itemView.findViewById(R.id.img);
         }
     }
 
-    private void dialog_thoat(Hoa_Don hoaDon){
+    private void dialog_da_thanh_toan(Hoa_Don hoaDon){
 
         //tạo dialog
         Dialog dialog = new Dialog((Activity)c);
@@ -158,7 +178,10 @@ public class fragment_Admin_hoa_don_huy_bo extends Fragment {
         inputEdit_trang_thai.setText(String.valueOf(hoaDon.getTrang_thai()));
 
         //đổi màu trạng thái
-        inputEdit_trang_thai.setTextColor(Color.parseColor("#E53935"));
+        if(hoaDon.getTrang_thai().equals("Hủy bỏ") || hoaDon.getTrang_thai().equals("Hoàn trả")){
+            inputEdit_trang_thai.setTextColor(Color.parseColor("#E53935"));
+        }
+
 
 
         //recyclerView

@@ -12,6 +12,11 @@
         android:icon="@drawable/ic_cart"
         />
     <item
+        android:id="@+id/mDonMua"
+        android:title=""
+        android:icon="@drawable/ic_hoa_don"
+        />
+    <item
         android:id="@+id/mThongTin"
         android:title=""
         android:icon="@drawable/ic_person"

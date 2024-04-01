@@ -78,7 +78,7 @@ public class fragment_Admin_hoa_don_hoan_tra extends Fragment {
                     //hien thi
                     holder.tv_id.setText("ID: "+model.getId());
                     holder.tv_tai_khoan.setText("User: "+model.getId_user());
-                    //gia
+                    //tong tien
                     NumberFormat formatter = new DecimalFormat("#,###");
                     //int myNumber = ds.get(i).getGia();
                     int myNumber = model.getTong_tien();
@@ -96,7 +96,7 @@ public class fragment_Admin_hoa_don_hoan_tra extends Fragment {
                     holder.itemView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            dialog_da_thanh_toan(model);
+                            dialog_thoat(model);
                         }
                     });
                 }else {
@@ -127,7 +127,7 @@ public class fragment_Admin_hoa_don_hoan_tra extends Fragment {
         }
     }
 
-    private void dialog_da_thanh_toan(Hoa_Don hoaDon){
+    private void dialog_thoat(Hoa_Don hoaDon){
 
         //tạo dialog
         Dialog dialog = new Dialog((Activity)c);

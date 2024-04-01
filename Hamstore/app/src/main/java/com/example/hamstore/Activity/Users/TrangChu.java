@@ -18,6 +18,7 @@ import com.example.hamstore.fragment.Users.fragment_TrangChu_2hang_Loai_Hamster;
 import com.example.hamstore.fragment.Users.fragment_TrangChu_2hang_PhuKien;
 import com.example.hamstore.fragment.Users.fragment_TrangChu_2hang_ThucAn;
 import com.example.hamstore.fragment.Users.fragment_TrangChu_2hang_ban_chay;
+import com.example.hamstore.fragment.Users.fragment_don_mua_TabLayout;
 import com.example.hamstore.model.Items;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -67,6 +68,9 @@ public class TrangChu extends AppCompatActivity {
                 }
                 else if (item.getItemId() == R.id.mThongTin){
                     fragment = new fragment_Thong_tin();
+                }
+                else if (item.getItemId() == R.id.mDonMua){
+                    fragment = new fragment_don_mua_TabLayout();
                 }
                 else if (item.getItemId() == R.id.mGioHang){
                     fragment = new fragment_GioHang();

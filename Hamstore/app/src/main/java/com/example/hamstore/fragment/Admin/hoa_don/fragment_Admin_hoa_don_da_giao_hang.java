@@ -78,7 +78,7 @@ public class fragment_Admin_hoa_don_da_giao_hang extends Fragment {
                     //hien thi
                     holder.tv_id.setText("ID: "+model.getId());
                     holder.tv_tai_khoan.setText("User: "+model.getId_user());
-                    //gia
+                    //tong tien
                     NumberFormat formatter = new DecimalFormat("#,###");
                     //int myNumber = ds.get(i).getGia();
                     int myNumber = model.getTong_tien();
@@ -96,7 +96,7 @@ public class fragment_Admin_hoa_don_da_giao_hang extends Fragment {
                     holder.itemView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            dialog_chua_thanh_toan(model);
+                            dialog_thoat(model);
                         }
                     });
                 }else {
@@ -127,17 +127,15 @@ public class fragment_Admin_hoa_don_da_giao_hang extends Fragment {
         }
     }
 
-    private void dialog_chua_thanh_toan(Hoa_Don hoaDon){
+    private void dialog_thoat(Hoa_Don hoaDon){
 
         //tạo dialog
         Dialog dialog = new Dialog((Activity)c);
-        dialog.setContentView(R.layout.dialog_hoa_don_do);
+        dialog.setContentView(R.layout.dialog_hoa_don_thoat);
         dialog.setCanceledOnTouchOutside(false);//nhấn ra ngoài ko tắc dialog
         dialog.show();
 
         //ánh xạ thông tin NV
-        Button btn_xanh = dialog.findViewById(R.id.btn_xanh);
-        Button btn_do = dialog.findViewById(R.id.btn_do);
         Button btn_thoat = dialog.findViewById(R.id.btn_thoat);
         TextInputEditText inputEdit_id = dialog.findViewById(R.id.inputEdit_id);
         TextInputEditText inputEdit_nguoi_mua = dialog.findViewById(R.id.inputEdit_nguoi_mua);
@@ -159,10 +157,6 @@ public class fragment_Admin_hoa_don_da_giao_hang extends Fragment {
         inputEdit_tong_tien.setText(String.valueOf(hoaDon.getTong_tien()));
         inputEdit_trang_thai.setText(String.valueOf(hoaDon.getTrang_thai()));
 
-        //đổi text btn
-        btn_xanh.setText("Hoàn thành");
-        btn_do.setText("Hoàn trả");
-
 
         //recyclerView các sp trong hóa đơn
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(c);
@@ -173,20 +167,6 @@ public class fragment_Admin_hoa_don_da_giao_hang extends Fragment {
 
 
         //nhấn
-        btn_xanh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                data.child(hoaDon.getId()).child("trang_thai").setValue("Hoàn thành");
-                dialog.dismiss();
-            }
-        });
-        btn_do.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                data.child(hoaDon.getId()).child("trang_thai").setValue("Hoàn trả");
-                dialog.dismiss();
-            }
-        });
         btn_thoat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

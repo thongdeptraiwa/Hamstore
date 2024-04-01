@@ -203,9 +203,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:weightSum="2">
+            android:weightSum="3">
 
-
+            <Button
+                android:id="@+id/btn_xanh"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/custom_btn_xanh"
+                android:text="Đang vận chuyển"
+                android:padding="0dp"
+                app:backgroundTint="@null" />
             <Button
                 android:id="@+id/btn_do"
                 android:layout_width="match_parent"
