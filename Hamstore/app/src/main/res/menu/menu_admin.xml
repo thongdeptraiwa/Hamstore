@@ -18,6 +18,10 @@
         android:title="Hóa đơn"
         />
     <item
+        android:id="@+id/mThongKe"
+        android:title="Thống kê"
+        />
+    <item
         android:id="@+id/mDangXuat"
         android:title="Đăng xuất"
         />

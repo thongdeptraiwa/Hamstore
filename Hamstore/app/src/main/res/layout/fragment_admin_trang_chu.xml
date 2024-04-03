@@ -10,7 +10,8 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3">
 
         <Button
             android:id="@+id/btn_san_pham"
@@ -19,7 +20,10 @@
             android:layout_gravity="center"
             android:layout_margin="10dp"
             android:text="Sản phẩm"
-            android:textSize="25dp"/>
+            android:textSize="25dp"
+            android:background="@drawable/custom_btn_xanh"
+            app:backgroundTint="@null"/>
+
         <Button
             android:id="@+id/btn_nguoi_dung"
             android:layout_width="250dp"
@@ -27,7 +31,10 @@
             android:layout_gravity="center"
             android:layout_margin="10dp"
             android:text="Người dùng"
-            android:textSize="25dp"/>
+            android:textSize="25dp"
+            android:background="@drawable/custom_btn_xanh"
+            app:backgroundTint="@null"/>
+
         <Button
             android:id="@+id/btn_hoa_don"
             android:layout_width="250dp"
@@ -35,7 +42,20 @@
             android:layout_gravity="center"
             android:layout_margin="10dp"
             android:text="Hóa đơn"
-            android:textSize="25dp"/>
+            android:textSize="25dp"
+            android:background="@drawable/custom_btn_xanh"
+            app:backgroundTint="@null"/>
+
+        <Button
+            android:id="@+id/btn_thong_ke"
+            android:layout_width="250dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:text="Thống kê"
+            android:textSize="25dp"
+            android:background="@drawable/custom_btn_xanh"
+            app:backgroundTint="@null"/>
 
     </LinearLayout>
 

@@ -19,6 +19,7 @@ import com.example.hamstore.R;
 import com.example.hamstore.fragment.Admin.TabLayout.fragment_Admin_TabLayout_hoa_don;
 import com.example.hamstore.fragment.Admin.TabLayout.fragment_Admin_TabLayout_nguoi_dung;
 import com.example.hamstore.fragment.Admin.TabLayout.fragment_Admin_TabLayout_san_pham;
+import com.example.hamstore.fragment.Admin.TabLayout.fragment_Admin_TabLayout_thong_ke;
 import com.example.hamstore.fragment.Admin.fragment_Admin_TrangChu;
 import com.google.android.material.navigation.NavigationView;
 
@@ -65,6 +66,9 @@ public class TrangChu_Admin extends AppCompatActivity {
                 }else if (item.getItemId() == R.id.mHoaDon){
                     fragment = new fragment_Admin_TabLayout_hoa_don();
 
+                }else if (item.getItemId() == R.id.mThongKe){
+                    fragment = new fragment_Admin_TabLayout_thong_ke();
+
                 }else if (item.getItemId() == R.id.mDangXuat) {
                     dialog_thong_bao_dang_xuat();
 
@@ -90,7 +94,10 @@ public class TrangChu_Admin extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
+    public void chuyen_fragment_admin_tablayout_san_pham(){
+        Fragment fragment = new fragment_Admin_TabLayout_san_pham();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,fragment).commit();
+    }
     public void chuyen_fragment_admin_tablayout_nguoi_dung(){
         Fragment fragment = new fragment_Admin_TabLayout_nguoi_dung();
         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,fragment).commit();
@@ -99,8 +106,8 @@ public class TrangChu_Admin extends AppCompatActivity {
         Fragment fragment = new fragment_Admin_TabLayout_hoa_don();
         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,fragment).commit();
     }
-    public void chuyen_fragment_admin_tablayout_san_pham(){
-        Fragment fragment = new fragment_Admin_TabLayout_san_pham();
+    public void chuyen_fragment_admin_tablayout_thong_ke(){
+        Fragment fragment = new fragment_Admin_TabLayout_thong_ke();
         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,fragment).commit();
     }
 

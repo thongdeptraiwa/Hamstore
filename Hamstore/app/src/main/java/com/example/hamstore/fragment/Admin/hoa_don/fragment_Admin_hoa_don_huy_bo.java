@@ -73,7 +73,6 @@ public class fragment_Admin_hoa_don_huy_bo extends Fragment {
             @Override
             protected void onBindViewHolder(ViewHolder holder, int position, Hoa_Don model) {
 
-                //đã thanh toán
                 if(model.getTrang_thai().equals("Hủy bỏ")) {
                     //hien thi
                     holder.tv_id.setText("ID: "+model.getId());
@@ -88,7 +87,7 @@ public class fragment_Admin_hoa_don_huy_bo extends Fragment {
                     //trang thái
                     holder.tv_trang_thai.setText(model.getTrang_thai());
                     //Hủy và Hoàn trả đổi sang màu đỏ
-                    if(model.getTrang_thai().equals("Hủy bỏ") || model.getTrang_thai().equals("Hoàn trả")){
+                    if(model.getTrang_thai().equals("Hủy bỏ")){
                         holder.tv_trang_thai.setTextColor(Color.parseColor("#E53935"));
                     }
 

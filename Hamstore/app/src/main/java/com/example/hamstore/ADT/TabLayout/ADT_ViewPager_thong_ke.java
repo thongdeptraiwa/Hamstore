@@ -6,11 +6,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import com.example.hamstore.fragment.Users.fragment_don_mua_da_xu_ly;
-import com.example.hamstore.fragment.Users.fragment_don_mua_dang_xu_ly;
+import com.example.hamstore.fragment.Admin.hoa_don.fragment_Admin_thong_ke_doanh_thu;
+import com.example.hamstore.fragment.Admin.hoa_don.fragment_Admin_thong_ke_san_pham;
 
-public class ADT_ViewPager_don_mua extends FragmentStatePagerAdapter {
-    public ADT_ViewPager_don_mua(@NonNull FragmentManager fm, int behavior) {
+public class ADT_ViewPager_thong_ke extends FragmentStatePagerAdapter {
+    public ADT_ViewPager_thong_ke(@NonNull FragmentManager fm, int behavior) {
         super(fm, behavior);
     }
 
@@ -19,11 +19,11 @@ public class ADT_ViewPager_don_mua extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                return new fragment_don_mua_dang_xu_ly();
+                return new fragment_Admin_thong_ke_san_pham();
             case 1:
-                return new fragment_don_mua_da_xu_ly();
+                return new fragment_Admin_thong_ke_doanh_thu();
             default:
-                return new fragment_don_mua_dang_xu_ly();
+                return new fragment_Admin_thong_ke_san_pham();
         }
 
     }
@@ -39,10 +39,10 @@ public class ADT_ViewPager_don_mua extends FragmentStatePagerAdapter {
         String title = "";
         switch (position){
             case 0:
-                title = "Đang xử lý";
+                title = "Sản phẩm";
                 break;
             case 1:
-                title = "Đã xử lý";
+                title = "Doanh thu";
                 break;
         }
         return title;

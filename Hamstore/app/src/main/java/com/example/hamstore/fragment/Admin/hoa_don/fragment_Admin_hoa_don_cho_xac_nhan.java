@@ -87,7 +87,7 @@ public class fragment_Admin_hoa_don_cho_xac_nhan extends Fragment {
                     //trang thái
                     holder.tv_trang_thai.setText(model.getTrang_thai());
                     //Hủy và Hoàn trả đổi sang màu đỏ
-                    if(model.getTrang_thai().equals("Hủy bỏ") || model.getTrang_thai().equals("Hoàn trả")){
+                    if(model.getTrang_thai().equals("Hủy bỏ")){
                         holder.tv_trang_thai.setTextColor(Color.parseColor("#E53935"));
                     }
 

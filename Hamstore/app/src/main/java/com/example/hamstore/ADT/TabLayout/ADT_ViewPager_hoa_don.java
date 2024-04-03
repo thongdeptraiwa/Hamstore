@@ -10,8 +10,6 @@ import com.example.hamstore.fragment.Admin.hoa_don.fragment_Admin_hoa_don_cho_xa
 import com.example.hamstore.fragment.Admin.hoa_don.fragment_Admin_hoa_don_da_giao_hang;
 import com.example.hamstore.fragment.Admin.hoa_don.fragment_Admin_hoa_don_da_xac_nhan;
 import com.example.hamstore.fragment.Admin.hoa_don.fragment_Admin_hoa_don_dang_van_chuyen;
-import com.example.hamstore.fragment.Admin.hoa_don.fragment_Admin_hoa_don_hoan_thanh;
-import com.example.hamstore.fragment.Admin.hoa_don.fragment_Admin_hoa_don_hoan_tra;
 import com.example.hamstore.fragment.Admin.hoa_don.fragment_Admin_hoa_don_huy_bo;
 
 public class ADT_ViewPager_hoa_don extends FragmentStatePagerAdapter {
@@ -33,10 +31,6 @@ public class ADT_ViewPager_hoa_don extends FragmentStatePagerAdapter {
                 return new fragment_Admin_hoa_don_huy_bo();
             case 4:
                 return new fragment_Admin_hoa_don_da_giao_hang();
-            case 5:
-                return new fragment_Admin_hoa_don_hoan_tra();
-            case 6:
-                return new fragment_Admin_hoa_don_hoan_thanh();
             default:
                 return new fragment_Admin_hoa_don_cho_xac_nhan();
         }
@@ -45,7 +39,7 @@ public class ADT_ViewPager_hoa_don extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return 7;
+        return 5;
     }
 
     @Nullable
@@ -67,12 +61,6 @@ public class ADT_ViewPager_hoa_don extends FragmentStatePagerAdapter {
                 break;
             case 4:
                 title = "Đã giao hàng";
-                break;
-            case 5:
-                title = "Hoàn trả";
-                break;
-            case 6:
-                title = "Hoàn thành";
                 break;
         }
         return title;

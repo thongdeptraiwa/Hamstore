@@ -83,7 +83,8 @@ public class fragment_don_mua_da_xu_ly extends Fragment {
             @Override
             protected void onBindViewHolder(ViewHolder holder, int position, Hoa_Don model) {
 
-                if(model.getId_user().equals(trangChu.tai_khoan) && (model.getTrang_thai().equals("Hoàn thành") || model.getTrang_thai().equals("Hủy bỏ") || model.getTrang_thai().equals("Hoàn trả"))) {
+                if(model.getId_user().equals(trangChu.tai_khoan)
+                        && (model.getTrang_thai().equals("Đã giao hàng") || model.getTrang_thai().equals("Hủy bỏ"))) {
                     //hien thi
                     holder.tv_id.setText("ID: "+model.getId());
 
@@ -107,7 +108,7 @@ public class fragment_don_mua_da_xu_ly extends Fragment {
                     //trang thái
                     holder.tv_trang_thai.setText(model.getTrang_thai());
                     //Hủy và Hoàn trả đổi sang màu đỏ
-                    if(model.getTrang_thai().equals("Hủy bỏ") || model.getTrang_thai().equals("Hoàn trả")){
+                    if(model.getTrang_thai().equals("Hủy bỏ")){
                         holder.tv_trang_thai.setTextColor(Color.parseColor("#E53935"));
                     }
 
@@ -115,7 +116,7 @@ public class fragment_don_mua_da_xu_ly extends Fragment {
                     holder.itemView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            dialog_da_thanh_toan(model);
+                            dialog_thoat(model);
                         }
                     });
                 }else {
@@ -147,7 +148,7 @@ public class fragment_don_mua_da_xu_ly extends Fragment {
         }
     }
 
-    private void dialog_da_thanh_toan(Hoa_Don hoaDon){
+    private void dialog_thoat(Hoa_Don hoaDon){
 
         //tạo dialog
         Dialog dialog = new Dialog((Activity)c);
@@ -178,7 +179,7 @@ public class fragment_don_mua_da_xu_ly extends Fragment {
         inputEdit_trang_thai.setText(String.valueOf(hoaDon.getTrang_thai()));
 
         //đổi màu trạng thái
-        if(hoaDon.getTrang_thai().equals("Hủy bỏ") || hoaDon.getTrang_thai().equals("Hoàn trả")){
+        if(hoaDon.getTrang_thai().equals("Hủy bỏ")){
             inputEdit_trang_thai.setTextColor(Color.parseColor("#E53935"));
         }
 
