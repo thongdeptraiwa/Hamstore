@@ -30,6 +30,14 @@ import com.example.hamstore.model.Hoa_Don;
 import com.example.hamstore.model.User;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -41,12 +49,14 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 public class fragment_Admin_thong_ke_doanh_thu extends Fragment {
     Context c;
-    RecyclerView recyclerView;
+    //RecyclerView recyclerView;
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     DatabaseReference data = firebaseDatabase.getReference("Hóa đơn");
     Button btn_thong_ke;
@@ -56,6 +66,12 @@ public class fragment_Admin_thong_ke_doanh_thu extends Fragment {
     int tong_doanh_thu = 0;
     TextView tv_tong_doanh_thu;
     Boolean flat_tong_doanh_thu=false;
+    //barchart
+    BarChart barChart;
+    ArrayList<Hoa_Don> ds_hoa_don = new ArrayList<>();
+    ArrayList<BarEntry> ds_barEntry = new ArrayList<>();
+    ArrayList<String> ds_ngay = new ArrayList<>();
+
 
     @Nullable
     @Override
@@ -65,11 +81,15 @@ public class fragment_Admin_thong_ke_doanh_thu extends Fragment {
         c = getActivity();
 
         //ánh xạ
-        recyclerView=view.findViewById(R.id.recyclerView);
+        //recyclerView=view.findViewById(R.id.recyclerView);
         btn_thong_ke=view.findViewById(R.id.btn_thong_ke);
         inputEdit_tu=view.findViewById(R.id.inputEdit_tu);
         inputEdit_den=view.findViewById(R.id.inputEdit_den);
         tv_tong_doanh_thu=view.findViewById(R.id.tv_tong_doanh_thu);
+        barChart=view.findViewById(R.id.barChart);
+
+        //barChart
+        barChart.getAxisRight().setDrawLabels(false);
 
 
         //nhấn thống kê
@@ -77,6 +97,10 @@ public class fragment_Admin_thong_ke_doanh_thu extends Fragment {
             @Override
             public void onClick(View v) {
 
+                //reset ds
+                ds_ngay.clear();
+                ds_hoa_don.clear();
+                ds_barEntry.clear();
                 reset_tong_doanh_thu();
 
                 String tu = inputEdit_tu.getText().toString().trim();
@@ -96,7 +120,8 @@ public class fragment_Admin_thong_ke_doanh_thu extends Fragment {
                 try {
                     Date date_tu = format.parse(tu);
                     Date date_den = format.parse(den);
-                    thong_ke_doanh_thu(date_tu,date_den);
+                    //thong_ke_doanh_thu(date_tu,date_den);
+
                     //tổng doanh thu
                     flat_tong_doanh_thu=true;
                     check_doanh_thu(date_tu,date_den);
@@ -113,108 +138,109 @@ public class fragment_Admin_thong_ke_doanh_thu extends Fragment {
         return view;
     }
 
-    public void thong_ke_doanh_thu(Date tu,Date den) {
-
-        FirebaseRecyclerOptions<Hoa_Don> options =
-                new FirebaseRecyclerOptions.Builder<Hoa_Don>()
-                        .setQuery(data, Hoa_Don.class)
-                        .build();
-
-        FirebaseRecyclerAdapter adapter = new FirebaseRecyclerAdapter<Hoa_Don, ViewHolder>(options) {
-            @Override
-            public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
-                View view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.items_admin_hoa_don, parent, false);
-
-                return new ViewHolder(view);
-            }
-
-            @Override
-            protected void onBindViewHolder(ViewHolder holder, int position, Hoa_Don model) {
-
-                //chỉ lấy hóa đơn đã thanh toán xong
-                if(model.getTrang_thai().equals("Đã giao hàng")){
-
-                    String time = model.getThoi_gian();
-                    //tách thoi_gian thành 2
-                    //[0] từ kí tự đầu đến " "
-                    //[1] từ " " đến cuối
-                    String[] tach_thoi_gian = time.split(" ");
-
-                    try {
-                        Date date_hoa_don = format.parse(tach_thoi_gian[1]);
-
-                        //so sánh date
-                        //date_hoa_don.after(tu) là date_hoa_don > tu (Boolean)
-                        //date_hoa_don.before(den) là date_hoa_don < den (Boolean)
-                        if(date_hoa_don.after(tu) && date_hoa_don.before(den)){
-
-                            //hien thi
-                            holder.tv_id.setText("ID: "+model.getId());
-                            holder.tv_tai_khoan.setText("User: "+model.getId_user());
-                            //tong tien
-                            NumberFormat formatter = new DecimalFormat("#,###");
-                            //int myNumber = ds.get(i).getGia();
-                            int myNumber = model.getTong_tien();
-                            String formattedNumber = formatter.format(myNumber);
-                            holder.tv_gia.setText(String.valueOf(formattedNumber +"đ"));
-
-                            //trang thái
-                            holder.tv_trang_thai.setText(model.getTrang_thai());
-
-
-                            //nhấn item hiện dialog chi tiết
-                            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    dialog_thoat(model);
-                                }
-                            });
-
-                        }else {
-                            holder.itemView.setVisibility(View.GONE);
-                            holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0,0));
-                        }
-
-
-
-                    } catch (ParseException e) {
-                        //lỗi data
-                        Toast.makeText(c, "lỗi data!", Toast.LENGTH_SHORT).show();
-                    }
-
-                }else {
-                    holder.itemView.setVisibility(View.GONE);
-                    holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0,0));
-                }
-
-
-
-            }
-
-        };
-
-        //recyclerView
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(c);
-        linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(adapter);
-        adapter.startListening();
-
-    }
-    public class ViewHolder extends RecyclerView.ViewHolder{
-        TextView tv_tai_khoan,tv_id,tv_gia,tv_trang_thai;
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            tv_tai_khoan = itemView.findViewById(R.id.tv_tai_khoan);
-            tv_id = itemView.findViewById(R.id.tv_id);
-            tv_gia = itemView.findViewById(R.id.tv_gia);
-            tv_trang_thai = itemView.findViewById(R.id.tv_trang_thai);
-        }
-    }
+//    public void thong_ke_doanh_thu(Date tu,Date den) {
+//
+//        FirebaseRecyclerOptions<Hoa_Don> options =
+//                new FirebaseRecyclerOptions.Builder<Hoa_Don>()
+//                        .setQuery(data, Hoa_Don.class)
+//                        .build();
+//
+//        FirebaseRecyclerAdapter adapter = new FirebaseRecyclerAdapter<Hoa_Don, ViewHolder>(options) {
+//            @Override
+//            public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+//
+//                View view = LayoutInflater.from(parent.getContext())
+//                        .inflate(R.layout.items_admin_hoa_don, parent, false);
+//
+//                return new ViewHolder(view);
+//            }
+//
+//            @Override
+//            protected void onBindViewHolder(ViewHolder holder, int position, Hoa_Don model) {
+//
+//                //chỉ lấy hóa đơn đã thanh toán xong
+//                if(model.getTrang_thai().equals("Đã giao hàng")){
+//
+//                    String time = model.getThoi_gian();
+//                    //tách thoi_gian thành 2
+//                    //[0] từ kí tự đầu đến " "
+//                    //[1] từ " " đến cuối
+//                    String[] tach_thoi_gian = time.split(" ");
+//
+//                    try {
+//                        Date date_hoa_don = format.parse(tach_thoi_gian[1]);
+//
+//                        //so sánh date
+//                        //date_hoa_don.after(tu) là date_hoa_don > tu (Boolean)
+//                        //date_hoa_don.before(den) là date_hoa_don < den (Boolean)
+//                        if(date_hoa_don.after(tu) && date_hoa_don.before(den)){
+//
+//                            //hien thi
+//                            holder.tv_id.setText("ID: "+model.getId());
+//                            holder.tv_tai_khoan.setText("User: "+model.getId_user());
+//                            //tong tien
+//                            NumberFormat formatter = new DecimalFormat("#,###");
+//                            //int myNumber = ds.get(i).getGia();
+//                            int myNumber = model.getTong_tien();
+//                            String formattedNumber = formatter.format(myNumber);
+//                            holder.tv_gia.setText(String.valueOf(formattedNumber +"đ"));
+//
+//                            //trang thái
+//                            holder.tv_trang_thai.setText(model.getTrang_thai());
+//
+//
+//                            //nhấn item hiện dialog chi tiết
+//                            holder.itemView.setOnClickListener(new View.OnClickListener() {
+//                                @Override
+//                                public void onClick(View v) {
+//                                    dialog_thoat(model);
+//                                }
+//                            });
+//
+//                        }else {
+//                            holder.itemView.setVisibility(View.GONE);
+//                            holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0,0));
+//                        }
+//
+//
+//
+//                    } catch (ParseException e) {
+//                        //lỗi data
+//                        Toast.makeText(c, "lỗi data!", Toast.LENGTH_SHORT).show();
+//                    }
+//
+//                }else {
+//                    holder.itemView.setVisibility(View.GONE);
+//                    holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0,0));
+//                }
+//
+//
+//
+//            }
+//
+//        };
+//
+//        //recyclerView
+//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(c);
+//        linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
+//        recyclerView.setLayoutManager(linearLayoutManager);
+//        recyclerView.setAdapter(adapter);
+//        adapter.startListening();
+//
+//    }
+//    public class ViewHolder extends RecyclerView.ViewHolder{
+//        TextView tv_tai_khoan,tv_id,tv_gia,tv_trang_thai;
+//        public ViewHolder(@NonNull View itemView) {
+//            super(itemView);
+//            tv_tai_khoan = itemView.findViewById(R.id.tv_tai_khoan);
+//            tv_id = itemView.findViewById(R.id.tv_id);
+//            tv_gia = itemView.findViewById(R.id.tv_gia);
+//            tv_trang_thai = itemView.findViewById(R.id.tv_trang_thai);
+//        }
+//    }
 
     private void check_doanh_thu(Date tu,Date den){
+
 
         //check data
         data.addValueEventListener(new ValueEventListener() {
@@ -245,6 +271,39 @@ public class fragment_Admin_thong_ke_doanh_thu extends Fragment {
                                     tong_doanh_thu+= hoa_don.getTong_tien();
                                     load_tong_doanh_thu();
 
+                                    //add hd vao ds_hoa_don
+                                    if(!ds_hoa_don.isEmpty()){
+
+                                        Boolean flat_trung=false;
+                                        for (int i=0; i<ds_hoa_don.size(); i++){
+
+                                            String time_hd_index = ds_hoa_don.get(i).getThoi_gian();
+                                            //tách thoi_gian thành 2
+                                            //[0] từ kí tự đầu đến " "
+                                            //[1] từ " " đến cuối
+                                            String[] tach_thoi_gian_hd_index = time_hd_index.split(" ");
+
+                                            if(tach_thoi_gian_hd_index[1].equals(tach_thoi_gian[1])){
+                                                //trung
+                                                //tăng tong tien
+                                                int tien = ds_hoa_don.get(i).getTong_tien() + hoa_don.getTong_tien();;
+                                                ds_hoa_don.get(i).setTong_tien(tien);
+                                                flat_trung=true;
+
+                                            }
+
+                                        }
+
+                                        if(flat_trung==false){
+                                            ds_hoa_don.add(hoa_don);
+                                        }
+
+
+                                    }else {
+                                        //rong
+                                        ds_hoa_don.add(hoa_don);
+                                    }
+
                                 }
                             } catch (ParseException e) {
                                 //lỗi data
@@ -253,10 +312,13 @@ public class fragment_Admin_thong_ke_doanh_thu extends Fragment {
                         }
 
                     }
-                }
 
+                }
                 //stop
                 flat_tong_doanh_thu=false;
+                barChart();
+
+
             }
             @Override
             public void onCancelled(DatabaseError error) {
@@ -267,6 +329,53 @@ public class fragment_Admin_thong_ke_doanh_thu extends Fragment {
 
 
 
+    }
+    public void barChart(){
+
+        for (int i=0; i<ds_hoa_don.size(); i++){
+
+            //ds_barEntry
+            ds_barEntry.add(new BarEntry(i,(float)ds_hoa_don.get(i).getTong_tien()));
+
+            //ds_ngay
+            String time = ds_hoa_don.get(i).getThoi_gian();
+            //tách thoi_gian thành 2
+            //[0] từ kí tự đầu đến " "
+            //[1] từ " " đến cuối
+            String[] tach_thoi_gian = time.split(" ");
+            ds_ngay.add(tach_thoi_gian[1]);
+
+        }
+
+        //tim max
+        int max_tien=ds_hoa_don.get(0).getTong_tien();
+        for(int j=1; j<ds_hoa_don.size(); j++){
+            if(ds_hoa_don.get(j-1).getTong_tien() < ds_hoa_don.get(j).getTong_tien()){
+                max_tien = ds_hoa_don.get(j).getTong_tien();
+            }
+        }
+        Log.d("max_tien",String.valueOf(max_tien));
+
+        YAxis yAxis =barChart.getAxisLeft();
+        yAxis.setAxisMinimum(0f);
+        yAxis.setAxisMaximum((float)(max_tien+10000));
+        yAxis.setAxisLineWidth(5f);
+        yAxis.setAxisLineColor(Color.BLACK);
+        yAxis.setLabelCount(10);
+
+        BarDataSet barDataSet = new BarDataSet(ds_barEntry,"Thong ke doanh thu");
+        barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+
+        BarData barData = new BarData(barDataSet);
+        barChart.setData(barData);
+
+        barChart.getDescription().setEnabled(false);
+        barChart.invalidate();
+
+        barChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(ds_ngay));
+        barChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+        barChart.getXAxis().setGranularity(1f);
+        barChart.getXAxis().setGranularityEnabled(true);
     }
 
     private void dialog_thoat(Hoa_Don hoaDon){

@@ -22,7 +22,7 @@
             android:id="@+id/inputEdit_tu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Từ"
+            android:hint="Từ dd/mm/yyyy"
             android:inputType="text" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -41,7 +41,7 @@
             android:id="@+id/inputEdit_den"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Đến"
+            android:hint="Đến dd/mm/yyyy"
             android:inputType="text" />
 
     </com.google.android.material.textfield.TextInputLayout>
