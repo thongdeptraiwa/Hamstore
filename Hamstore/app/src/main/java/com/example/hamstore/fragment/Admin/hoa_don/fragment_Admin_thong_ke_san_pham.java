@@ -1,15 +1,18 @@
 package com.example.hamstore.fragment.Admin.hoa_don;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
+import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,6 +60,9 @@ public class fragment_Admin_thong_ke_san_pham extends Fragment {
     Boolean flat_read_data=false;
     ArrayList<Items> ds= new ArrayList<>();
 
+    //DatePickerDialog
+    DatePickerDialog datePickerDialog;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -70,6 +76,20 @@ public class fragment_Admin_thong_ke_san_pham extends Fragment {
         inputEdit_tu=view.findViewById(R.id.inputEdit_tu);
         inputEdit_den=view.findViewById(R.id.inputEdit_den);
 
+
+        //nhấn chon date
+        inputEdit_tu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                datepicker(1);
+            }
+        });
+        inputEdit_den.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                datepicker(2);
+            }
+        });
 
         //nhấn thống kê
         btn_thong_ke.setOnClickListener(new View.OnClickListener() {
@@ -196,8 +216,31 @@ public class fragment_Admin_thong_ke_san_pham extends Fragment {
         });
 
 
-
     }
+    //DatePickerDialog
+    private void datepicker(int tu_den) {//int tu_den (1:tu - 2:den)
+        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                //do giá trị của tháng chỉ có 0 - 11 nên chúng ta +1 vào để bắt đầu là tháng 1 và cuối là tháng 12
+                month = month + 1;
+                String date = String.valueOf(day+"/"+month+"/"+year);
+                if(tu_den==1){
+                    inputEdit_tu.setText(date);
+                }else {
+                    inputEdit_den.setText(date);
+                }
 
+            }
+        };
+        //cú pháp calendar dùng để làm việc với thời gian
+        Calendar calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DATE);
+        int month = calendar.get(Calendar.MONTH);
+        int year = calendar.get(Calendar.YEAR);
+
+        datePickerDialog = new DatePickerDialog(c,dateSetListener,year,month,day);
+        datePickerDialog.show();
+    }
 
 }

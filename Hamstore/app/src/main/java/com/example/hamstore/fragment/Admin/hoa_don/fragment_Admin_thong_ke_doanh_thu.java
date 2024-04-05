@@ -1,16 +1,19 @@
 package com.example.hamstore.fragment.Admin.hoa_don;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -56,22 +59,27 @@ import java.util.List;
 
 public class fragment_Admin_thong_ke_doanh_thu extends Fragment {
     Context c;
+
     //RecyclerView recyclerView;
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     DatabaseReference data = firebaseDatabase.getReference("Hóa đơn");
     Button btn_thong_ke;
     TextInputEditText inputEdit_tu,inputEdit_den;
     public SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+
     //Tong tien
     int tong_doanh_thu = 0;
     TextView tv_tong_doanh_thu;
     Boolean flat_tong_doanh_thu=false;
+
     //barchart
     BarChart barChart;
     ArrayList<Hoa_Don> ds_hoa_don = new ArrayList<>();
     ArrayList<BarEntry> ds_barEntry = new ArrayList<>();
     ArrayList<String> ds_ngay = new ArrayList<>();
 
+    //DatePickerDialog
+    DatePickerDialog datePickerDialog;
 
     @Nullable
     @Override
@@ -91,6 +99,22 @@ public class fragment_Admin_thong_ke_doanh_thu extends Fragment {
         //barChart
         barChart.getAxisRight().setDrawLabels(false);
 
+
+        //nhấn
+
+        //nhấn chon date
+        inputEdit_tu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                datepicker(1);
+            }
+        });
+        inputEdit_den.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                datepicker(2);
+            }
+        });
 
         //nhấn thống kê
         btn_thong_ke.setOnClickListener(new View.OnClickListener() {
@@ -138,6 +162,8 @@ public class fragment_Admin_thong_ke_doanh_thu extends Fragment {
         return view;
     }
 
+
+    //thống kê theo kiểu list
 //    public void thong_ke_doanh_thu(Date tu,Date den) {
 //
 //        FirebaseRecyclerOptions<Hoa_Don> options =
@@ -445,6 +471,32 @@ public class fragment_Admin_thong_ke_doanh_thu extends Fragment {
     private void reset_tong_doanh_thu(){
         tong_doanh_thu = 0;
         load_tong_doanh_thu();
+    }
+
+    //DatePickerDialog
+    private void datepicker(int tu_den) {//int tu_den (1:tu - 2:den)
+        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                //do giá trị của tháng chỉ có 0 - 11 nên chúng ta +1 vào để bắt đầu là tháng 1 và cuối là tháng 12
+                month = month + 1;
+                String date = String.valueOf(day+"/"+month+"/"+year);
+                if(tu_den==1){
+                    inputEdit_tu.setText(date);
+                }else {
+                    inputEdit_den.setText(date);
+                }
+
+            }
+        };
+        //cú pháp calendar dùng để làm việc với thời gian
+        Calendar calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DATE);
+        int month = calendar.get(Calendar.MONTH);
+        int year = calendar.get(Calendar.YEAR);
+
+        datePickerDialog = new DatePickerDialog(c,dateSetListener,year,month,day);
+        datePickerDialog.show();
     }
 
 }
