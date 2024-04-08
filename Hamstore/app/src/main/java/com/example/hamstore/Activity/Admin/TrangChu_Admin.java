@@ -71,7 +71,6 @@ public class TrangChu_Admin extends AppCompatActivity {
 
                 }else if (item.getItemId() == R.id.mDangXuat) {
                     dialog_thong_bao_dang_xuat();
-
                 }
 
                 //đổi title

@@ -5,6 +5,7 @@ import static android.app.Activity.RESULT_OK;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -26,6 +27,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -313,8 +315,7 @@ public class fragment_Admin_hamster_robo extends Fragment {
                 holder.img_khung_rac.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        data.child(model.getId()).removeValue();
-                        Toast.makeText(c, "Xóa thành công", Toast.LENGTH_SHORT).show();
+                        dialog_thong_bao_xoa(model);
                     }
                 });
                 //nhấn item xem chi tiết và chỉnh sửa
@@ -487,5 +488,25 @@ public class fragment_Admin_hamster_robo extends Fragment {
         data.child(id).child("srcImg").setValue(link_img.toString());
         check_img=false;
     }
+    private void dialog_thong_bao_xoa(Items sp){
+        //tạo dialog thông báo đăng xuat
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(c);
+        alertDialogBuilder.setTitle("Thông Báo!");
+        alertDialogBuilder.setMessage("Bạn có chắc muốn xóa không?");
+        alertDialogBuilder.setCancelable(false);
+        alertDialogBuilder.setPositiveButton("Đồng Ý", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                data.child(sp.getId()).removeValue();
+            }
+        });
+        alertDialogBuilder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
 
+            }
+        });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
 }

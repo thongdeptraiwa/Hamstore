@@ -49,6 +49,25 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:boxStrokeColor="#43A047"
+        app:endIconMode="clear_text"
+        app:hintTextColor="#43A047"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/inputEdit_sdt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Số điện thoại"
+            android:inputType="number" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
     <Button
         android:id="@+id/btn_lay_mat_khau"
         android:layout_width="match_parent"

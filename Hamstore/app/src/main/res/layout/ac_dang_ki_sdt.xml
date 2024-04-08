@@ -38,57 +38,23 @@
         >
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/inputEdit_tai_khoan"
+            android:id="@+id/inputEdit_sdt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Tài khoản"
+            android:hint="Số điện thoại (+84)"
             android:inputType="text" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:boxStrokeColor="#43A047"
-        app:endIconMode="password_toggle"
-        app:hintTextColor="#43A047"
-        >
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/inputEdit_mat_khau_1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Mật khẩu"
-            android:inputType="textPassword" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:endIconMode="password_toggle"
-        app:boxStrokeColor="#43A047"
-        app:hintTextColor="#43A047"
-        >
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/inputEdit_mat_khau_2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Nhập lại mật khẩu"
-            android:inputType="textPassword" />
-
-    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/btn_tao_tai_khoan"
+        android:id="@+id/btn_gui_otp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/custom_btn_xanh"
         app:backgroundTint="@null"
-        android:text="Tạo tài khoản"
+        android:text="Gửi OTP"
         android:textSize="18dp"
         android:layout_marginTop="36dp"
         />

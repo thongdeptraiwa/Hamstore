@@ -399,10 +399,30 @@ public class fragment_Thong_tin extends Fragment {
 
         //text
         inputEdit_tai_khoan.setText(user.getTai_khoan());
-        inputEdit_ho_ten.setText(user.getHo_ten());
-        inputEdit_gmail.setText(String.valueOf(user.getGmail()));
-        inputEdit_sdt.setText(String.valueOf(user.getSdt()));
-        inputEdit_dia_chi.setText(user.getDia_chi());
+        //check null ho ten
+        if(user.getHo_ten().equals("null")){
+            inputEdit_ho_ten.setText("");
+        }else {
+            inputEdit_ho_ten.setText(user.getHo_ten());
+        }
+        //check null gmail
+        if(user.getGmail().equals("null")){
+            inputEdit_gmail.setText("");
+        }else {
+            inputEdit_gmail.setText(user.getGmail());
+        }
+        //check null sdt
+        if(user.getSdt().equals("null")){
+            inputEdit_sdt.setText("");
+        }else {
+            inputEdit_sdt.setText(user.getSdt());
+        }
+        //check null dia chi
+        if(user.getDia_chi().equals("null")){
+            inputEdit_dia_chi.setText("");
+        }else {
+            inputEdit_dia_chi.setText(user.getDia_chi());
+        }
 
         //nhấn
         btn_chinh_sua.setOnClickListener(new View.OnClickListener() {

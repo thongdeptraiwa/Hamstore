@@ -26,6 +26,12 @@
             android:name=".Activity.Login.AC_dang_ki"
             android:exported="false" />
         <activity
+            android:name=".Activity.Login.AC_dang_ki_sdt"
+            android:exported="true" />
+        <activity
+            android:name=".Activity.Login.AC_dang_ki_otp"
+            android:exported="true" />
+        <activity
             android:name=".Activity.Login.AC_dang_nhap"
             android:exported="false" />
         <activity

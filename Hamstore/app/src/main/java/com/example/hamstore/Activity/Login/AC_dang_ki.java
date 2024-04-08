@@ -31,6 +31,8 @@ public class AC_dang_ki extends AppCompatActivity {
     private final String key_users = "Users";
     boolean flat_user_trung = false;
     boolean flat_for = false;
+    String mPhoneNumber;
+    String sdt;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +44,12 @@ public class AC_dang_ki extends AppCompatActivity {
         inputEdit_tai_khoan = findViewById(R.id.inputEdit_tai_khoan);
         inputEdit_mat_khau_1 = findViewById(R.id.inputEdit_mat_khau_1);
         inputEdit_mat_khau_2 = findViewById(R.id.inputEdit_mat_khau_2);
+
+        //lấy sdt
+        mPhoneNumber = getIntent().getStringExtra("number_phone");
+        //thêm 0 và xóa +84
+        sdt = "0"+mPhoneNumber.substring(2);
+
 
         img_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,7 +149,7 @@ public class AC_dang_ki extends AppCompatActivity {
         //     ngay_sinh,
         //     dia_chi,
         //     role) // 0: user - 1: admin
-        data.child(key_users).child(tai_khoan).setValue(new User(tai_khoan,mat_khau,"img_avt","null","null","null","null",1))
+        data.child(key_users).child(tai_khoan).setValue(new User(tai_khoan,mat_khau,"img_avt","null","null",sdt,"null",1))
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {

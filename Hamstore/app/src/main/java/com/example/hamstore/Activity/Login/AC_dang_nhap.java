@@ -287,16 +287,16 @@ public class AC_dang_nhap extends AppCompatActivity {
 
                                         //User(tai_khoan,
                                         //     mat_khau,
-                                        //     gmail,
                                         //     ho_ten,
+                                        //     gmail,
                                         //     ngay_sinh,
                                         //     dia_chi,
                                         //     role) // 0: user - 1: admin
                                         data.child(key_users).child(usergg.getUid()).setValue(new User(tai_khoan,
                                                 mat_khau,
                                                 img,
-                                                gmail,
                                                 ho_ten,
+                                                gmail,
                                                 ngay_sinh,
                                                 dia_chi,
                                                 role));

@@ -23,8 +23,10 @@ import android.widget.Toast;
 import com.example.hamstore.R;
 import com.example.hamstore.model.Hoa_Don;
 import com.example.hamstore.model.Items;
+import com.example.hamstore.model.User;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -52,7 +54,7 @@ public class AC_thanh_toan extends AppCompatActivity {
     TextInputEditText inputEdit_sdt,inputEdit_dia_chi;
     RecyclerView recyclerView;
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    DatabaseReference data_gio_hang_tai_khoan,data_tang_sl_da_mua,data_hoa_don;
+    DatabaseReference data_gio_hang_tai_khoan,data_tang_sl_da_mua,data_hoa_don,data_tai_khoan;
     private Boolean stop_remove = false;
     private final String key_tai_khoan = "tai_khoan";
     String tai_khoan;
@@ -80,6 +82,11 @@ public class AC_thanh_toan extends AppCompatActivity {
         AppMoMoLib.getInstance().setEnvironment(AppMoMoLib.ENVIRONMENT.DEVELOPMENT); // AppMoMoLib.ENVIRONMENT.PRODUCTION
         //lấy tài khoản
         tai_khoan = getIntent().getStringExtra(key_tai_khoan);
+        data_tai_khoan = firebaseDatabase.getReference("Users").child(tai_khoan);
+        gio_hang_tai_khoan = "gio_hang_"+tai_khoan;
+        data_gio_hang_tai_khoan = firebaseDatabase.getReference("Giỏ hàng").child(gio_hang_tai_khoan);
+        data_tang_sl_da_mua = firebaseDatabase.getReference();
+        data_hoa_don = firebaseDatabase.getReference("Hóa đơn");
 
         //ánh xạ
         btn_momo = findViewById(R.id.btn_momo);
@@ -89,10 +96,8 @@ public class AC_thanh_toan extends AppCompatActivity {
         inputEdit_dia_chi = findViewById(R.id.inputEdit_dia_chi);
         recyclerView = findViewById(R.id.recyclerView);
         tv_tong_tien = findViewById(R.id.tv_tong_tien);
-        gio_hang_tai_khoan = "gio_hang_"+tai_khoan;
-        data_gio_hang_tai_khoan = firebaseDatabase.getReference("Giỏ hàng").child(gio_hang_tai_khoan);
-        data_tang_sl_da_mua = firebaseDatabase.getReference();
-        data_hoa_don = firebaseDatabase.getReference("Hóa đơn");
+
+        get_sdt_dia_chi();
 
         //tạo id HD
         id_hd = data_hoa_don.push().getKey();
@@ -148,6 +153,20 @@ public class AC_thanh_toan extends AppCompatActivity {
         });
 
     }
+
+    private void get_sdt_dia_chi() {
+        //sdt
+        String std = data_tai_khoan.child("sdt").get().getResult().getValue().toString();
+        if(!std.equals("null")){
+            inputEdit_sdt.setText(std);
+        }
+        //dia chi
+        String dia_chi = data_tai_khoan.child("dia_chi").get().getResult().getValue().toString();
+        if(!dia_chi.equals("null")){
+            inputEdit_dia_chi.setText(dia_chi);
+        }
+    }
+
     //momo
     //Get token through MoMo app
     private void requestPayment(String id_don_hang) {
