@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -40,6 +41,8 @@ public class fragment_TrangChu_2hang_Hamster extends Fragment {
 
     //loai hamster
     String loai_hamster="";
+    //Search
+    SearchView searchView;
 
     @Nullable
     @Override
@@ -51,6 +54,7 @@ public class fragment_TrangChu_2hang_Hamster extends Fragment {
         recyclerView_2hang=view.findViewById(R.id.recyclerView_2hang);
         img_back=view.findViewById(R.id.img_back);
         tv_title=view.findViewById(R.id.tv_title);
+        searchView=view.findViewById(R.id.searchView);
 
         //check loai hamster gì
         loai_hamster = trangChu.loai_hamster;
@@ -83,6 +87,21 @@ public class fragment_TrangChu_2hang_Hamster extends Fragment {
             @Override
             public void onClick(View v) {
                 trangChu.chuyen_fragment_2hang_loai_hamster();
+            }
+        });
+
+        //Search
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                adt_recyclerview_2hang.getFilter().filter(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adt_recyclerview_2hang.getFilter().filter(newText);
+                return false;
             }
         });
 

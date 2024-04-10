@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -37,6 +38,8 @@ public class fragment_TrangChu_2hang_PhuKien extends Fragment {
     RecyclerView recyclerView_2hang;
     ImageView img_back;
     TextView tv_title;
+    //Search
+    SearchView searchView;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -47,6 +50,9 @@ public class fragment_TrangChu_2hang_PhuKien extends Fragment {
         recyclerView_2hang=view.findViewById(R.id.recyclerView_2hang);
         img_back=view.findViewById(R.id.img_back);
         tv_title=view.findViewById(R.id.tv_title);
+        searchView=view.findViewById(R.id.searchView);
+
+        capNhatLayout();
 
         //đổi title
         tv_title.setText("Phụ kiện");
@@ -59,7 +65,21 @@ public class fragment_TrangChu_2hang_PhuKien extends Fragment {
             }
         });
 
-        capNhatLayout();
+        //Search
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                adt_recyclerview_2hang.getFilter().filter(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adt_recyclerview_2hang.getFilter().filter(newText);
+                return false;
+            }
+        });
+
 
         return view;
     }

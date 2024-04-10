@@ -1,9 +1,16 @@
 package com.example.hamstore.fragment.Users;
 
+import static androidx.core.content.ContextCompat.getSystemService;
+
+import android.app.SearchManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -11,6 +18,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -37,6 +48,8 @@ public class fragment_TrangChu_2hang_Loai_Hamster extends Fragment {
     RecyclerView recyclerView_loai_hamster;
     ImageView img_back;
     TextView tv_title;
+    //Search
+    SearchView searchView;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -47,11 +60,14 @@ public class fragment_TrangChu_2hang_Loai_Hamster extends Fragment {
         recyclerView_loai_hamster=view.findViewById(R.id.recyclerView_2hang);
         img_back=view.findViewById(R.id.img_back);
         tv_title=view.findViewById(R.id.tv_title);
+        searchView=view.findViewById(R.id.searchView);
+        //tắc search
+        searchView.setVisibility(View.GONE);
 
         //đổi title
         tv_title.setText("Loại Hamster");
 
-        //onclick img back
+        //onclick
         img_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,6 +117,8 @@ public class fragment_TrangChu_2hang_Loai_Hamster extends Fragment {
             }
         });
 
-
     }
+
+
+
 }

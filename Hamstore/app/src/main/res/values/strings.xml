@@ -2,5 +2,6 @@
     <string name="app_name">Hamstore</string>
     //gg
     <string name="gg" translatable="false">94150586774-tcuggtv48vtb53mdubcaf791s2abdeh1.apps.googleusercontent.com</string>
-
+    //Search
+    <string name="action_search">Search</string>
 </resources>

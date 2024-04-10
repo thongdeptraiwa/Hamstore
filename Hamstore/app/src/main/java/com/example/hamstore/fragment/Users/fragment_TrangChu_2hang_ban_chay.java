@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -53,6 +54,9 @@ public class fragment_TrangChu_2hang_ban_chay extends Fragment {
             key_phuKien = "Phụ kiện",
             key_thucAn = "Thức ăn";
 
+    //Search
+    SearchView searchView;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -63,6 +67,9 @@ public class fragment_TrangChu_2hang_ban_chay extends Fragment {
         recyclerView_2hang=view.findViewById(R.id.recyclerView_2hang);
         img_back=view.findViewById(R.id.img_back);
         tv_title=view.findViewById(R.id.tv_title);
+        searchView=view.findViewById(R.id.searchView);
+        //tắc search
+        searchView.setVisibility(View.GONE);
 
         //đổi title
         tv_title.setText("Top 5");

@@ -5,6 +5,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,19 +16,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.hamstore.R;
 import com.example.hamstore.Activity.Users.TrangChu;
+import com.example.hamstore.model.Items;
 import com.example.hamstore.model.Loai_Hamster;
 
 import java.util.ArrayList;
 
 
-public class ADT_Recyclerview_loai_hamster extends RecyclerView.Adapter<ADT_Recyclerview_loai_hamster.ViewHolder>{
+public class ADT_Recyclerview_loai_hamster extends RecyclerView.Adapter<ADT_Recyclerview_loai_hamster.ViewHolder> implements Filterable {
     private Context c;
     private ArrayList<Loai_Hamster> ds = new ArrayList<>();
+    private ArrayList<Loai_Hamster> dsSearch = new ArrayList<>();
     TrangChu trangChu;
 
     public ADT_Recyclerview_loai_hamster(Context c, ArrayList<Loai_Hamster> ds) {
         this.c = c;
         this.ds = ds;
+        this.dsSearch = ds;
     }
 
     @NonNull
@@ -98,5 +103,35 @@ public class ADT_Recyclerview_loai_hamster extends RecyclerView.Adapter<ADT_Recy
             tv_Gia = itemView.findViewById(R.id.tv_Gia);
             img = itemView.findViewById(R.id.img);
         }
+    }
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String strSearch = charSequence.toString();
+
+                if (strSearch.isEmpty()) {
+                    ds = dsSearch;
+                } else {
+                    ArrayList<Loai_Hamster> dsTemp = new ArrayList<Loai_Hamster>();
+                    for (Loai_Hamster loai_hamster : dsSearch) {
+                        if (loai_hamster.getTen_loai().toLowerCase().contains(strSearch.toLowerCase())) {
+                            dsTemp.add(loai_hamster);
+                        }
+                    }
+                    ds = dsTemp;
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = ds;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                ds = (ArrayList<Loai_Hamster>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 }

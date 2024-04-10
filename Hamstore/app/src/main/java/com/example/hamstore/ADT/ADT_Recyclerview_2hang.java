@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,14 +23,16 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 
-public class ADT_Recyclerview_2hang extends RecyclerView.Adapter<ADT_Recyclerview_2hang.ViewHolder>{
+public class ADT_Recyclerview_2hang extends RecyclerView.Adapter<ADT_Recyclerview_2hang.ViewHolder> implements Filterable {
     private Context c;
     private ArrayList<Items> ds = new ArrayList<Items>();
+    private ArrayList<Items> dsSearch = new ArrayList<Items>();
     TrangChu trangChu;
 
     public ADT_Recyclerview_2hang(Context c, ArrayList<Items> ds) {
         this.c = c;
         this.ds = ds;
+        this.dsSearch = ds;
     }
 
     @NonNull
@@ -130,5 +134,35 @@ public class ADT_Recyclerview_2hang extends RecyclerView.Adapter<ADT_Recyclervie
             btn_them_vao_gio_hang = itemView.findViewById(R.id.btn_them_vao_gio_hang);
         }
     }
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String strSearch = charSequence.toString();
 
+                if (strSearch.isEmpty()) {
+                    ds = dsSearch;
+                } else {
+                    ArrayList<Items> dsTemp = new ArrayList<Items>();
+                    for (Items items : dsSearch) {
+                        if (items.getTen_dai().toLowerCase().contains(strSearch.toLowerCase())) {
+                            dsTemp.add(items);
+                        }
+                    }
+                    ds = dsTemp;
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = ds;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                ds = (ArrayList<Items>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
+    }
 }
