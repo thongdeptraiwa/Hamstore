@@ -104,20 +104,25 @@ public class AC_quen_mat_khau extends AppCompatActivity {
 
                     }
 
+                    flat_for=false;
+
                     //tài khoản sai
                     if (flat_user_trung==true){
                         dialog_thong_bao_tai_khoan_khong_ton_tai();
+                        return;
                     }
                     //sdt sai
                     if (flat_sdt==true){
                         dialog_thong_bao_sdt_sai();
+                        return;
                     }
                     //thành công lấy mật khẩu
                     if (flat_user_trung==false && flat_sdt==false){
                         //lấy mật khẩu thành công
                         dialog_thong_bao_lay_mat_khau(mat_khau);
+                        return;
                     }
-                    flat_for=false;
+
                 }
 
             }
@@ -169,7 +174,7 @@ public class AC_quen_mat_khau extends AppCompatActivity {
         alertDialogBuilder.setPositiveButton("Đồng Ý", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                finish();
             }
         });
         AlertDialog alertDialog = alertDialogBuilder.create();

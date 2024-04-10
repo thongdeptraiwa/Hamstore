@@ -81,7 +81,7 @@ public class AC_dang_ki_sdt extends AppCompatActivity {
                             @Override
                             public void onVerificationFailed(@NonNull FirebaseException e) {
                                 //Failed
-                                Toast.makeText(c, "Lỗi sdt hoặc hết lượt OTP", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(c, "Sai sdt hoặc hết lượt OTP", Toast.LENGTH_SHORT).show();
                             }
 
                             @Override
@@ -122,7 +122,7 @@ public class AC_dang_ki_sdt extends AppCompatActivity {
     private void chuyen_ac_dang_ki(String strPhonenumber) {
         Intent intent = new Intent(c,AC_dang_ki.class);
         // truyen du lieu sang.
-        intent.putExtra("phone_number",strPhonenumber);
+        intent.putExtra("number_phone",strPhonenumber);
         startActivity(intent);
     }
 

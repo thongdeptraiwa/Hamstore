@@ -48,7 +48,8 @@ public class AC_dang_ki extends AppCompatActivity {
         //lấy sdt
         mPhoneNumber = getIntent().getStringExtra("number_phone");
         //thêm 0 và xóa +84
-        sdt = "0"+mPhoneNumber.substring(2);
+        sdt = "0"+mPhoneNumber.substring(3);
+        Toast.makeText(this, sdt, Toast.LENGTH_SHORT).show();
 
 
         img_back.setOnClickListener(new View.OnClickListener() {
@@ -106,6 +107,7 @@ public class AC_dang_ki extends AppCompatActivity {
                             //tài khoản trùng
                             if(user.getTai_khoan().equals(inputEdit_tai_khoan.getText().toString().trim())){
                                 flat_user_trung=false;
+                                break;
                             }
 
                         }
@@ -118,13 +120,15 @@ public class AC_dang_ki extends AppCompatActivity {
                         flat_user_trung=false;
                         //tạo thành công
                         Toast.makeText(AC_dang_ki.this, "Tạo tài khoản thành công", Toast.LENGTH_SHORT).show();
+                        flat_for=false;
                         startActivity(new Intent(AC_dang_ki.this,AC_dang_nhap.class));
                         finish();
+
                     }else {
                         //đăng kí thất bại
                         Toast.makeText(AC_dang_ki.this, "Tài khoản đã tồn tại!", Toast.LENGTH_SHORT).show();
+                        flat_for=false;
                     }
-                    flat_for=false;
                 }
 
             }
@@ -141,6 +145,7 @@ public class AC_dang_ki extends AppCompatActivity {
     }
 
     private void tao_user(String tai_khoan,String mat_khau){
+
 
         //User(tai_khoan,
         //     mat_khau,

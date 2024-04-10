@@ -9,7 +9,6 @@
     android:padding="30dp"
     >
 
-
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
@@ -25,6 +24,7 @@
         android:textStyle="bold"
         android:gravity="center"
         />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout1"
         android:layout_width="match_parent"
@@ -97,7 +97,6 @@
             app:riv_corner_radius="15dp"
             android:visibility="invisible"
             />
-
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/rdi_gg"

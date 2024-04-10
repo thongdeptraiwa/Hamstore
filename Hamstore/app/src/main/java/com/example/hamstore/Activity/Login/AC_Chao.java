@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.widget.Toast;
 
 import com.example.hamstore.R;
 
@@ -33,6 +34,10 @@ public class AC_Chao extends AppCompatActivity {
             }
         };
         timer.start();
+
+
+
+
 
     }
 }

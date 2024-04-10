@@ -33,9 +33,9 @@ public class AC_dang_ki_otp extends AppCompatActivity {
     TextInputEditText inputEdit_otp;
     Button btn_xac_nhan;
     TextView tv_gui_lai_otp;
-    private String mPhoneNumber;
-    private String mVertificationId;
-    private FirebaseAuth mAuth;
+    String mPhoneNumber;
+    String mVertificationId;
+    FirebaseAuth mAuth;
     private PhoneAuthProvider.ForceResendingToken mForce;
 
     @Override
@@ -137,9 +137,10 @@ public class AC_dang_ki_otp extends AppCompatActivity {
     }
 
     private void chuyen_ac_dang_ki(String phoneNumber) {
+        //Toast.makeText(AC_dang_ki_otp.this, "Lỗi dang ki", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this,AC_dang_ki.class);
         // truyen du lieu sang.
-        intent.putExtra("phone_number",phoneNumber);
+        intent.putExtra("number_phone",phoneNumber);
         startActivity(intent);
     }
 

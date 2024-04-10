@@ -54,6 +54,8 @@ public class AC_dang_nhap extends AppCompatActivity {
     GoogleSignInClient mGoogleSignInClient;
 
     int RC_SIGN_IN = 20;
+    String mPhoneNumber;
+    String sdt;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +69,10 @@ public class AC_dang_nhap extends AppCompatActivity {
         inputEdit_mat_khau = findViewById(R.id.inputEdit_mat_khau);
         rdi_gg = findViewById(R.id.rdi_gg);
 
+
+//         mPhoneNumber = getIntent().getStringExtra("number_phone");
+//         sdt = "0"+mPhoneNumber.substring(3);
+//        Toast.makeText(this, sdt, Toast.LENGTH_SHORT).show();
 
         //gg
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -98,7 +104,8 @@ public class AC_dang_nhap extends AppCompatActivity {
             public void onClick(View v) {
                 inputEdit_tai_khoan.setText("");
                 inputEdit_mat_khau.setText("");
-                startActivity(new Intent(AC_dang_nhap.this,AC_dang_ki.class));
+                Intent intent = new Intent(AC_dang_nhap.this,AC_dang_ki_sdt.class);
+                startActivity(intent);
             }
         });
 
