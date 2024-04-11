@@ -99,24 +99,29 @@ public class fragment_Admin_nguoi_dung_mo extends Fragment {
             @Override
             protected void onBindViewHolder(ViewHolder holder, int position, User model) {
 
-                //Mở
-                if(model.getRole() != 0){
-                    //hien thi
-                    holder.tv_tai_khoan.setText(model.getTai_khoan());
-                    holder.tv_trang_thai.setText("Mở");
-                    //xem chi tiết
-                    holder.itemView.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            dialog_chi_tiet(model);
-                        }
-                    });
-                }else {
-                    //ẩn holder
+                //ẩn admin
+                if(model.getRole() == 3){
                     holder.itemView.setVisibility(View.GONE);
                     holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0,0));
+                }else {
+                    //Mở
+                    if(model.getRole() != 0){
+                        //hien thi
+                        holder.tv_tai_khoan.setText(model.getTai_khoan());
+                        holder.tv_trang_thai.setText("Mở");
+                        //xem chi tiết
+                        holder.itemView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog_chi_tiet(model);
+                            }
+                        });
+                    }else {
+                        //ẩn holder
+                        holder.itemView.setVisibility(View.GONE);
+                        holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0,0));
+                    }
                 }
-
 
 
             }

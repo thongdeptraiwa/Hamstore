@@ -149,11 +149,12 @@ public class AC_dang_ki extends AppCompatActivity {
 
         //User(tai_khoan,
         //     mat_khau,
-        //     gmail,
+        //     img,
         //     ho_ten,
-        //     ngay_sinh,
+        //     gmail,
+        //     sdt,
         //     dia_chi,
-        //     role) // 0: user - 1: admin
+        //     role) // 0: khóa - 1: account thường - 2: gg - 3: admin
         data.child(key_users).child(tai_khoan).setValue(new User(tai_khoan,mat_khau,"img_avt","null","null",sdt,"null",1))
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override

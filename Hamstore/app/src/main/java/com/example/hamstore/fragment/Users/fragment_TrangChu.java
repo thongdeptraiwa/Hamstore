@@ -26,6 +26,7 @@ import com.example.hamstore.model.Admin;
 import com.example.hamstore.model.Items;
 import com.example.hamstore.model.Loai_Hamster;
 import com.example.hamstore.model.Photo;
+import com.example.hamstore.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -254,6 +255,7 @@ public class fragment_TrangChu extends Fragment {
 
         //add_Items();
 
+
     }
     private void add_Items(){
 
@@ -263,12 +265,13 @@ public class fragment_TrangChu extends Fragment {
 
         //User(tai_khoan,
         //     mat_khau,
-        //     gmail,
+        //     img,
         //     ho_ten,
-        //     ngay_sinh,
+        //     gmail,
+        //     sdt,
         //     dia_chi,
-        //     role) // 0: user - 1: admin
-        myRef.child("Admin").child(tai_khoan).setValue(new Admin(tai_khoan,mat_khau))
+        //     role) // 0: khóa - 1: account thường - 2: gg - 3: admin
+        myRef.child("Users").child(tai_khoan).setValue(new User(tai_khoan,mat_khau,"null","null","null","null","null",3))
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {

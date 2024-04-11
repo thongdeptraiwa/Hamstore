@@ -85,8 +85,8 @@ public class AC_dang_nhap extends AppCompatActivity {
         btn_dang_nhap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                flat_admin_login_thanh_cong=true;
-                check_admin();
+                flat_user_login_thanh_cong=true;
+                check_user();
             }
         });
 
@@ -118,53 +118,53 @@ public class AC_dang_nhap extends AppCompatActivity {
         });
 
     }
-    private void check_admin(){
-
-        //check data
-        data.child("Admin").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                for(DataSnapshot snapshot: dataSnapshot.getChildren()){
-
-                    if(flat_admin_login_thanh_cong==true){
-                        Admin admin = snapshot.getValue(Admin.class);
-                        //dang nhap thanh cong
-                        if(admin.getTai_khoan().equals(inputEdit_tai_khoan.getText().toString().trim())
-                                && admin.getMat_khau().equals(inputEdit_mat_khau.getText().toString().trim())){
-                            //reset lại mật khẩu
-                            inputEdit_mat_khau.setText("");
-
-                            //admin
-                            Intent intent_admin = new Intent(AC_dang_nhap.this, TrangChu_Admin.class);
-                            startActivity(intent_admin);
-                            flat_admin_login_thanh_cong=false;
-                            return;
-                        }
-
-                    }
-
-
-                }
-                if (flat_admin_login_thanh_cong==true){
-                    //dang nhap thất bại
-                    flat_user_login_thanh_cong=true;
-                    check_user();
-                    flat_admin_login_thanh_cong=false;
-                }
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w("DEUBG", "Failed read realtime", error.toException());
-            }
-        });
-
-
-
-    }
+//    private void check_admin(){
+//
+//        //check data
+//        data.child("Admin").addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//
+//                for(DataSnapshot snapshot: dataSnapshot.getChildren()){
+//
+//                    if(flat_admin_login_thanh_cong==true){
+//                        Admin admin = snapshot.getValue(Admin.class);
+//                        //dang nhap thanh cong
+//                        if(admin.getTai_khoan().equals(inputEdit_tai_khoan.getText().toString().trim())
+//                                && admin.getMat_khau().equals(inputEdit_mat_khau.getText().toString().trim())){
+//                            //reset lại mật khẩu
+//                            inputEdit_mat_khau.setText("");
+//
+//                            //admin
+//                            Intent intent_admin = new Intent(AC_dang_nhap.this, TrangChu_Admin.class);
+//                            startActivity(intent_admin);
+//                            flat_admin_login_thanh_cong=false;
+//                            return;
+//                        }
+//
+//                    }
+//
+//
+//                }
+//                if (flat_admin_login_thanh_cong==true){
+//                    //dang nhap thất bại
+//                    flat_user_login_thanh_cong=true;
+//                    check_user();
+//                    flat_admin_login_thanh_cong=false;
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError error) {
+//                // Failed to read value
+//                Log.w("DEUBG", "Failed read realtime", error.toException());
+//            }
+//        });
+//
+//
+//
+//    }
 
     private void check_user(){
 
@@ -184,17 +184,29 @@ public class AC_dang_nhap extends AppCompatActivity {
                             inputEdit_mat_khau.setText("");
                             // check role
                             if(user.getRole() != 0){
-                                Intent intent_user = new Intent(AC_dang_nhap.this, TrangChu.class);
-                                intent_user.putExtra(key_tai_khoan,user.getTai_khoan());
-                                startActivity(intent_user);
-                                flat_user_login_thanh_cong=false;
+                                //user
+                                if(user.getRole() == 1){
+                                    Intent intent_user = new Intent(AC_dang_nhap.this, TrangChu.class);
+                                    intent_user.putExtra(key_tai_khoan,user.getTai_khoan());
+                                    startActivity(intent_user);
+                                    flat_user_login_thanh_cong=false;
+                                }
+                                //admin
+                                if(user.getRole() == 3){
+                                    Intent intent_admin = new Intent(AC_dang_nhap.this, TrangChu_Admin.class);
+                                    startActivity(intent_admin);
+                                    flat_user_login_thanh_cong=false;
+                                }
+
 
                             }else {
                                 Toast.makeText(AC_dang_nhap.this, "Tài khoản đã bị khóa!", Toast.LENGTH_SHORT).show();
                                 flat_user_login_thanh_cong=false;
                             }
+
                             return;
                         }
+
 
                     }
 

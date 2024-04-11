@@ -97,7 +97,7 @@ public class AC_thanh_toan extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         tv_tong_tien = findViewById(R.id.tv_tong_tien);
 
-        get_sdt_dia_chi();
+        //get_sdt_dia_chi();
 
         //tạo id HD
         id_hd = data_hoa_don.push().getKey();
@@ -154,6 +154,7 @@ public class AC_thanh_toan extends AppCompatActivity {
 
     }
 
+    //Lỗi mốt fix
     private void get_sdt_dia_chi() {
         //sdt
         String std = data_tai_khoan.child("sdt").get().getResult().getValue().toString();
