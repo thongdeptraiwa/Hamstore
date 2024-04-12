@@ -2,8 +2,10 @@ package com.example.hamstore.Activity.Login;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -85,6 +87,18 @@ public class AC_dang_nhap extends AppCompatActivity {
         btn_dang_nhap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //check null
+                //check null
+                if(inputEdit_tai_khoan.getText().toString().equals("")){
+                    dialog_thong_bao("Bạn chưa nhập tài khoản!");
+                    return;
+                }
+                //check null
+                if(inputEdit_mat_khau.getText().toString().equals("")){
+                    dialog_thong_bao("Bạn chưa nhập mật khẩu!");
+                    return;
+                }
+
                 flat_user_login_thanh_cong=true;
                 check_user();
             }
@@ -200,7 +214,8 @@ public class AC_dang_nhap extends AppCompatActivity {
 
 
                             }else {
-                                Toast.makeText(AC_dang_nhap.this, "Tài khoản đã bị khóa!", Toast.LENGTH_SHORT).show();
+                                dialog_thong_bao("Tài khoản đã bị khóa!");
+                                //Toast.makeText(AC_dang_nhap.this, "Tài khoản đã bị khóa!", Toast.LENGTH_SHORT).show();
                                 flat_user_login_thanh_cong=false;
                             }
 
@@ -214,7 +229,8 @@ public class AC_dang_nhap extends AppCompatActivity {
                 }
                 if (flat_user_login_thanh_cong==true){
                     //dang nhap thất bại
-                    Toast.makeText(AC_dang_nhap.this, "Đăng nhập thất bại!", Toast.LENGTH_SHORT).show();
+                    dialog_thong_bao("Đăng nhập thất bại!");
+                    //Toast.makeText(AC_dang_nhap.this, "Đăng nhập thất bại!", Toast.LENGTH_SHORT).show();
                     flat_user_login_thanh_cong=false;
                 }
 
@@ -281,7 +297,8 @@ public class AC_dang_nhap extends AppCompatActivity {
                                                     flat_gg_login_thanh_cong=false;
 
                                                 }else {
-                                                    Toast.makeText(AC_dang_nhap.this, "Tài khoản đã bị khóa!", Toast.LENGTH_SHORT).show();
+                                                    dialog_thong_bao("Tài khoản đã bị khóa!");
+                                                    //Toast.makeText(AC_dang_nhap.this, "Tài khoản đã bị khóa!", Toast.LENGTH_SHORT).show();
                                                     flat_gg_login_thanh_cong=false;
                                                 }
                                                 return;
@@ -350,4 +367,19 @@ public class AC_dang_nhap extends AppCompatActivity {
 
     }
 
+    private void dialog_thong_bao(String text){
+        //tạo dialog thông báo
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setTitle("Thông báo");
+        alertDialogBuilder.setMessage(text);
+        alertDialogBuilder.setCancelable(false);
+        alertDialogBuilder.setPositiveButton("Đồng Ý", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
 }

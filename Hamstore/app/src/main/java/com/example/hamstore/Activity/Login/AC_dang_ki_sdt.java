@@ -1,6 +1,7 @@
 package com.example.hamstore.Activity.Login;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.textfield.TextInputEditText;
 import com.example.hamstore.R;
@@ -56,7 +58,17 @@ public class AC_dang_ki_sdt extends AppCompatActivity {
         btn_gui_otp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String strPhonenumber = inputEdit_sdt.getText().toString().trim();
+
+                //check null
+                if(inputEdit_sdt.getText().toString().trim().equals("")){
+                    dialog_thong_bao_sdt_null();
+                    return;
+                }
+
+                //chuyen 0.... thanh +84
+                String strPhonenumber = "+84"+inputEdit_sdt.getText().toString().trim().substring(1);
+                //Toast.makeText(c, strPhonenumber, Toast.LENGTH_SHORT).show();
+
                 gui_otp(strPhonenumber);
                 Toast.makeText(c, "Đang load", Toast.LENGTH_SHORT).show();
             }
@@ -128,9 +140,24 @@ public class AC_dang_ki_sdt extends AppCompatActivity {
 
     private void chuyen_qua_ac_dang_ki_otp(String strPhonenumber, String verificationId) {
         Intent intent = new Intent(c, AC_dang_ki_otp.class);
-        intent.putExtra("number_phone",strPhonenumber);
-        intent.putExtra("verification_id",verificationId);
+        intent.putExtra("sdt_sdt",strPhonenumber);
+        intent.putExtra("otp_sdt",verificationId);
         startActivity(intent);
+    }
+    private void dialog_thong_bao_sdt_null(){
+        //tạo dialog thông báo
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setTitle("Thông báo");
+        alertDialogBuilder.setMessage("Bạn chưa nhập số điện thoại!");
+        alertDialogBuilder.setCancelable(false);
+        alertDialogBuilder.setPositiveButton("Đồng Ý", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 
 }

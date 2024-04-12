@@ -1,8 +1,10 @@
 package com.example.hamstore.Activity.Login;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -46,10 +48,10 @@ public class AC_dang_ki extends AppCompatActivity {
         inputEdit_mat_khau_2 = findViewById(R.id.inputEdit_mat_khau_2);
 
         //lấy sdt
-        mPhoneNumber = getIntent().getStringExtra("number_phone");
+        mPhoneNumber = getIntent().getStringExtra("sdt_otp");
         //thêm 0 và xóa +84
         sdt = "0"+mPhoneNumber.substring(3);
-        Toast.makeText(this, sdt, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, sdt, Toast.LENGTH_SHORT).show();
 
 
         img_back.setOnClickListener(new View.OnClickListener() {
@@ -65,21 +67,25 @@ public class AC_dang_ki extends AppCompatActivity {
 
                 //check null
                 if(inputEdit_tai_khoan.getText().toString().trim().isEmpty()){
-                    Toast.makeText(AC_dang_ki.this, "Chưa nhập tài khoản!", Toast.LENGTH_SHORT).show();
+                    dialog_thong_bao("Bạn chưa nhập tài khoản!");
+                    //Toast.makeText(AC_dang_ki.this, "Bạn chưa nhập tài khoản!", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if(inputEdit_mat_khau_1.getText().toString().trim().isEmpty()){
-                    Toast.makeText(AC_dang_ki.this, "Chưa nhập mật khẩu!", Toast.LENGTH_SHORT).show();
+                    dialog_thong_bao("Bạn chưa nhập mật khẩu!");
+                    //Toast.makeText(AC_dang_ki.this, "Bạn chưa nhập mật khẩu!", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if(inputEdit_mat_khau_2.getText().toString().trim().isEmpty()){
-                    Toast.makeText(AC_dang_ki.this, "Chưa nhập lại mật khẩu!", Toast.LENGTH_SHORT).show();
+                    dialog_thong_bao("Bạn chưa nhập lại mật khẩu!");
+                    //Toast.makeText(AC_dang_ki.this, "Bạn chưa nhập lại mật khẩu!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 //check 2 mật khẩu
                 if(!inputEdit_mat_khau_1.getText().toString().trim().equals(inputEdit_mat_khau_2.getText().toString().trim())){
-                    Toast.makeText(AC_dang_ki.this, "Nhập lại mật khẩu không giống!", Toast.LENGTH_SHORT).show();
+                    dialog_thong_bao("Nhập lại mật khẩu không giống!");
+                    //Toast.makeText(AC_dang_ki.this, "Nhập lại mật khẩu không giống!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -119,14 +125,14 @@ public class AC_dang_ki extends AppCompatActivity {
                         tao_user(inputEdit_tai_khoan.getText().toString().trim(),inputEdit_mat_khau_1.getText().toString().trim());
                         flat_user_trung=false;
                         //tạo thành công
-                        Toast.makeText(AC_dang_ki.this, "Tạo tài khoản thành công", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(AC_dang_ki.this, "Tạo tài khoản thành công", Toast.LENGTH_SHORT).show();
                         flat_for=false;
-                        startActivity(new Intent(AC_dang_ki.this,AC_dang_nhap.class));
-                        finish();
+                        dialog_thong_bao_dang_ki_thanh_cong();
 
                     }else {
                         //đăng kí thất bại
-                        Toast.makeText(AC_dang_ki.this, "Tài khoản đã tồn tại!", Toast.LENGTH_SHORT).show();
+                        dialog_thong_bao("Tài khoản này đã tồn tại!");
+                        //Toast.makeText(AC_dang_ki.this, "Tài khoản này đã tồn tại!", Toast.LENGTH_SHORT).show();
                         flat_for=false;
                     }
                 }
@@ -167,6 +173,37 @@ public class AC_dang_ki extends AppCompatActivity {
                     }
                 });
 
+    }
+    private void dialog_thong_bao(String text){
+        //tạo dialog thông báo
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setTitle("Thông báo");
+        alertDialogBuilder.setMessage(text);
+        alertDialogBuilder.setCancelable(false);
+        alertDialogBuilder.setPositiveButton("Đồng Ý", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+    private void dialog_thong_bao_dang_ki_thanh_cong(){
+        //tạo dialog thông báo
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setTitle("Thông báo");
+        alertDialogBuilder.setMessage("Đăng kí thành cong!");
+        alertDialogBuilder.setCancelable(false);
+        alertDialogBuilder.setPositiveButton("Đồng Ý", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                startActivity(new Intent(AC_dang_ki.this,AC_dang_nhap.class));
+                finish();
+            }
+        });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 
 }

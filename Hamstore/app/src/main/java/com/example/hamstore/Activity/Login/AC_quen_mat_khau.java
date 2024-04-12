@@ -56,12 +56,14 @@ public class AC_quen_mat_khau extends AppCompatActivity {
                 //check null
                 //tai khoan
                 if(inputEdit_tai_khoan.getText().toString().trim().isEmpty()){
-                    Toast.makeText(AC_quen_mat_khau.this, "Chưa nhập tài khoản!", Toast.LENGTH_SHORT).show();
+                    dialog_thong_bao_tai_fail("Chưa nhập tài khoản!");
+                    //Toast.makeText(AC_quen_mat_khau.this, "Chưa nhập tài khoản!", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 //sdt
                 if(inputEdit_sdt.getText().toString().trim().isEmpty()){
-                    Toast.makeText(AC_quen_mat_khau.this, "Chưa nhập sdt!", Toast.LENGTH_SHORT).show();
+                    dialog_thong_bao_tai_fail("Chưa nhập sdt!");
+                    //Toast.makeText(AC_quen_mat_khau.this, "Chưa nhập sdt!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -108,12 +110,12 @@ public class AC_quen_mat_khau extends AppCompatActivity {
 
                     //tài khoản sai
                     if (flat_user_trung==true){
-                        dialog_thong_bao_tai_khoan_khong_ton_tai();
+                        dialog_thong_bao_tai_fail("Tài khoản không tồn tại!");
                         return;
                     }
                     //sdt sai
                     if (flat_sdt==true){
-                        dialog_thong_bao_sdt_sai();
+                        dialog_thong_bao_tai_fail("Số điện thoại không chính xác!");
                         return;
                     }
                     //thành công lấy mật khẩu
@@ -135,11 +137,11 @@ public class AC_quen_mat_khau extends AppCompatActivity {
         });
 
     }
-    private void dialog_thong_bao_tai_khoan_khong_ton_tai(){
+    private void dialog_thong_bao_tai_fail(String text){
         //tạo dialog thông báo đăng xuat
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setTitle("Thông Báo");
-        alertDialogBuilder.setMessage("Tài khoản không tồn tại!");
+        alertDialogBuilder.setMessage(text);
         alertDialogBuilder.setCancelable(false);
         alertDialogBuilder.setPositiveButton("Đồng Ý", new DialogInterface.OnClickListener() {
             @Override
@@ -150,23 +152,9 @@ public class AC_quen_mat_khau extends AppCompatActivity {
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
     }
-    private void dialog_thong_bao_sdt_sai(){
-        //tạo dialog thông báo đăng xuat
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setTitle("Thông Báo");
-        alertDialogBuilder.setMessage("Số điện thoại không đúng!");
-        alertDialogBuilder.setCancelable(false);
-        alertDialogBuilder.setPositiveButton("Đồng Ý", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
 
-            }
-        });
-        AlertDialog alertDialog = alertDialogBuilder.create();
-        alertDialog.show();
-    }
     private void dialog_thong_bao_lay_mat_khau(String mat_khau){
-        //tạo dialog thông báo đăng xuat
+        //tạo dialog thông báo
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setTitle("Lấy lại mật khẩu thành công");
         alertDialogBuilder.setMessage("Mật khẩu: "+mat_khau);

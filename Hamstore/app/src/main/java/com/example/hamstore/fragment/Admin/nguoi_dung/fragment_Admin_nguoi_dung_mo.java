@@ -78,8 +78,7 @@ public class fragment_Admin_nguoi_dung_mo extends Fragment {
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference data = firebaseDatabase.getReference("Users");
-        //xóa gio hang của user bị xóa
-        DatabaseReference data_gio_hang = firebaseDatabase.getReference();
+
 
         FirebaseRecyclerOptions<User> options =
                 new FirebaseRecyclerOptions.Builder<User>()

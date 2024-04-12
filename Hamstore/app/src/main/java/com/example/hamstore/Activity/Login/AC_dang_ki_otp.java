@@ -1,6 +1,7 @@
 package com.example.hamstore.Activity.Login;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.hamstore.R;
@@ -52,8 +54,8 @@ public class AC_dang_ki_otp extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         //lấy sdt vs ma OTP
-        mPhoneNumber = getIntent().getStringExtra("number_phone");
-        mVertificationId = getIntent().getStringExtra("verification_id");
+        mPhoneNumber = getIntent().getStringExtra("sdt_sdt");
+        mVertificationId = getIntent().getStringExtra("otp_sdt");
 
         //nhan
         img_back.setOnClickListener(new View.OnClickListener() {
@@ -66,6 +68,11 @@ public class AC_dang_ki_otp extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String otp_user_nhap = inputEdit_otp.getText().toString().trim();
+                //check null
+                if(otp_user_nhap.equals("")){
+                    dialog_thong_bao_otp_null();
+                    return;
+                }
                 PhoneAuthCredential credential = PhoneAuthProvider.getCredential(mVertificationId, otp_user_nhap);
                 check_otp(credential);
                 Toast.makeText(c, "Đang load", Toast.LENGTH_SHORT).show();
@@ -140,9 +147,23 @@ public class AC_dang_ki_otp extends AppCompatActivity {
         //Toast.makeText(AC_dang_ki_otp.this, "Lỗi dang ki", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this,AC_dang_ki.class);
         // truyen du lieu sang.
-        intent.putExtra("number_phone",phoneNumber);
+        intent.putExtra("sdt_otp",phoneNumber);
         startActivity(intent);
     }
+    private void dialog_thong_bao_otp_null(){
+        //tạo dialog thông báo
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setTitle("Thông báo");
+        alertDialogBuilder.setMessage("Bạn chưa nhập mã OTP!");
+        alertDialogBuilder.setCancelable(false);
+        alertDialogBuilder.setPositiveButton("Đồng Ý", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
 
+            }
+        });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
 
 }
