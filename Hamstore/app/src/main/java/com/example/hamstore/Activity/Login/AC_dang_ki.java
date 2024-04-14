@@ -48,7 +48,7 @@ public class AC_dang_ki extends AppCompatActivity {
         inputEdit_mat_khau_2 = findViewById(R.id.inputEdit_mat_khau_2);
 
         //lấy sdt
-        mPhoneNumber = getIntent().getStringExtra("sdt_otp");
+        mPhoneNumber = getIntent().getStringExtra("sdt");
         //thêm 0 và xóa +84
         sdt = "0"+mPhoneNumber.substring(3);
         //Toast.makeText(this, sdt, Toast.LENGTH_SHORT).show();
@@ -166,9 +166,9 @@ public class AC_dang_ki extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()){
-                            Toast.makeText(AC_dang_ki.this, "Add user thanh cong", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(AC_dang_ki.this, "Add user thanh cong", Toast.LENGTH_SHORT).show();
                         }else {
-                            Toast.makeText(AC_dang_ki.this, "Add user thai bai", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(AC_dang_ki.this, "Add user thai bai", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

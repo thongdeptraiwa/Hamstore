@@ -29,6 +29,7 @@ public class AC_Chao extends AppCompatActivity {
             @Override
             public void onFinish() {
                 Intent intent = new Intent(c, AC_dang_nhap.class);
+                intent.putExtra("Luu_account",1);
                 startActivity(intent);
                 finish();
             }

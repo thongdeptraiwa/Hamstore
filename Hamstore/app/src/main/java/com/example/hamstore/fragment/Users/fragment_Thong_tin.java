@@ -222,7 +222,10 @@ public class fragment_Thong_tin extends Fragment {
         alertDialogBuilder.setPositiveButton("Đồng Ý", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                startActivity(new Intent(c, AC_dang_nhap.class));
+                Intent intent = new Intent(c, AC_dang_nhap.class);
+                intent.putExtra("Luu_account",0);
+                startActivity(intent);
+                //finish
                 trangChu.dang_xuat();
             }
         });

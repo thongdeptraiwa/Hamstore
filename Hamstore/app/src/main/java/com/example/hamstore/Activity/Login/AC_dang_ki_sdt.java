@@ -34,7 +34,7 @@ public class AC_dang_ki_sdt extends AppCompatActivity {
     ImageView img_back;
     Button btn_gui_otp;
     TextInputEditText inputEdit_sdt;
-    public FirebaseAuth mAuth;
+    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +105,7 @@ public class AC_dang_ki_sdt extends AppCompatActivity {
                         })          // OnVerificationStateChangedCallbacks
                         .build();
         PhoneAuthProvider.verifyPhoneNumber(options);
+
     }
 
     private void check_di_thang(PhoneAuthCredential credential) {
@@ -131,17 +132,17 @@ public class AC_dang_ki_sdt extends AppCompatActivity {
                 });
     }
 
-    private void chuyen_ac_dang_ki(String strPhonenumber) {
+    private void chuyen_ac_dang_ki(String strPhonenumber1) {
         Intent intent = new Intent(c,AC_dang_ki.class);
         // truyen du lieu sang.
-        intent.putExtra("number_phone",strPhonenumber);
+        intent.putExtra("sdt",strPhonenumber1);
         startActivity(intent);
     }
 
-    private void chuyen_qua_ac_dang_ki_otp(String strPhonenumber, String verificationId) {
+    private void chuyen_qua_ac_dang_ki_otp(String strPhonenumber2, String verificationId) {
         Intent intent = new Intent(c, AC_dang_ki_otp.class);
-        intent.putExtra("sdt_sdt",strPhonenumber);
-        intent.putExtra("otp_sdt",verificationId);
+        intent.putExtra("sdt",strPhonenumber2);
+        intent.putExtra("otp",verificationId);
         startActivity(intent);
     }
     private void dialog_thong_bao_sdt_null(){

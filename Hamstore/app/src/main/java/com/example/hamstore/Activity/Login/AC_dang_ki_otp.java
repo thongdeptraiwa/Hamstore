@@ -38,7 +38,7 @@ public class AC_dang_ki_otp extends AppCompatActivity {
     String mPhoneNumber;
     String mVertificationId;
     FirebaseAuth mAuth;
-    private PhoneAuthProvider.ForceResendingToken mForce;
+    PhoneAuthProvider.ForceResendingToken mForce;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,7 +104,7 @@ public class AC_dang_ki_otp extends AppCompatActivity {
 
                             @Override
                             public void onVerificationFailed(@NonNull FirebaseException e) {
-                                Toast.makeText(AC_dang_ki_otp.this, "Lỗi sdt", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(AC_dang_ki_otp.this, "Hết lượt OTP!", Toast.LENGTH_SHORT).show();
                             }
 
                             @Override
@@ -136,7 +136,7 @@ public class AC_dang_ki_otp extends AppCompatActivity {
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
                                 // The verification code entered was invalid
                                 //lỗi
-                                Toast.makeText(AC_dang_ki_otp.this, "Lỗi vào thẳng đăng kí", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(AC_dang_ki_otp.this, "Lỗi OTP!", Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
@@ -147,7 +147,7 @@ public class AC_dang_ki_otp extends AppCompatActivity {
         //Toast.makeText(AC_dang_ki_otp.this, "Lỗi dang ki", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this,AC_dang_ki.class);
         // truyen du lieu sang.
-        intent.putExtra("sdt_otp",phoneNumber);
+        intent.putExtra("sdt",phoneNumber);
         startActivity(intent);
     }
     private void dialog_thong_bao_otp_null(){

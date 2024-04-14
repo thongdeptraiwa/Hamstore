@@ -7,10 +7,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,6 +60,8 @@ public class AC_dang_nhap extends AppCompatActivity {
     int RC_SIGN_IN = 20;
     String mPhoneNumber;
     String sdt;
+    SharedPreferences sharedPreferences;
+    CheckBox checkBox;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +74,20 @@ public class AC_dang_nhap extends AppCompatActivity {
         inputEdit_tai_khoan = findViewById(R.id.inputEdit_tai_khoan);
         inputEdit_mat_khau = findViewById(R.id.inputEdit_mat_khau);
         rdi_gg = findViewById(R.id.rdi_gg);
+        checkBox = findViewById(R.id.checkBox);
+
+        //lưu account
+        sharedPreferences = getSharedPreferences("dataLogin",MODE_PRIVATE);
+        //lấy giá trị sharedPreferences
+        inputEdit_tai_khoan.setText(sharedPreferences.getString("username",""));
+        inputEdit_mat_khau.setText(sharedPreferences.getString("password",""));
+        checkBox.setChecked(sharedPreferences.getBoolean("checkbox",false));
+
+        //load đầu
+        int check_load_dau = getIntent().getIntExtra("Luu_account",1);
+        if(check_load_dau==1){
+            dang_nhap();
+        }
 
 
 //         mPhoneNumber = getIntent().getStringExtra("number_phone");
@@ -87,20 +105,7 @@ public class AC_dang_nhap extends AppCompatActivity {
         btn_dang_nhap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //check null
-                //check null
-                if(inputEdit_tai_khoan.getText().toString().equals("")){
-                    dialog_thong_bao("Bạn chưa nhập tài khoản!");
-                    return;
-                }
-                //check null
-                if(inputEdit_mat_khau.getText().toString().equals("")){
-                    dialog_thong_bao("Bạn chưa nhập mật khẩu!");
-                    return;
-                }
-
-                flat_user_login_thanh_cong=true;
-                check_user();
+                dang_nhap();
             }
         });
 
@@ -131,6 +136,41 @@ public class AC_dang_nhap extends AppCompatActivity {
             }
         });
 
+    }
+    private void dang_nhap(){
+
+        String tk =inputEdit_tai_khoan.getText().toString().trim();
+        String mk =inputEdit_mat_khau.getText().toString().trim();
+        //lưu account
+        if(checkBox.isChecked()){
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("username",tk);
+            editor.putString("password",mk);
+            editor.putBoolean("checkbox",true);
+            editor.commit();
+            //vào thẳng lun
+
+            //check null
+            //check null
+            if(inputEdit_tai_khoan.getText().toString().equals("")){
+                dialog_thong_bao("Bạn chưa nhập tài khoản!");
+                return;
+            }
+            //check null
+            if(inputEdit_mat_khau.getText().toString().equals("")){
+                dialog_thong_bao("Bạn chưa nhập mật khẩu!");
+                return;
+            }
+
+            flat_user_login_thanh_cong=true;
+            check_user();
+        }else {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.remove("username");
+            editor.remove("password");
+            editor.remove("checkbox");
+            editor.commit();
+        }
     }
 //    private void check_admin(){
 //
@@ -262,7 +302,7 @@ public class AC_dang_nhap extends AppCompatActivity {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 firebaseAuth(account.getIdToken());
             }catch (Exception e){
-                Toast.makeText(AC_dang_nhap.this, "Loi 1", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(AC_dang_nhap.this, "Loi 1", Toast.LENGTH_SHORT).show();
             }
         }
     }
